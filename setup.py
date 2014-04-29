@@ -79,9 +79,11 @@ setup_info = {
     ],
     'package_dir': {'': '.'},
     'install_requires': [
+        'logutils',
     ],
     'entry_points': {
         'console_scripts': ['MYAPP = MYAPP.cli:main'],
+        'gui_scripts': ['QMYAPP = MYAPP.qt:main'],
         'zc.buildout': ['default = MYAPP.recipe:Recipe'],
         'zc.buildout.uninstall': ['default = MYAPP.recipe:uninstall'],
         'paste.app_factory': ['main = MYAPP.wsgi:app_factory'],

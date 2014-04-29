@@ -16,8 +16,23 @@
 #   You should have received a copy of the GNU Affero General Public License
 #   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
-from MYAPP.qt import main as qt_main
+import logging
+import os.path
+import sys
+
+from logutils.colorize import ColorizingStreamHandler
+
+from MYAPP.qt.runtime import AppRuntime
+
+HTML5_DIR = os.path.join(os.path.dirname(os.path.dirname(__file__)), 'html5')
+INDEX_HTML = os.path.join(HTML5_DIR, 'index.html')
+
+logger = logging.getLogger(__name__)
 
 
 def main():
-    qt_main()
+    logging.getLogger().addHandler(ColorizingStreamHandler())
+    logging.getLogger('MYAPP').setLevel(logging.DEBUG)
+
+    runtime = AppRuntime(INDEX_HTML, sys.argv)
+    runtime.exec_()
