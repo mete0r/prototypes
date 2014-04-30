@@ -16,7 +16,8 @@
 #   You should have received a copy of the GNU Affero General Public License
 #   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
+from MYAPP.gtk3 import main as gtk3_main
 
 
 def main():
-    pass
+    return gtk3_main()
