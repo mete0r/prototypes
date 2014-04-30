@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 #
 #   MYAPP : SOME_DESCRIPTION
-#   Copyright (C) 2015 mete0r <mete0r@sarangbang.or.kr>
+#   Copyright (C) 2014 mete0r <mete0r@sarangbang.or.kr>
 #
 #   This program is free software: you can redistribute it and/or modify
 #   it under the terms of the GNU Affero General Public License as published by
@@ -18,17 +18,30 @@
 #
 from __future__ import absolute_import
 from __future__ import unicode_literals
-import os.path
-import urllib
-import urlparse
+from __future__ import print_function
 
-from .gtk3 import main as gtk3_main
+from gi.repository import Gtk
+from gi.repository import WebKit
 
 
-def main():
-    path = os.path.join(os.path.dirname(__file__),
-                        'static', 'index.txt')
-    path = os.path.abspath(path)
-    uri = urllib.pathname2url(path)
-    uri = urlparse.urljoin('file:', uri)
-    return gtk3_main(uri)
+def main(uri):
+    webview = WebKit.WebView()
+    webview.connect('load-finished', webview_load_finished)
+    webview.load_uri(uri)
+
+    scrolled_window = Gtk.ScrolledWindow()
+    scrolled_window.add(webview)
+
+    vbox = Gtk.VBox()
+    vbox.pack_start(scrolled_window, expand=True, fill=True, padding=0)
+
+    window = Gtk.Window()
+    window.add(vbox)
+    window.connect('delete-event', Gtk.main_quit)
+    window.set_default_size(600, 400)
+    window.show_all()
+    Gtk.main()
+
+
+def webview_load_finished(webview, webframe):
+    print(webframe.get_uri())

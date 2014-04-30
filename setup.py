@@ -109,6 +109,9 @@ setup_info = {
         '': '.'
     },
     'package_data': {
+        'MYAPP': [
+            'static/*',
+        ]
         # 'MYAPP.tests': [
         #   'files/*',
         # ]
