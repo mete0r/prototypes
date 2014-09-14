@@ -4,3 +4,7 @@ bin
 develop-eggs
 eggs
 parts
+.mr.developer.cfg
+etc
+src
+var
