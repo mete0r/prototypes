@@ -21,11 +21,15 @@ from __future__ import unicode_literals
 
 from pyramid.view import view_config
 
+from .bowerstatic import bootstrap_css
+from .bowerstatic import bootstrap_js
 from .resources import Root
 
 
 @view_config(context=Root, request_method='GET',
              renderer='templates/root_view.pt')
 def root_view(context, request):
+    request.include(bootstrap_css)
+    request.include(bootstrap_js)
     return {
     }

@@ -1,0 +1,14 @@
+{
+  "name": "MYAPP",
+  "version": "0.0.0",
+  "homepage": "",
+  "authors": [
+    "mete0r <mete0r@sarangbang.or.kr>"
+  ],
+  "description": "SOME_DESCRIPTION",
+  "license": "AGPLv3+",
+  "private": true,
+  "dependencies": {
+    "bootswatch": "~3.3.5"
+  }
+}

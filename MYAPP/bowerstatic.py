@@ -19,18 +19,32 @@
 from __future__ import absolute_import
 from __future__ import unicode_literals
 
-from pyramid.config import Configurator
+import bowerstatic
 
-from .resources import Root
+bower = bowerstatic.Bower()
+
+components = bower.components(
+    'components',
+    bowerstatic.module_relative_path('bower_components')
+)
+
+jquery_js = components.resource('jquery/dist/jquery.js')
+bootstrap_css = components.resource('bootswatch/cosmo/bootstrap.css')
+bootstrap_js = components.resource('bootstrap/dist/js/bootstrap.js',
+                                   dependencies=[jquery_js])
 
 
-def app_factory(global_config, **settings):
-    config = Configurator(root_factory=root_factory, settings=settings)
-    config.include('pyramid_chameleon')
-    config.include('.bowerstatic')
-    config.scan()
-    return config.make_wsgi_app()
+def includeme(config):
+    config.add_request_method(request_include, 'include')
+    config.add_tween(__name__ + '.tween_factory')
 
 
-def root_factory(request):
-    return Root()
+def request_include(request, *args, **kwargs):
+    include = components.includer(request.environ)
+    return include(*args, **kwargs)
+
+
+def tween_factory(handler, registry):
+    injector = bowerstatic.InjectorTween(bower, handler)
+    publisher = bowerstatic.PublisherTween(bower, injector)
+    return publisher

@@ -7,6 +7,7 @@
 alabaster==0.7.7          # via sphinx
 babel==2.2.0
 beautifulsoup4==4.4.1     # via webtest
+bowerstatic==0.9
 Chameleon==2.24           # via deform, lingua, pyramid-chameleon
 check-manifest==0.31
 click==6.3                # via pip-tools
@@ -52,7 +53,7 @@ twine==1.6.5              # via zest.releaser
 venusian==1.0             # via pyramid
 virtualenv==14.0.6        # via tox
 waitress==0.8.10          # via webtest
-WebOb==1.5.1              # via pyramid, webtest
+WebOb==1.5.1              # via bowerstatic, pyramid, webtest
 WebTest==2.0.20
 wheel==0.29.0
 zc.buildout==2.5.0
@@ -64,4 +65,4 @@ zope.testrunner==4.4.10
 
 # The following packages are commented out because they are
 # considered to be unsafe in a requirements file:
-# setuptools                # via lingua, pyramid, pyroma, twine, zc.buildout, zest.releaser, zope.deprecation, zope.exceptions, zope.interface, zope.testrunner
+# setuptools                # via bowerstatic, lingua, pyramid, pyroma, twine, zc.buildout, zest.releaser, zope.deprecation, zope.exceptions, zope.interface, zope.testrunner
