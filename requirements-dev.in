@@ -1,6 +1,8 @@
 babel
 check-manifest
+lingua >= 3.7
 pip-tools
+pyramid_debugtoolbar
 pyroma
 sphinx
 tox

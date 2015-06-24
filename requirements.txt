@@ -4,3 +4,30 @@
 #
 #    pip-compile requirements-app.in
 #
+Chameleon==2.24           # via deform, pyramid-chameleon
+click==6.2                # via pip-tools
+colander==1.2
+deform==2.0a2
+first==2.0.1              # via pip-tools
+iso8601==0.1.11           # via colander
+LEPL==5.1.3               # via rfc6266
+meld3==1.0.2              # via supervisor
+paste==2.0.2
+PasteDeploy==1.5.2        # via pyramid
+peppercorn==0.5           # via deform
+pip-tools==1.6
+pyramid-chameleon==0.3
+pyramid==1.6.1
+repoze.lru==0.6           # via pyramid
+rfc6266==0.0.4
+six==1.10.0
+supervisor==3.2.1
+translationstring==1.3    # via colander, deform, pyramid
+venusian==1.0             # via pyramid
+WebOb==1.5.1              # via pyramid
+zope.deprecation==4.1.2   # via deform, pyramid
+zope.interface==4.1.3     # via pyramid
+
+# The following packages are commented out because they are
+# considered to be unsafe in a requirements file:
+# setuptools                # via pyramid, zope.deprecation, zope.interface
