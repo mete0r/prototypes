@@ -3,4 +3,6 @@ include CHANGES.rst
 include README.rst
 include *.py
 include buildout.cfg
+include requirements.txt
 include tox.ini
+recursive-include MYAPP *.pt

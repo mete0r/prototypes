@@ -19,17 +19,6 @@
 from __future__ import absolute_import
 from __future__ import unicode_literals
 
-from pyramid.config import Configurator
 
-from .resources import Root
-
-
-def app_factory(global_config, **settings):
-    config = Configurator(root_factory=root_factory, settings=settings)
-    config.include('pyramid_chameleon')
-    config.scan()
-    return config.make_wsgi_app()
-
-
-def root_factory(request):
-    return Root()
+class Root(object):
+    pass
