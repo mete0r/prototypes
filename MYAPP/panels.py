@@ -19,9 +19,14 @@
 from __future__ import absolute_import
 from __future__ import unicode_literals
 
+from pyramid_layout.panel import panel_config
 
-class Root(object):
-    __parent__ = None
-    __name__ = 'Root'
+from .resources import Root
 
-    content = 'Content'
+
+@panel_config(name='sidebar',
+              context=Root,
+              renderer='templates/root_sidebar.pt')
+def root_sidebar(context, request):
+    return {
+    }
