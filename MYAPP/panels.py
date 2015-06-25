@@ -24,6 +24,13 @@ from pyramid_layout.panel import panel_config
 from .resources import Root
 
 
+@panel_config(name='navbar',
+              renderer='templates/navbar.pt')
+def navbar(context, request):
+    return {
+    }
+
+
 @panel_config(name='sidebar',
               context=Root,
               renderer='templates/root_sidebar.pt')
