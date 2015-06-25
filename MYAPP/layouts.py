@@ -19,9 +19,19 @@
 from __future__ import absolute_import
 from __future__ import unicode_literals
 
+from pyramid_layout.layout import layout_config
 
-class Root(object):
-    __parent__ = None
-    __name__ = 'Root'
+from .resources import Root
 
-    content = 'Content'
+
+def includeme(config):
+    config.include('pyramid_layout')
+
+
+@layout_config(context=Root,
+               template='templates/default_layout.pt')
+class DefaultLayout(object):
+
+    def __init__(self, context, request):
+        self.context = context
+        self.request = request

@@ -3,5 +3,6 @@ colander
 deform>=2.0a2
 pyramid
 pyramid-chameleon
+pyramid-layout
 rfc6266
 six

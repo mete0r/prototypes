@@ -18,6 +18,7 @@ PasteDeploy==1.5.2        # via pyramid
 peppercorn==0.5           # via deform
 pip-tools==1.6
 pyramid-chameleon==0.3
+pyramid-layout==1.0
 pyramid==1.6.1
 repoze.lru==0.6           # via pyramid
 rfc6266==0.0.4

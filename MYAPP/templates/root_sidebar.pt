@@ -1,0 +1,8 @@
+<div class="panel panel-default">
+  <div class="panel-heading">
+    Sidebar for Root
+  </div>
+  <div class="panel-body">
+    Sidebar content
+  </div>
+</div>

@@ -28,6 +28,7 @@ def app_factory(global_config, **settings):
     config = Configurator(root_factory=root_factory, settings=settings)
     config.include('pyramid_chameleon')
     config.include('.bowerstatic')
+    config.include('.layouts')
     config.scan()
     return config.make_wsgi_app()
 
