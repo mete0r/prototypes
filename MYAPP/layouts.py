@@ -21,14 +21,14 @@ from __future__ import unicode_literals
 
 from pyramid_layout.layout import layout_config
 
-from .resources import Root
+from .resources import Node
 
 
 def includeme(config):
     config.include('pyramid_layout')
 
 
-@layout_config(context=Root,
+@layout_config(context=Node,
                template='templates/default_layout.pt')
 class DefaultLayout(object):
 

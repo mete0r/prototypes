@@ -20,8 +20,8 @@ from __future__ import absolute_import
 from __future__ import unicode_literals
 
 
-class Root(object):
+class Node(object):
     __parent__ = None
-    __name__ = 'Root'
+    __name__ = None
 
     content = 'Content'

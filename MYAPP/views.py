@@ -23,12 +23,12 @@ from pyramid.view import view_config
 
 from .bowerstatic import bootstrap_css
 from .bowerstatic import bootstrap_js
-from .resources import Root
+from .resources import Node
 
 
-@view_config(context=Root, request_method='GET',
-             renderer='templates/root_view.pt')
-def root_view(context, request):
+@view_config(context=Node, request_method='GET',
+             renderer='templates/node_view.pt')
+def node_view(context, request):
     request.include(bootstrap_css)
     request.include(bootstrap_js)
     return {

@@ -21,7 +21,7 @@ from __future__ import unicode_literals
 
 from pyramid_layout.panel import panel_config
 
-from .resources import Root
+from .resources import Node
 
 
 @panel_config(name='navbar',
@@ -32,8 +32,8 @@ def navbar(context, request):
 
 
 @panel_config(name='sidebar',
-              context=Root,
-              renderer='templates/root_sidebar.pt')
-def root_sidebar(context, request):
+              context=Node,
+              renderer='templates/node_sidebar.pt')
+def node_sidebar(context, request):
     return {
     }
