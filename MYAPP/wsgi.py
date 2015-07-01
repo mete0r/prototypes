@@ -21,7 +21,7 @@ from __future__ import unicode_literals
 
 from pyramid.config import Configurator
 
-from .resources import Root
+from .resources import Node
 
 
 def app_factory(global_config, **settings):
@@ -34,4 +34,6 @@ def app_factory(global_config, **settings):
 
 
 def root_factory(request):
-    return Root()
+    node = Node()
+    node.__name__ = ''
+    return node
