@@ -1,0 +1,16 @@
+<metal:macros>
+
+  <metal:block metal:define-macro="panel-default" tal:omit-tag="">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h1 class="panel-title">
+          <metal:title metal:define-slot="title"></metal:title>
+        </h1>
+      </div>
+      <div class="panel-body">
+        <metal:content metal:define-slot="content"></metal:content>
+      </div>
+    </div>
+  </metal:block>
+
+</metal:macros>

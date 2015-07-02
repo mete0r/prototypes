@@ -19,9 +19,45 @@
 from __future__ import absolute_import
 from __future__ import unicode_literals
 
+from zope.interface import implements
+
+from .interfaces import IFolder
+from .interfaces import IDocument
+
 
 class Node(object):
     __parent__ = None
     __name__ = None
 
-    content = 'Content'
+
+class Folder(Node):
+    implements(IFolder)
+
+    def __init__(self):
+        self._children = {}
+
+    def __getitem__(self, name):
+        return self._children[name]
+
+    def __setitem__(self, name, child):
+        child.__parent__ = self
+        child.__name__ = name
+        self._children[name] = child
+
+    @property
+    def children(self):
+        for name in self._children:
+            yield self._children[name]
+
+
+class Document(Node):
+    implements(IDocument)
+
+    title = None
+    html_content = None
+    author = None
+
+    def __init__(self, title, html_content, author):
+        self.title = title
+        self.html_content = html_content
+        self.author = author

@@ -1,0 +1,9 @@
+<metal:block metal:use-macro="main_template">
+  <div metal:fill-slot="content" class="container-fluid">
+    <div class="row">
+      <div class="col-md-3" tal:repeat="child context.children">
+        <div tal:replace="panel('folderitem', context=child)"></div>
+      </div>
+    </div>
+  </div>
+</metal:block>

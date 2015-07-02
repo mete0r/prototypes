@@ -1,8 +1,0 @@
-<metal:block metal:use-macro="main_template">
-  <h1 metal:fill-slot="title">
-    ${context.__name__}
-  </h1>
-  <div metal:fill-slot="content">
-    ${context.content}
-  </div>
-</metal:block>

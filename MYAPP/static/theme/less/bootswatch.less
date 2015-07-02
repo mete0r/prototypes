@@ -239,3 +239,42 @@ a.list-group-item {
 .navbar-brand .site-icon {
   color: red;
 }
+
+.navbar-title {
+  position: absolute;
+  width: 100%;
+  left: 0;
+  text-align: center;
+  margin: 0 auto;
+  padding: @navbar-padding-vertical @navbar-padding-horizontal;
+  line-height: @line-height-computed;
+  height: @navbar-height;
+
+  background-color: transparent;
+  border: 1px solid transparent;
+  border-radius: @border-radius-base;
+  font-size: @font-size-large;
+  font-weight: bold;
+
+  .visible-xs();
+}
+
+.navbar-default {
+  .navbar-title {
+    color: @navbar-default-brand-color;
+  }
+}
+
+.navbar-inverse {
+  .navbar-title {
+    color: @navbar-inverse-brand-color;
+  }
+}
+
+.navbar-brand-name {
+  .hidden-xs();
+}
+
+.page-title {
+  .hidden-xs();
+}

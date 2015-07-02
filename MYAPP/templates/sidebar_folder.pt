@@ -1,0 +1,10 @@
+<div class="panel panel-default" tal:condition="children">
+  <div class="panel-heading" tal:condition="title">
+    <h1 class="panel-title" tal:content="title"></h1>
+  </div>
+  <div class="list-group">
+    <metal:block tal:repeat="child children">
+      <a class="list-group-item" href="${request.resource_url(child)}"><span tal:replace="panel('glyphicon', context=context)"></span> ${child.__name__}</a>
+    </metal:block>
+  </div>
+</div>

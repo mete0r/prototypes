@@ -21,17 +21,40 @@ from __future__ import unicode_literals
 
 from pyramid_layout.layout import layout_config
 
-from .resources import Node
+from .interfaces import IFolder
+from .interfaces import IDocument
 
 
 def includeme(config):
     config.include('pyramid_layout')
 
 
-@layout_config(context=Node,
-               template='templates/default_layout.pt')
 class DefaultLayout(object):
+
+    brand_name = 'MYAPP'
 
     def __init__(self, context, request):
         self.context = context
         self.request = request
+
+    @property
+    def is_root(self):
+        return self.context.__parent__ is None
+
+
+@layout_config(context=IFolder,
+               template='templates/default_layout.pt')
+class FolderLayout(DefaultLayout):
+
+    @property
+    def title(self):
+        return self.context.__name__
+
+
+@layout_config(context=IDocument,
+               template='templates/default_layout.pt')
+class DocumentLayout(DefaultLayout):
+
+    @property
+    def title(self):
+        return self.context.title
