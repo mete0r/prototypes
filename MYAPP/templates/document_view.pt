@@ -1,0 +1,3 @@
+<metal:block metal:use-macro="main_template">
+  <div metal:fill-slot="content" tal:content="structure: context.html_content"></div>
+</metal:block>

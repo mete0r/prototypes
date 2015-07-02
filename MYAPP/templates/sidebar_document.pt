@@ -1,0 +1,6 @@
+<div class="panel panel-default" tal:condition="title or content">
+  <div class="panel-heading" tal:condition="title">
+    <h1 class="panel-title" tal:content="title"></h1>
+  </div>
+  <div class="panel-body" tal:condition="content" tal:content="content"></div>
+</div>

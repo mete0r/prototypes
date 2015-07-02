@@ -21,19 +21,75 @@ from __future__ import unicode_literals
 
 from pyramid_layout.panel import panel_config
 
-from .resources import Node
+from .interfaces import IFolder
+from .interfaces import IDocument
 
 
 @panel_config(name='navbar',
               renderer='templates/navbar.pt')
-def navbar(context, request):
+def navbar(context, request, brand_name, title=''):
     return {
+        'brand_name': brand_name,
+        'title': title,
     }
 
 
 @panel_config(name='sidebar',
-              context=Node,
-              renderer='templates/node_sidebar.pt')
-def node_sidebar(context, request):
+              context=IFolder,
+              renderer='templates/sidebar_folder.pt')
+def sidebar_folder(context, request, **kwargs):
+    values = {
+        'title': 'Subfolders',
+        'children': filter(lambda item: IFolder.providedBy(item),
+                           context.children),
+    }
+    values.update(kwargs)
+    return values
+
+
+@panel_config(name='sidebar',
+              context=IDocument,
+              renderer='templates/sidebar_document.pt')
+def sidebar_document(context, request, **kwargs):
+    values = {
+        'title': 'Author',
+        'content': context.author,
+    }
+    values.update(kwargs)
+    return values
+
+
+@panel_config(name='folderitem',
+              context=IFolder,
+              renderer='templates/folderitem.pt')
+def folderitem_folder(context, request):
     return {
+        'title': context.__name__,
+    }
+
+
+@panel_config(name='folderitem',
+              context=IDocument,
+              renderer='templates/folderitem.pt')
+def folderitem_document(context, request):
+    return {
+        'title': context.title,
+    }
+
+
+@panel_config(name='glyphicon',
+              context=IFolder,
+              renderer='templates/glyphicon.pt')
+def glyphicon_folder(context, request):
+    return {
+        'glyphicon': 'glyphicon glyphicon-folder-close',
+    }
+
+
+@panel_config(name='glyphicon',
+              context=IDocument,
+              renderer='templates/glyphicon.pt')
+def glyphicon_document(context, request):
+    return {
+        'glyphicon': 'glyphicon glyphicon-file',
     }

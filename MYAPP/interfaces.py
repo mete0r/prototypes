@@ -19,26 +19,17 @@
 from __future__ import absolute_import
 from __future__ import unicode_literals
 
-from pyramid.config import Configurator
-
-from .resources import Folder
-from .resources import Document
+from zope.interface import Attribute
+from zope.interface import Interface
 
 
-def app_factory(global_config, **settings):
-    config = Configurator(root_factory=root_factory, settings=settings)
-    config.include('pyramid_chameleon')
-    config.include('.bowerstatic')
-    config.include('.layouts')
-    config.scan()
-    return config.make_wsgi_app()
+class IFolder(Interface):
+
+    children = Attribute('Children iterable.')
 
 
-def root_factory(request):
-    root = Folder()
-    root.__name__ = ''
-    root['index'] = Document('Index', '<p>This is folder index.</p>', 'user')
-    root['foo'] = Document('Foo', '<p>Foo content</p>', 'user')
-    root['folder'] = folder = Folder()
-    folder['bar'] = Document('Bar', '<p>Bar content</p>', 'user')
-    return root
+class IDocument(Interface):
+
+    title = Attribute('Title.')
+    html_content = Attribute('HTML Content.')
+    author = Attribute('Document author.')

@@ -1,17 +1,18 @@
 <!doctype html>
 <html>
   <head>
-  <meta charset="utf-8">
+    <meta charset="utf-8">
+    <title tal:content="layout.title"></title>
   </head>
   <body>
 
-    <nav tal:replace="panel('navbar')"></nav>
+    <nav tal:replace="panel('navbar', brand_name=layout.brand_name, title=layout.brand_name if layout.is_root else layout.title)"></nav>
 
     <div class="container">
 
       <div class="row">
         <div class="col-md-8">
-          <h1 metal:define-slot="title"></h1>
+          <h1 class="page-title" tal:content="layout.title"></h1>
         </div>
         <div class="col-md-4">
         </div>

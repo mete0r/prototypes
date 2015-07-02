@@ -23,12 +23,22 @@ from pyramid.view import view_config
 
 from .bowerstatic import bootstrap_css
 from .bowerstatic import bootstrap_js
-from .resources import Node
+from .interfaces import IDocument
+from .interfaces import IFolder
 
 
-@view_config(context=Node, request_method='GET',
-             renderer='templates/node_view.pt')
-def node_view(context, request):
+@view_config(context=IDocument, request_method='GET',
+             renderer='templates/document_view.pt')
+def document_view(context, request):
+    request.include(bootstrap_css)
+    request.include(bootstrap_js)
+    return {
+    }
+
+
+@view_config(context=IFolder, request_method='GET',
+             renderer='templates/folder_view.pt')
+def folder_view(context, request):
     request.include(bootstrap_css)
     request.include(bootstrap_js)
     return {
