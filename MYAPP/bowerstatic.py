@@ -28,8 +28,15 @@ components = bower.components(
     bowerstatic.module_relative_path('bower_components')
 )
 
+local_components = bower.local_components('local', components)
+
+theme = local_components.component(
+    bowerstatic.module_relative_path('static/theme'),
+    version=None
+)
+
 jquery_js = components.resource('jquery/dist/jquery.js')
-bootstrap_css = components.resource('bootswatch/cosmo/bootstrap.css')
+bootstrap_css = local_components.resource('theme/css/bootstrap.css')
 bootstrap_js = components.resource('bootstrap/dist/js/bootstrap.js',
                                    dependencies=[jquery_js])
 
@@ -40,7 +47,7 @@ def includeme(config):
 
 
 def request_include(request, *args, **kwargs):
-    include = components.includer(request.environ)
+    include = local_components.includer(request.environ)
     return include(*args, **kwargs)
 
 

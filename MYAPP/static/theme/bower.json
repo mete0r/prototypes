@@ -1,0 +1,19 @@
+{
+  "name": "theme",
+  "private": true,
+  "version": "0.0.0",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "MYAPP/bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap": "~3.3.5"
+  },
+  "devDependencies": {
+    "bootswatch": "~3.3.5"
+  }
+}

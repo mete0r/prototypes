@@ -1,5 +1,6 @@
 define ALL
 	update-requirements
+	theme
 endef
 ALL:=$(shell echo $(ALL))  # to remove line-feeds
 
@@ -48,3 +49,11 @@ requirements-dev.txt: $(REQUIREMENTS_IN_DEV)
 .PHONY: update-wheelhouse
 update-wheelhouse: requirements-dev.txt
 	bin/pip wheel -r $< -w wheelhouse $(PIP_NO_INDEX)
+
+THEME_DIR := MYAPP/static/theme
+
+theme:
+	make -C $(THEME_DIR)
+
+clean:
+	make -C $(THEME_DIR) clean
