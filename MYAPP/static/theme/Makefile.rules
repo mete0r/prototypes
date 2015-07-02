@@ -1,0 +1,38 @@
+__FILE__ = $(lastword $(MAKEFILE_LIST))
+node_modules_bin = $(dir $(__FILE__))node_modules/.bin/
+
+lessc = $(node_modules_bin)lessc
+lessc_options += $(if $(LESS_INCLUDE_PATH), --include-path=$(LESS_INCLUDE_PATH))
+
+minify = $(node_modules_bin)minify
+
+source = $<
+target = $@
+prerequisites = $^
+
+# Implicit rules
+
+css/%.css: less/%.less
+	$(lessc) $(lessc_options) $(source) > $(target)
+%.min.css: %.css
+	$(minify) $(source) > $(target)
+%.min.js: %.js
+	$(minify) $(source) > $(target)
+
+# Targets
+
+CSS_FILES = $(patsubst less/%.less,css/%.css, $(LESS_FILES))
+JS_FILES =
+MIN_CSS_FILES = $(patsubst %.css,%.min.css, $(CSS_FILES))
+MIN_JS_FILES = $(patsubst %.js,%.min.js, $(JS_FILES))
+TARGETS = $(CSS_FILES) $(MIN_CSS_FILES) $(JS_FILES) $(MIN_JS_FILES)
+.DEFAULT_GOAL = all
+
+.PHONY: all
+
+.PHONY: clean
+clean: clean-targets
+
+.PHONY: clean-targets
+clean-targets:
+	rm -f $(TARGETS)
