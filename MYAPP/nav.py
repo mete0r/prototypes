@@ -19,34 +19,29 @@
 from __future__ import absolute_import
 from __future__ import unicode_literals
 
-from zope.interface import Attribute
-from zope.interface import Interface
+from zope.interface import implements
+
+from .interfaces import INavItem
+from .interfaces import INavItemCollection
+from .interfaces import INavItemSeparator
 
 
-class IFolder(Interface):
+class NavItem(object):
+    implements(INavItem)
 
-    children = Attribute('Children iterable.')
-
-
-class IDocument(Interface):
-
-    title = Attribute('Title.')
-    html_content = Attribute('HTML Content.')
-    author = Attribute('Document author.')
+    title = None
+    url = None
+    current = None
 
 
-class INavItem(Interface):
+class NavItemCollection(object):
+    implements(INavItemCollection)
 
-    title = Attribute('Title')
-    url = Attribute('URL')
-    current = Attribute('Currently active.')
+    title = None
 
-
-class INavItemCollection(Interface):
-
-    title = Attribute('Title')
-    items = Attribute('Iterable of INavItem')
+    def __init__(self):
+        self.items = []
 
 
-class INavItemSeparator(Interface):
-    pass
+class NavItemSeparator(object):
+    implements(INavItemSeparator)

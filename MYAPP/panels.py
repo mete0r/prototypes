@@ -23,6 +23,9 @@ from pyramid_layout.panel import panel_config
 
 from .interfaces import IFolder
 from .interfaces import IDocument
+from .interfaces import INavItem
+from .interfaces import INavItemCollection
+from .interfaces import INavItemSeparator
 
 
 @panel_config(name='navbar',
@@ -31,6 +34,38 @@ def navbar(context, request, brand_name, title=''):
     return {
         'brand_name': brand_name,
         'title': title,
+    }
+
+
+@panel_config(name='nav',
+              context=INavItemCollection,
+              renderer='templates/nav.pt')
+def nav(context, request):
+    return {
+    }
+
+
+@panel_config(name='navitem',
+              context=INavItem,
+              renderer='templates/navitem.pt')
+def navitem(context, request):
+    return {
+    }
+
+
+@panel_config(name='navitem',
+              context=INavItemCollection,
+              renderer='templates/navitem_dropdown.pt')
+def navitem_dropdown(context, request):
+    return {
+    }
+
+
+@panel_config(name='navitem',
+              context=INavItemSeparator,
+              renderer='templates/navitem_separator.pt')
+def navitem_separator(context, request):
+    return {
     }
 
 

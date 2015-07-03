@@ -6,7 +6,7 @@
   </head>
   <body>
 
-    <nav tal:replace="panel('navbar', brand_name=layout.brand_name, title=layout.brand_name if layout.is_root else layout.title)"></nav>
+    <nav tal:replace="panel('navbar', brand_name=layout.brand_name, title=layout.navbar_title)"></nav>
 
     <div class="container">
 
