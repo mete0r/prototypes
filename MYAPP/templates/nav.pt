@@ -1,0 +1,3 @@
+<ul class="nav navbar-nav">
+  <li tal:repeat="navitem context.items" tal:replace="panel('navitem', context=navitem)"></li>
+</ul>

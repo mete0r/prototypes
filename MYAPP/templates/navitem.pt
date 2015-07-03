@@ -1,0 +1,3 @@
+<li tal:attributes="class 'active' if context.current else ''">
+  <a href="${context.url}">${context.title} <span class="sr-only" tal:condition="context.current">(current)</span></a>
+</li>

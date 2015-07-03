@@ -19,10 +19,14 @@
 from __future__ import absolute_import
 from __future__ import unicode_literals
 
+from pyramid.location import lineage
 from pyramid_layout.layout import layout_config
 
 from .interfaces import IFolder
 from .interfaces import IDocument
+
+from .nav import NavItem
+from .nav import NavItemCollection
 
 
 def includeme(config):
@@ -38,8 +42,41 @@ class DefaultLayout(object):
         self.request = request
 
     @property
+    def navbar_title(self):
+        if self.is_root:
+            return self.brand_name
+        return self.title
+
+    @property
     def is_root(self):
         return self.context.__parent__ is None
+
+    @property
+    def nav(self):
+        url = self.request.resource_url(self.context)
+
+        nav = NavItemCollection()
+        items = lineage(self.context)
+        items = list(items)
+        items = items[:-1]
+        items = reversed(items)
+        for item in items:
+            navitem_dropdown = NavItemCollection()
+            navitem_dropdown.title = ''
+            for sibling in item.__parent__.children:
+                navitem = NavItem()
+                navitem.title = sibling.__name__
+                navitem.url = self.request.resource_url(sibling)
+                navitem.current = navitem.url == url
+                navitem_dropdown.items.append(navitem)
+            nav.items.append(navitem_dropdown)
+
+            navitem = NavItem()
+            navitem.title = item.__name__
+            navitem.url = self.request.resource_url(item)
+            navitem.current = navitem.url == url
+            nav.items.append(navitem)
+        return nav
 
 
 @layout_config(context=IFolder,
