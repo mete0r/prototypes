@@ -21,11 +21,12 @@ from __future__ import unicode_literals
 
 from zope.interface import implements
 
-from .interfaces import IFolder
 from .interfaces import IDocument
+from .interfaces import IFolder
 
 
 class Node(object):
+
     __parent__ = None
     __name__ = None
 
@@ -43,6 +44,9 @@ class Folder(Node):
         child.__parent__ = self
         child.__name__ = name
         self._children[name] = child
+
+    def __delitem__(self, name):
+        del self._children[name]
 
     @property
     def children(self):

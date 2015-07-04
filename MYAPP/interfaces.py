@@ -23,12 +23,16 @@ from zope.interface import Attribute
 from zope.interface import Interface
 
 
-class IFolder(Interface):
+class INode(Interface):
+    pass
+
+
+class IFolder(INode):
 
     children = Attribute('Children iterable.')
 
 
-class IDocument(Interface):
+class IDocument(INode):
 
     title = Attribute('Title.')
     html_content = Attribute('HTML Content.')
