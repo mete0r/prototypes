@@ -1,0 +1,6 @@
+<metal:block metal:use-macro="main_template">
+  <form method="POST" metal:fill-slot="content">
+    Delete?
+    <button class="btn btn-danger" type="submit">Delete</button>
+  </form>
+</metal:block>
