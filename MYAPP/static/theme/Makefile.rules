@@ -29,6 +29,9 @@ TARGETS = $(CSS_FILES) $(MIN_CSS_FILES) $(JS_FILES) $(MIN_JS_FILES)
 .DEFAULT_GOAL = all
 
 .PHONY: all
+all: $(lessc) $(minify)
+$(lessc) $(minify): package.json
+	npm install
 
 .PHONY: clean
 clean: clean-targets
