@@ -1,6 +1,7 @@
 include Makefile.rules
 
-BOOTSTRAP_FONTS_PATH := ../../bower_components/bootstrap/fonts
+BOWER_COMPONENTS := ../../bower_components
+BOOTSTRAP_FONTS_PATH := $(BOWER_COMPONENTS)/bootstrap/fonts
 
 # Sources
 
@@ -20,10 +21,12 @@ debug:
 	@echo CSS_FILES: $(CSS_FILES)
 	@echo TARGETS: $(TARGETS)
 
-all: $(TARGETS)
+all: $(BOWER_COMPONENTS) $(TARGETS)
 
 $(CSS_FILES): LESS_INCLUDE_PATH=less
 css/bootstrap.css: less/bootswatch.less less/variables.less
 $(FONTS): fonts/%: $(BOOTSTRAP_FONTS_PATH)/%
 	[ -e fonts ] || mkdir fonts
 	cp $(source) $(target)
+$(BOWER_COMPONENTS): $(bower)
+	$(bower) install
