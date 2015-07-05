@@ -6,6 +6,8 @@ lessc_options += $(if $(LESS_INCLUDE_PATH), --include-path=$(LESS_INCLUDE_PATH))
 
 minify = $(node_modules_bin)minify
 
+bower = $(node_modules_bin)bower
+
 source = $<
 target = $@
 prerequisites = $^
@@ -29,8 +31,8 @@ TARGETS = $(CSS_FILES) $(MIN_CSS_FILES) $(JS_FILES) $(MIN_JS_FILES)
 .DEFAULT_GOAL = all
 
 .PHONY: all
-all: $(lessc) $(minify)
-$(lessc) $(minify): package.json
+all: $(lessc) $(minify) $(bower)
+$(lessc) $(minify) $(bower):
 	npm install
 
 .PHONY: clean
