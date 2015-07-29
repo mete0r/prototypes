@@ -69,6 +69,22 @@ def navitem_separator(context, request):
     }
 
 
+@panel_config(name='content',
+              context=IFolder,
+              renderer='templates/content_folder.pt')
+def content_folder(context, request):
+    return {
+    }
+
+
+@panel_config(name='content',
+              context=IDocument,
+              renderer='templates/content_document.pt')
+def content_document(context, request):
+    return {
+    }
+
+
 @panel_config(name='sidebar',
               context=IFolder,
               renderer='templates/sidebar_folder.pt')
