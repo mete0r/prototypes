@@ -87,8 +87,8 @@ def sidebar_folder(context, request, **kwargs):
               renderer='templates/sidebar_document.pt')
 def sidebar_document(context, request, **kwargs):
     values = {
-        'title': 'Author',
-        'content': context.author,
+        'title': 'Sidebar',
+        'content': '',
     }
     values.update(kwargs)
     return values

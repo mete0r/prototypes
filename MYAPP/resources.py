@@ -28,10 +28,10 @@ from .interfaces import IFolder
 def root_factory(request):
     root = Folder()
     root.__name__ = ''
-    root['index'] = Document('Index', '<p>This is folder index.</p>', 'user')
-    root['foo'] = Document('Foo', '<p>Foo content</p>', 'user')
+    root['index'] = Document('Index', '<p>This is folder index.</p>')
+    root['foo'] = Document('Foo', '<p>Foo content</p>')
     root['folder'] = folder = Folder()
-    folder['bar'] = Document('Bar', '<p>Bar content</p>', 'user')
+    folder['bar'] = Document('Bar', '<p>Bar content</p>')
     return root
 
 
@@ -69,9 +69,7 @@ class Document(Node):
 
     title = None
     html_content = None
-    author = None
 
-    def __init__(self, title, html_content, author):
+    def __init__(self, title, html_content):
         self.title = title
         self.html_content = html_content
-        self.author = author
