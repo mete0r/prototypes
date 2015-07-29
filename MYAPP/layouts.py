@@ -24,6 +24,8 @@ from pyramid_layout.layout import layout_config
 
 from .interfaces import IFolder
 from .interfaces import IDocument
+from .bowerstatic import bootstrap_css
+from .bowerstatic import bootstrap_js
 
 from .nav import NavItem
 from .nav import NavItemCollection
@@ -40,6 +42,8 @@ class DefaultLayout(object):
     def __init__(self, context, request):
         self.context = context
         self.request = request
+        request.include(bootstrap_css)
+        request.include(bootstrap_js)
 
     @property
     def navbar_title(self):

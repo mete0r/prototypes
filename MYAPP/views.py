@@ -22,8 +22,6 @@ from __future__ import unicode_literals
 from pyramid.httpexceptions import HTTPFound
 from pyramid.view import view_config
 
-from .bowerstatic import bootstrap_css
-from .bowerstatic import bootstrap_js
 from .interfaces import INode
 from .interfaces import IDocument
 from .interfaces import IFolder
@@ -32,8 +30,6 @@ from .interfaces import IFolder
 @view_config(context=INode,
              renderer='templates/node_view.pt')
 def node_view(context, request):
-    request.include(bootstrap_css)
-    request.include(bootstrap_js)
     return {
     }
 
@@ -41,8 +37,6 @@ def node_view(context, request):
 @view_config(context=INode, name='delete',
              renderer='templates/node_delete.pt')
 def node_delete(context, request):
-    request.include(bootstrap_css)
-    request.include(bootstrap_js)
     return {
     }
 
@@ -59,8 +53,6 @@ def node_delete_post(context, request):
 @view_config(context=IDocument, request_method='GET',
              renderer='templates/document_view.pt')
 def document_view(context, request):
-    request.include(bootstrap_css)
-    request.include(bootstrap_js)
     return {
     }
 
@@ -68,7 +60,5 @@ def document_view(context, request):
 @view_config(context=IFolder, request_method='GET',
              renderer='templates/folder_view.pt')
 def folder_view(context, request):
-    request.include(bootstrap_css)
-    request.include(bootstrap_js)
     return {
     }
