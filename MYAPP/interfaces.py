@@ -23,22 +23,6 @@ from zope.interface import Attribute
 from zope.interface import Interface
 
 
-class INode(Interface):
-    pass
-
-
-class IFolder(INode):
-
-    children = Attribute('Children iterable.')
-
-
-class IDocument(INode):
-
-    title = Attribute('Title.')
-    html_content = Attribute('HTML Content.')
-    author = Attribute('Document author.')
-
-
 class INavItem(Interface):
 
     title = Attribute('Title')
@@ -54,3 +38,19 @@ class INavItemCollection(Interface):
 
 class INavItemSeparator(Interface):
     pass
+
+
+class INode(Interface):
+    pass
+
+
+class IFolder(INode):
+
+    children = Attribute('Children iterable.')
+
+
+class IDocument(INode):
+
+    title = Attribute('Title.')
+    html_content = Attribute('HTML Content.')
+    author = Attribute('Document author.')
