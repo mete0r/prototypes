@@ -53,4 +53,3 @@ class IDocument(INode):
 
     title = Attribute('Title.')
     html_content = Attribute('HTML Content.')
-    author = Attribute('Document author.')
