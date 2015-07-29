@@ -21,8 +21,7 @@ from __future__ import unicode_literals
 
 from pyramid.config import Configurator
 
-from .resources import Folder
-from .resources import Document
+from .resources import root_factory
 
 
 def app_factory(global_config, **settings):
@@ -32,13 +31,3 @@ def app_factory(global_config, **settings):
     config.include('.layouts')
     config.scan()
     return config.make_wsgi_app()
-
-
-def root_factory(request):
-    root = Folder()
-    root.__name__ = ''
-    root['index'] = Document('Index', '<p>This is folder index.</p>', 'user')
-    root['foo'] = Document('Foo', '<p>Foo content</p>', 'user')
-    root['folder'] = folder = Folder()
-    folder['bar'] = Document('Bar', '<p>Bar content</p>', 'user')
-    return root
