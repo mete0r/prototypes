@@ -23,8 +23,6 @@ from pyramid.httpexceptions import HTTPFound
 from pyramid.view import view_config
 
 from .interfaces import INode
-from .interfaces import IDocument
-from .interfaces import IFolder
 
 
 @view_config(context=INode,
@@ -48,17 +46,3 @@ def node_delete_post(context, request):
     del parent[context.__name__]
     location = request.resource_url(parent)
     return HTTPFound(location=location)
-
-
-@view_config(context=IDocument, request_method='GET',
-             renderer='templates/document_view.pt')
-def document_view(context, request):
-    return {
-    }
-
-
-@view_config(context=IFolder, request_method='GET',
-             renderer='templates/folder_view.pt')
-def folder_view(context, request):
-    return {
-    }
