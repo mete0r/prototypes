@@ -18,11 +18,30 @@
 #
 from __future__ import absolute_import
 from __future__ import unicode_literals
+import logging
 
-from zope.interface import implements
+from zope.interface import implementer
+from deform.widget import TextAreaWidget
+import colander
 
 from .interfaces import IDocument
 from .interfaces import IFolder
+from .interfaces import IAdd
+from .interfaces import IEdit
+
+
+logger = logging.getLogger(__name__)
+
+
+def includeme(config):
+    register_components(config.registry)
+
+
+def register_components(components):
+    components.registerAdapter(FolderEdit, (Folder, ), IEdit)
+    components.registerAdapter(FolderAddFolder, (Folder, ), IAdd, 'folder')
+    components.registerAdapter(FolderAddDocument, (Folder, ), IAdd, 'document')
+    components.registerAdapter(DocumentEdit, (Document, ), IEdit)
 
 
 def root_factory(request):
@@ -41,8 +60,12 @@ class Node(object):
     __name__ = None
 
 
+class NodeSchema(colander.MappingSchema):
+    title = colander.SchemaNode(colander.String())
+
+
+@implementer(IFolder)
 class Folder(Node):
-    implements(IFolder)
 
     def __init__(self):
         self._children = {}
@@ -64,8 +87,70 @@ class Folder(Node):
             yield self._children[name]
 
 
+class FolderSchema(NodeSchema):
+    pass
+
+
+@implementer(IAdd)
+class FolderAddFolder(object):
+
+    def __init__(self, context):
+        self.context = context
+
+    @property
+    def schema(self):
+        return FolderSchema()
+
+    def __call__(self, appstruct):
+        name = appstruct['title']
+        node = Folder()
+        self.context[name] = node
+        logger.info('node %s added', node.__name__)
+        return node
+
+
+@implementer(IAdd)
+class FolderAddDocument(object):
+
+    def __init__(self, context):
+        self.context = context
+
+    @property
+    def schema(self):
+        return DocumentSchema()
+
+    def __call__(self, appstruct):
+        node = Document(**appstruct)
+        self.context[node.title] = node
+        logger.info('node %s added', node.__name__)
+        return node
+
+
+@implementer(IEdit)
+class FolderEdit(object):
+
+    def __init__(self, context):
+        self.context = context
+
+    @property
+    def schema(self):
+        return FolderSchema()
+
+    @property
+    def appstruct(self):
+        return {
+            'title': self.context.__name__,
+        }
+
+    @appstruct.setter
+    def appstruct_set(self, appstruct):
+        self.context.__name__ = appstruct['title']
+        logger.error('title: %s',
+                     self.context.title)
+
+
+@implementer(IDocument)
 class Document(Node):
-    implements(IDocument)
 
     title = None
     html_content = None
@@ -73,3 +158,35 @@ class Document(Node):
     def __init__(self, title, html_content):
         self.title = title
         self.html_content = html_content
+
+
+class DocumentSchema(NodeSchema):
+    html_content = colander.SchemaNode(colander.String(),
+                                       widget=TextAreaWidget())
+
+
+@implementer(IEdit)
+class DocumentEdit(object):
+
+    def __init__(self, context):
+        self.context = context
+
+    @property
+    def schema(self):
+        return DocumentSchema()
+
+    def getAppStruct(self):
+        return {
+            'title': self.context.title,
+            'html_content': self.context.html_content,
+        }
+
+    def setAppStruct(self, appstruct):
+        self.context.title = appstruct['title']
+        self.context.html_content = appstruct['html_content']
+        logger.error('title: %s, html_content: %s',
+                     self.context.title,
+                     self.context.html_content)
+
+    appstruct = property(getAppStruct,
+                         setAppStruct)

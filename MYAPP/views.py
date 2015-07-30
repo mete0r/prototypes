@@ -21,25 +21,98 @@ from __future__ import unicode_literals
 
 from pyramid.httpexceptions import HTTPFound
 from pyramid.view import view_config
+from deform import Form
+from deform import ValidationFailure
 
-from .interfaces import INode
+from .interfaces import IViewable
+from .interfaces import IAddable
+from .interfaces import IAdd
+from .interfaces import IEditable
+from .interfaces import IEdit
+from .interfaces import IDeletable
 
 
-@view_config(context=INode,
+@view_config(context=IViewable,
              renderer='templates/node_view.pt')
 def node_view(context, request):
     return {
     }
 
 
-@view_config(context=INode, name='delete',
+@view_config(context=IAddable, name='add',
+             renderer='templates/node_add.pt')
+def node_add(context, request):
+    typename = request.subpath[0]
+    add = request.registry.getAdapter(context, IAdd, typename)
+    form = Form(add.schema, buttons=('add',))
+    return {
+        'form': form.render(),
+    }
+
+
+@view_config(context=IAddable, name='add',
+             request_method='POST',
+             renderer='templates/node_add.pt')
+def node_add_post(context, request):
+    typename = request.subpath[0]
+    add = request.registry.getAdapter(context, IAdd, typename)
+    form = Form(add.schema, buttons=('add',))
+    if 'add' in request.POST:
+        controls = request.POST.items()
+        try:
+            appstruct = form.validate(controls)
+        except ValidationFailure as e:
+            return {
+                'form': e.render(),
+            }
+        else:
+            added = add(appstruct)
+            location = request.resource_url(added)
+    else:
+        location = request.resource_url(context, '@@add', typename)
+    return HTTPFound(location=location)
+
+
+@view_config(context=IEditable, name='edit',
+             renderer='templates/node_edit.pt')
+def node_edit(context, request):
+    edit = request.registry.getAdapter(context, IEdit)
+    form = Form(edit.schema, buttons=('submit',))
+    return {
+        'form': form.render(edit.appstruct),
+    }
+
+
+@view_config(context=IEditable, name='edit',
+             request_method='POST',
+             renderer='templates/node_edit.pt')
+def node_edit_post(context, request):
+    edit = request.registry.getAdapter(context, IEdit)
+    form = Form(edit.schema, buttons=('submit',))
+    if 'submit' in request.POST:
+        controls = request.POST.items()
+        try:
+            appstruct = form.validate(controls)
+        except ValidationFailure as e:
+            return {
+                'form': e.render(),
+            }
+        else:
+            edit.appstruct = appstruct
+            location = request.resource_url(context)
+    else:
+        location = request.resource_url(context, '@@edit')
+    return HTTPFound(location=location)
+
+
+@view_config(context=IDeletable, name='delete',
              renderer='templates/node_delete.pt')
 def node_delete(context, request):
     return {
     }
 
 
-@view_config(context=INode, name='delete',
+@view_config(context=IDeletable, name='delete',
              request_method='POST')
 def node_delete_post(context, request):
     parent = context.__parent__

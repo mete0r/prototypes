@@ -19,17 +19,16 @@
 from __future__ import absolute_import
 from __future__ import unicode_literals
 
-from pyramid.config import Configurator
-
-from .resources import root_factory
+from unittest import TestCase
 
 
-def app_factory(global_config, **settings):
-    config = Configurator(root_factory=root_factory, settings=settings)
-    config.include('pyramid_chameleon')
-    config.include('.bowerstatic')
-    config.include('.layouts')
-    config.include('.resources')
-    config.add_static_view('static', 'deform:static')
-    config.scan()
-    return config.make_wsgi_app()
+class RootFactoryTest(TestCase):
+
+    def test_root_factory_returns_valid_root(self):
+        from pyramid.request import Request
+        from ..resources import root_factory
+        request = Request.blank('/')
+        root = root_factory(request)
+        self.assertEquals(root.__parent__, None)
+        self.assertEquals(root.__name__, '')
+        self.assertTrue(callable(root.__getitem__))
