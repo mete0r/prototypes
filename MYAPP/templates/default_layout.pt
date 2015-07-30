@@ -5,6 +5,9 @@
     <title tal:content="layout.title"></title>
   </head>
   <body>
+    <script tal:condition="layout.use_deform"
+            type="text/javascript"
+            src="${request.static_url('deform:static/scripts/deform.js')}"></script>
 
     <nav tal:replace="panel('navbar', brand_name=layout.brand_name, title=layout.navbar_title)"></nav>
 

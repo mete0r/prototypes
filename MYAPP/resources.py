@@ -21,7 +21,7 @@ from __future__ import unicode_literals
 import logging
 
 from zope.interface import implementer
-from deform.widget import TextAreaWidget
+from deform.widget import RichTextWidget
 import colander
 
 from .interfaces import IDocument
@@ -162,7 +162,7 @@ class Document(Node):
 
 class DocumentSchema(NodeSchema):
     html_content = colander.SchemaNode(colander.String(),
-                                       widget=TextAreaWidget())
+                                       widget=RichTextWidget())
 
 
 @implementer(IEdit)

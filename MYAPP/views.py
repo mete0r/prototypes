@@ -45,6 +45,7 @@ def node_add(context, request):
     typename = request.subpath[0]
     add = request.registry.getAdapter(context, IAdd, typename)
     form = Form(add.schema, buttons=('add',))
+    request.include_deform_widget(form)
     return {
         'form': form.render(),
     }
@@ -62,6 +63,7 @@ def node_add_post(context, request):
         try:
             appstruct = form.validate(controls)
         except ValidationFailure as e:
+            request.include_deform_widget(form)
             return {
                 'form': e.render(),
             }
@@ -78,6 +80,7 @@ def node_add_post(context, request):
 def node_edit(context, request):
     edit = request.registry.getAdapter(context, IEdit)
     form = Form(edit.schema, buttons=('submit',))
+    request.include_deform_widget(form)
     return {
         'form': form.render(edit.appstruct),
     }
@@ -94,6 +97,7 @@ def node_edit_post(context, request):
         try:
             appstruct = form.validate(controls)
         except ValidationFailure as e:
+            request.include_deform_widget(form)
             return {
                 'form': e.render(),
             }

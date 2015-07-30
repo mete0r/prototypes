@@ -1,6 +1,7 @@
 define ALL
 	update-requirements
 	theme
+	deform
 endef
 ALL:=$(shell echo $(ALL))  # to remove line-feeds
 
@@ -51,9 +52,14 @@ update-wheelhouse: requirements-dev.txt
 	bin/pip wheel -r $< -w wheelhouse $(PIP_NO_INDEX)
 
 THEME_DIR := MYAPP/static/theme
+DEFORM_DIR:= MYAPP/static/deform
 
 theme:
 	make -C $(THEME_DIR)
 
+deform:
+	make -C $(DEFORM_DIR)
+
 clean:
 	make -C $(THEME_DIR) clean
+	make -C $(DEFORM_DIR) clean
