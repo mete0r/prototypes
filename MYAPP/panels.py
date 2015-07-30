@@ -18,6 +18,7 @@
 #
 from __future__ import absolute_import
 from __future__ import unicode_literals
+from itertools import imap
 
 from pyramid_layout.panel import panel_config
 
@@ -26,6 +27,10 @@ from .interfaces import IDocument
 from .interfaces import INavItem
 from .interfaces import INavItemCollection
 from .interfaces import INavItemSeparator
+from .interfaces import IAddable
+from .interfaces import IAdd
+from .interfaces import IEditable
+from .interfaces import IDeletable
 
 
 @panel_config(name='navbar',
@@ -66,6 +71,46 @@ def navitem_dropdown(context, request):
               renderer='templates/navitem_separator.pt')
 def navitem_separator(context, request):
     return {
+    }
+
+
+@panel_config(name='action-add-dropdown',
+              context=IAddable,
+              renderer='templates/action-add-dropdown.pt')
+def action_add_dropdown(context, request):
+    itemtypes = request.registry.getAdapters((context,), IAdd)
+    itemtypes = imap(lambda x: x[0], itemtypes)
+    return {
+        'title': 'Add',
+        'item_types': itemtypes,
+    }
+
+
+@panel_config(name='action-add',
+              context=IAddable,
+              renderer='templates/action-add.pt')
+def action_add(context, request, type):
+    return {
+        'title': 'Add ' + type,
+        'type': type,
+    }
+
+
+@panel_config(name='action-edit',
+              context=IEditable,
+              renderer='templates/action-edit.pt')
+def action_edit(context, request):
+    return {
+        'title': 'Edit',
+    }
+
+
+@panel_config(name='action-delete',
+              context=IDeletable,
+              renderer='templates/action-delete.pt')
+def action_delete(context, request):
+    return {
+        'title': 'Delete',
     }
 
 

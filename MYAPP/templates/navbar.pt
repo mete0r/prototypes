@@ -20,6 +20,11 @@
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="top-navbar-collapse">
       <ul tal:replace="panel('nav', context=layout.nav)"></ul>
+      <ul class="nav navbar-nav">
+        <li tal:replace="panel('action-add-dropdown')"></li>
+        <li tal:replace="panel('action-edit')"></li>
+        <li tal:replace="panel('action-delete')"></li>
+      </ul>
       <form class="navbar-form navbar-right" role="search">
         <div class="form-group">
           <input type="text" class="form-control" placeholder="Search">
