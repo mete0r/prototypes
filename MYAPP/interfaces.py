@@ -40,16 +40,51 @@ class INavItemSeparator(Interface):
     pass
 
 
-class INode(Interface):
+class IViewable(Interface):
+    '''
+    '''
+
+
+class IAddable(Interface):
+
+    def getAdder(typename):
+        '''
+        '''
+
+
+class IAdd(Interface):
+
+    schema = Attribute('Colander Schema.')
+
+    def __call__(appstruct):
+        '''
+        '''
+
+
+class IEditable(Interface):
     pass
 
 
-class IFolder(INode):
+class IEdit(Interface):
+
+    schema = Attribute('Colander Schema.')
+    appstruct = Attribute('Colander appstruct')
+
+
+class IDeletable(Interface):
+    pass
+
+
+class INode(IViewable, IDeletable):
+    pass
+
+
+class IFolder(INode, IAddable, IEditable):
 
     children = Attribute('Children iterable.')
 
 
-class IDocument(INode):
+class IDocument(INode, IEditable):
 
     title = Attribute('Title.')
     html_content = Attribute('HTML Content.')
