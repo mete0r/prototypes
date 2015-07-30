@@ -44,6 +44,7 @@ class DefaultLayout(object):
         self.request = request
         request.include(bootstrap_css)
         request.include(bootstrap_js)
+        self.use_deform = False
 
     @property
     def navbar_title(self):

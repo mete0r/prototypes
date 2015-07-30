@@ -1,0 +1,20 @@
+{
+  "name": "deform",
+  "private": true,
+  "version": "0.0.0",
+  "homepage": "https://github.com/mete0r/prototypes",
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "../../bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "jquery-form": "~3.46.0",
+    "jquery.maskedinput": "~1.4.1",
+    "tinymce": "~4.2.3"
+  }
+}
