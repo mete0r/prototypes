@@ -1,0 +1,3 @@
+<li tal:attributes="class 'active' if request.view_name == 'delete' else ''">
+  <a href="@@delete"><span tal:content="title" /></a>
+</li>

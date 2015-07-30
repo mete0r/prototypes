@@ -1,0 +1,3 @@
+<li tal:attributes="class 'active' if request.view_name == 'edit' else ''">
+  <a href="@@edit"><span tal:content="title" /></a>
+</li>
