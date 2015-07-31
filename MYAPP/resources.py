@@ -21,13 +21,13 @@ from __future__ import unicode_literals
 import logging
 
 from zope.interface import implementer
-from deform.widget import RichTextWidget
 import colander
 
 from .interfaces import IDocument
 from .interfaces import IFolder
 from .interfaces import IAdd
 from .interfaces import IEdit
+from .widgets import RichTextInlineWidget
 
 
 logger = logging.getLogger(__name__)
@@ -162,7 +162,7 @@ class Document(Node):
 
 class DocumentSchema(NodeSchema):
     html_content = colander.SchemaNode(colander.String(),
-                                       widget=RichTextWidget())
+                                       widget=RichTextInlineWidget())
 
 
 @implementer(IEdit)

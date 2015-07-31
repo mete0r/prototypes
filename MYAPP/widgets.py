@@ -19,19 +19,21 @@
 from __future__ import absolute_import
 from __future__ import unicode_literals
 
-from pyramid.config import Configurator
+from deform import Form
+from deform.widget import RichTextWidget
+from pkg_resources import resource_filename
 
-from .resources import root_factory
+
+def includeme(config):
+    deform_templates = resource_filename('deform', 'templates')
+    my_templates = resource_filename('MYAPP', 'templates/deform')
+    search_path = (my_templates, deform_templates)
+    Form.set_zpt_renderer(search_path)
 
 
-def app_factory(global_config, **settings):
-    config = Configurator(root_factory=root_factory, settings=settings)
-    config.include('pyramid_chameleon')
-    config.include('.bowerstatic')
-    config.include('.bowerstatic_deform')
-    config.include('.layouts')
-    config.include('.resources')
-    config.include('.widgets')
-    config.add_static_view('static/deform', 'deform:static')
-    config.scan()
-    return config.make_wsgi_app()
+class RichTextInlineWidget(RichTextWidget):
+
+    template = 'richtext-inline.pt'
+    default_options = (RichTextWidget.default_options +
+                       (('inline', True),
+                        ('hidden_input', False)))
