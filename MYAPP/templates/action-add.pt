@@ -1,3 +1,3 @@
 <li>
-  <a href="@@add/${type}"><span tal:content="title" /></a>
+  <a href="@@add?type=${type}"><span tal:content="title" /></a>
 </li>
