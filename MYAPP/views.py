@@ -42,7 +42,7 @@ def node_view(context, request):
 @view_config(context=IAddable, name='add',
              renderer='templates/node_add.pt')
 def node_add(context, request):
-    typename = request.subpath[0]
+    typename = request.GET['type']
     add = request.registry.getAdapter(context, IAdd, typename)
     form = Form(add.schema, buttons=('add',))
     request.include_deform_widget(form)
@@ -55,7 +55,7 @@ def node_add(context, request):
              request_method='POST',
              renderer='templates/node_add.pt')
 def node_add_post(context, request):
-    typename = request.subpath[0]
+    typename = request.GET['type']
     add = request.registry.getAdapter(context, IAdd, typename)
     form = Form(add.schema, buttons=('add',))
     if 'add' in request.POST:
