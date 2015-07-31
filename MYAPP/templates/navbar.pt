@@ -7,7 +7,9 @@
         <span class="navbar-brand-name" tal:content="brand_name"></span>
       </a>
 
-      <h1 class="navbar-title" tal:content="title"></h1>
+      <h1 class="navbar-title">
+        <span class="navbar-title-inner" tal:content="title" />
+      </h1>
 
       <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#top-navbar-collapse" aria-expanded="false">
         <span class="sr-only">Toggle navigation</span>
