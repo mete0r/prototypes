@@ -246,11 +246,8 @@ a.list-group-item {
 
 .navbar-title {
   position: absolute;
-  width: 100%;
-  left: 0;
-  text-align: center;
-  margin: 0 auto;
-  padding: @navbar-padding-vertical @navbar-padding-horizontal;
+  left: 50%;
+  margin: 0;
   line-height: @line-height-computed;
   height: @navbar-height;
 
@@ -261,6 +258,13 @@ a.list-group-item {
   font-weight: bold;
 
   .visible-xs();
+
+  &-inner {
+    display: block;
+    position: relative;
+    left: -50%;
+    padding: @navbar-padding-vertical @navbar-padding-horizontal;
+  }
 }
 
 .navbar-default {
