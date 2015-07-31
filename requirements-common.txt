@@ -6,6 +6,7 @@ iso8601==0.1.10
 Mako==1.0.1
 MarkupSafe==0.23
 meld3==1.0.2
+Paste==2.0.2
 PasteDeploy==1.5.2
 peppercorn==0.5
 Pygments==2.0.2
