@@ -1,0 +1,38 @@
+<div tal:define="delayed_load delayed_load|field.widget.delayed_load;
+                 tinymce_options tinymce_options|field.widget.tinymce_options;
+                 oid oid|field.oid;
+                 name name|field.name;"
+    xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+    i18n:domain="deform"
+    tal:omit-tag="">
+
+  <div id="${oid}-editor"
+       class="form-control"
+       style="height: auto; display:none"
+       contenteditable="true"
+       tal:content="structure cstruct" />
+  <textarea id="${oid}"
+            name="${name}"
+            style="width: 100%; height: auto"
+            tal:content="structure cstruct" />
+  <script type="text/javascript">
+    (function($){
+      deform.addCallback('${oid}', function(oid) {
+        var jqoid = $('#' + oid);
+        var jqoid_editor = $('#' + oid + '-editor');
+        tinyMCE.init({
+          language: '<tal:block i18n:translate="language-code">en</tal:block>',
+          body_class: 'form-control',
+          <tal:block condition="tinymce_options">${tinymce_options},</tal:block>
+          elements: oid + '-editor'
+        });
+        jqoid.hide();
+        jqoid_editor.show();
+        $('#deform').submit(function() {
+          var content = jqoid_editor.html();
+          jqoid.html(content);
+        });
+      });
+    })(jQuery);
+  </script>
+</div>
