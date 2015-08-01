@@ -38,6 +38,8 @@ jquery_form_js =\
 jquery_maskedinput_js =\
     components.resource('jquery.maskedinput/dist/jquery.maskedinput.js',
                         dependencies=[jquery_js])
+jquery_sortable_js =\
+    components.resource('jquery-sortable/source/js/jquery-sortable.js')
 # deform_js =\
 #     local_components.resource('deform/scripts/deform.js',
 #                               dependencies=[jquery_form_js])
@@ -57,6 +59,9 @@ deform_requirements_registry = {
     ],
     'jquery.maskedinput': [
         jquery_maskedinput_js,
+    ],
+    'sortable': [
+        jquery_sortable_js,
     ],
     'tinymce': [
         tinymce_js,
