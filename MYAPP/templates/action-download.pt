@@ -1,0 +1,3 @@
+<li tal:attributes="class 'active' if request.view_name == 'download' else ''">
+  <a href="@@download"><span tal:content="title" /></a>
+</li>
