@@ -61,7 +61,7 @@ def node_download(context, request):
 def node_add(context, request):
     typename = request.GET['type']
     add = request.registry.getAdapter(context, IAdd, typename)
-    form = Form(add.schema, buttons=('add',))
+    form = Form(add.schema.bind(), buttons=('add',))
     request.include_deform_widget(form)
     return {
         'form': form.render(),
@@ -74,7 +74,7 @@ def node_add(context, request):
 def node_add_post(context, request):
     typename = request.GET['type']
     add = request.registry.getAdapter(context, IAdd, typename)
-    form = Form(add.schema, buttons=('add',))
+    form = Form(add.schema.bind(), buttons=('add',))
     if 'add' in request.POST:
         controls = request.POST.items()
         try:
@@ -96,7 +96,7 @@ def node_add_post(context, request):
              renderer='templates/node_edit.pt')
 def node_edit(context, request):
     edit = request.registry.getAdapter(context, IEdit)
-    form = Form(edit.schema, buttons=('submit',))
+    form = Form(edit.schema.bind(), buttons=('submit',))
     request.include_deform_widget(form)
     return {
         'form': form.render(edit.appstruct),
@@ -108,7 +108,7 @@ def node_edit(context, request):
              renderer='templates/node_edit.pt')
 def node_edit_post(context, request):
     edit = request.registry.getAdapter(context, IEdit)
-    form = Form(edit.schema, buttons=('submit',))
+    form = Form(edit.schema.bind(), buttons=('submit',))
     if 'submit' in request.POST:
         controls = request.POST.items()
         try:

@@ -22,6 +22,7 @@ from __future__ import unicode_literals
 from deform import Form
 from deform.widget import RichTextWidget
 from pkg_resources import resource_filename
+import colander
 
 
 def includeme(config):
@@ -37,3 +38,8 @@ class RichTextInlineWidget(RichTextWidget):
     default_options = (RichTextWidget.default_options +
                        (('inline', True),
                         ('hidden_input', False)))
+
+
+@colander.deferred
+def deferred_html_widget(node, kw):
+    return kw.get('html_widget', RichTextInlineWidget())
