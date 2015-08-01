@@ -20,9 +20,11 @@ from __future__ import absolute_import
 from __future__ import unicode_literals
 
 from pyramid.httpexceptions import HTTPFound
+from pyramid.response import Response
 from pyramid.view import view_config
 from deform import Form
 from deform import ValidationFailure
+import rfc6266
 
 from .interfaces import IViewable
 from .interfaces import IAddable
@@ -30,6 +32,7 @@ from .interfaces import IAdd
 from .interfaces import IEditable
 from .interfaces import IEdit
 from .interfaces import IDeletable
+from .interfaces import IDownloadable
 
 
 @view_config(context=IViewable,
@@ -37,6 +40,20 @@ from .interfaces import IDeletable
 def node_view(context, request):
     return {
     }
+
+
+@view_config(context=IDownloadable, name='download',
+             request_method='GET')
+def node_download(context, request):
+    content_type = context.content_type
+    content_bytes = context.content_bytes
+    content_disposition = rfc6266.build_header(context.content_filename)
+    response = Response(content_bytes,
+                        headers={
+                            b'content-type': bytes(content_type),
+                            b'content-disposition': bytes(content_disposition),
+                        })
+    return response
 
 
 @view_config(context=IAddable, name='add',

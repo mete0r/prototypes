@@ -27,6 +27,7 @@ from .interfaces import IDocument
 from .interfaces import IFolder
 from .interfaces import IAdd
 from .interfaces import IEdit
+from .interfaces import IDownloadable
 from .widgets import RichTextInlineWidget
 
 
@@ -149,7 +150,7 @@ class FolderEdit(object):
                      self.context.title)
 
 
-@implementer(IDocument)
+@implementer(IDocument, IDownloadable)
 class Document(Node):
 
     title = None
@@ -158,6 +159,16 @@ class Document(Node):
     def __init__(self, title, html_content):
         self.title = title
         self.html_content = html_content
+
+    content_type = 'text/html'
+
+    @property
+    def content_filename(self):
+        return self.__name__
+
+    @property
+    def content_bytes(self):
+        return self.html_content.encode('utf-8')
 
 
 class DocumentSchema(NodeSchema):

@@ -45,6 +45,15 @@ class IViewable(Interface):
     '''
 
 
+class IDownloadable(Interface):
+    '''
+    '''
+
+    content_type = Attribute('HTTP Content-Type')
+    content_filename = Attribute('Filename for Content-Disposition header')
+    content_bytes = Attribute('content bytes')
+
+
 class IAddable(Interface):
 
     def getAdder(typename):

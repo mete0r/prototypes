@@ -31,6 +31,7 @@ from .interfaces import IAddable
 from .interfaces import IAdd
 from .interfaces import IEditable
 from .interfaces import IDeletable
+from .interfaces import IDownloadable
 
 
 @panel_config(name='navbar',
@@ -111,6 +112,15 @@ def action_edit(context, request):
 def action_delete(context, request):
     return {
         'title': 'Delete',
+    }
+
+
+@panel_config(name='action-download',
+              context=IDownloadable,
+              renderer='templates/action-download.pt')
+def action_download(context, request):
+    return {
+        'title': 'Download',
     }
 
 
