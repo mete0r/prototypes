@@ -18,12 +18,15 @@
 #
 from __future__ import absolute_import
 from __future__ import unicode_literals
+import logging
 
 from pyramid.httpexceptions import HTTPFound
 from pyramid.response import Response
 from pyramid.view import view_config
 from deform import Form
 from deform import ValidationFailure
+import colander
+import deform
 import rfc6266
 
 from .interfaces import IViewable
@@ -33,6 +36,12 @@ from .interfaces import IEditable
 from .interfaces import IEdit
 from .interfaces import IDeletable
 from .interfaces import IDownloadable
+from .interfaces import IUploadable
+from .interfaces import IUpload
+from .widgets import deferred_fileupload_widget
+
+
+logger = logging.getLogger(__name__)
 
 
 @view_config(context=IViewable,
@@ -54,6 +63,53 @@ def node_download(context, request):
                             b'content-disposition': bytes(content_disposition),
                         })
     return response
+
+
+class UploadFiles(colander.SequenceSchema):
+    file = colander.SchemaNode(deform.FileData(),
+                               widget=deferred_fileupload_widget)
+
+
+class UploadSchema(colander.MappingSchema):
+    files = UploadFiles()
+
+
+@view_config(context=IUploadable, name='upload',
+             renderer='templates/node_upload.pt')
+def node_upload(context, request):
+    schema = UploadSchema()
+    schema = schema.bind()
+    form = Form(schema, buttons=('upload',))
+    request.include_deform_widget(form)
+    return {
+        'form': form.render(),
+    }
+
+
+@view_config(context=IUploadable, name='upload',
+             request_method='POST',
+             renderer='templates/node_upload.pt')
+def node_upload_post(context, request):
+    schema = UploadSchema()
+    schema = schema.bind()
+    form = Form(schema, buttons=('upload',))
+    upload = request.registry.getAdapter(context, IUpload)
+    if 'upload' in request.POST:
+        controls = request.POST.items()
+        try:
+            appstruct = form.validate(controls)
+        except ValidationFailure as e:
+            request.include_deform_widget(form)
+            return {
+                'form': e.render(),
+            }
+        else:
+            for filedata in appstruct['files']:
+                upload.upload(filedata)
+            location = request.resource_url(context)
+    else:
+        location = request.resource_url(context, '@@upload')
+    return HTTPFound(location=location)
 
 
 @view_config(context=IAddable, name='add',

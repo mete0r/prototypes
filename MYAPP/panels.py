@@ -32,6 +32,7 @@ from .interfaces import IAdd
 from .interfaces import IEditable
 from .interfaces import IDeletable
 from .interfaces import IDownloadable
+from .interfaces import IUploadable
 
 
 @panel_config(name='navbar',
@@ -121,6 +122,15 @@ def action_delete(context, request):
 def action_download(context, request):
     return {
         'title': 'Download',
+    }
+
+
+@panel_config(name='action-upload',
+              context=IUploadable,
+              renderer='templates/action-upload.pt')
+def action_upload(context, request):
+    return {
+        'title': 'Upload',
     }
 
 

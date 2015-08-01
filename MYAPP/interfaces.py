@@ -54,6 +54,16 @@ class IDownloadable(Interface):
     content_bytes = Attribute('content bytes')
 
 
+class IUploadable(Interface):
+    '''
+    '''
+
+
+class IUpload(Interface):
+    '''
+    '''
+
+
 class IAddable(Interface):
 
     def getAdder(typename):

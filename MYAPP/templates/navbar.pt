@@ -27,6 +27,7 @@
         <li tal:replace="panel('action-edit')"></li>
         <li tal:replace="panel('action-delete')"></li>
         <li tal:replace="panel('action-download')"></li>
+        <li tal:replace="panel('action-upload')"></li>
       </ul>
       <form class="navbar-form navbar-right" role="search">
         <div class="form-group">

@@ -20,6 +20,7 @@ from __future__ import absolute_import
 from __future__ import unicode_literals
 
 from deform import Form
+from deform.widget import FileUploadWidget
 from deform.widget import RichTextWidget
 from pkg_resources import resource_filename
 import colander
@@ -43,3 +44,32 @@ class RichTextInlineWidget(RichTextWidget):
 @colander.deferred
 def deferred_html_widget(node, kw):
     return kw.get('html_widget', RichTextInlineWidget())
+
+
+@colander.deferred
+def deferred_fileupload_widget(node, kw):
+    tmpstore = kw.get('tmpstore')
+    if tmpstore is None:
+        tmpstore = NullFileUploadTempStore()
+    return FileUploadWidget(tmpstore)
+
+
+class NullFileUploadTempStore(object):
+
+    def __init__(self):
+        self._d = {}
+
+    def get(self, name, default=None):
+        return self._d.get(name, default)
+
+    def __getitem__(self, name):
+        return self._d[name]
+
+    def __setitem__(self, name, value):
+        self._d[name] = value
+
+    def __contains__(self, name):
+        return name in self._d
+
+    def preview_url(self, name):
+        return None
