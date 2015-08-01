@@ -28,7 +28,7 @@ from .interfaces import IFolder
 from .interfaces import IAdd
 from .interfaces import IEdit
 from .interfaces import IDownloadable
-from .widgets import RichTextInlineWidget
+from .widgets import deferred_html_widget
 
 
 logger = logging.getLogger(__name__)
@@ -173,7 +173,7 @@ class Document(Node):
 
 class DocumentSchema(NodeSchema):
     html_content = colander.SchemaNode(colander.String(),
-                                       widget=RichTextInlineWidget())
+                                       widget=deferred_html_widget)
 
 
 @implementer(IEdit)
