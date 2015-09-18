@@ -18,6 +18,7 @@
 #
 from __future__ import with_statement
 from contextlib import contextmanager
+from fnmatch import fnmatch
 import io
 import os.path
 
@@ -70,6 +71,52 @@ def get_version():
     return __version__
 
 
+def find_files(relative_to, root_path, exclude):
+    found = []
+    for directory, subdirs, subfiles in os.walk(root_path):
+        for filename in subfiles:
+            path = os.path.join(directory, filename)
+            path = os.path.relpath(path, relative_to)
+            if exclude is None or not exclude(path):
+                found.append(path)
+    return found
+
+
+def exclude_static_for_install(path):
+    dirname = os.path.dirname(path)
+    filename = os.path.basename(path)
+
+    # No npm packages
+    if 'node_modules' in dirname:
+        return True
+
+    # for bowerstatic
+    if filename in ('bower.json', '.bower.json'):
+        return False
+
+    # include css/js/fonts
+    if fnmatch(filename, '*.css'):
+        return False
+
+    if fnmatch(filename, '*.js'):
+        return False
+
+    if dirname == 'static/theme/fonts':
+        return False
+
+    # exclude everything
+    return True
+
+
+def exclude_templates_for_install(path):
+    # include PageTemplate files
+    if path.endswith('.pt'):
+        return False
+
+    # exclude everything
+    return True
+
+
 def alltests():
     import sys
     import unittest
@@ -110,6 +157,14 @@ setup_info = {
         # '': 'src',
     },
     'package_data': {
+        'MYAPP': (
+            find_files('MYAPP', 'MYAPP/bower_components',
+                       None) +
+            find_files('MYAPP', 'MYAPP/static',
+                       exclude_static_for_install) +
+            find_files('MYAPP', 'MYAPP/templates',
+                       exclude_templates_for_install)
+        ),
         # 'MYAPP.tests': [
         #   'files/*',
         # ],

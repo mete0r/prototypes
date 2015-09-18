@@ -1,8 +1,12 @@
 include COPYING
 include CHANGES.rst
+include Makefile
 include README.rst
 include *.py
 include buildout.cfg
 include requirements.txt
 include tox.ini
-recursive-include MYAPP *.pt
+recursive-include MYAPP/templates *.pt
+graft MYAPP/static/deform
+graft MYAPP/static/theme
+global-exclude .*.sw?
