@@ -19,3 +19,7 @@ recursive-include docs *.py
 recursive-include docs *.rst
 recursive-include docs Makefile
 recursive-include MYAPP *.pt
+recursive-include MYAPP/templates *.pt
+graft MYAPP/static/deform
+graft MYAPP/static/theme
+global-exclude .*.sw?
