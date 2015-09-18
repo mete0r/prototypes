@@ -13,6 +13,7 @@
 /lib-python
 /lib_pypy
 /local
+/node_modules
 /parts
 /pip-selfcheck.json
 /setuptools-*
