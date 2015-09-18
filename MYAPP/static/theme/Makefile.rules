@@ -1,12 +1,9 @@
-__FILE__ = $(lastword $(MAKEFILE_LIST))
-node_modules_bin = $(dir $(__FILE__))node_modules/.bin/
+node_modules_bin ?= $(abspath $(dir $(lastword $(MAKEFILE_LIST))))/node_modules/.bin/
 
-lessc = $(node_modules_bin)lessc
+lessc := $(node_modules_bin)lessc
 lessc_options += $(if $(LESS_INCLUDE_PATH), --include-path=$(LESS_INCLUDE_PATH))
-
-minify = $(node_modules_bin)minify
-
-bower = $(node_modules_bin)bower
+minify := $(node_modules_bin)minify
+bower := $(node_modules_bin)bower
 
 source = $<
 target = $@
@@ -31,9 +28,6 @@ TARGETS = $(CSS_FILES) $(MIN_CSS_FILES) $(JS_FILES) $(MIN_JS_FILES)
 .DEFAULT_GOAL = all
 
 .PHONY: all
-all: $(lessc) $(minify) $(bower)
-$(lessc) $(minify) $(bower):
-	npm install
 
 .PHONY: clean
 clean: clean-targets
