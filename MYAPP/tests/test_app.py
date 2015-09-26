@@ -32,5 +32,16 @@ class AppTest(TestCase):
             shutil.rmtree(name)
         os.mkdir(name)
 
-    def test_nothing(self):
-        pass
+    def make_one(self):
+        from webtest.app import TestApp
+        from ..wsgi import app_factory
+
+        app = app_factory({}, **{
+        })
+        app = TestApp(app)
+        return app
+
+    def test_root(self):
+        app = self.make_one()
+        resp = app.get('/')
+        self.assertEquals(resp.status, '200 OK')
