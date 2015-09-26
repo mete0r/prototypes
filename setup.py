@@ -132,6 +132,7 @@ def alltests():
 
 tests_require = [
     'zope.testrunner',
+    'webtest',
 ]
 
 
@@ -170,6 +171,13 @@ setup_info = {
         # ],
     },
     'install_requires': [
+        'bowerstatic',
+        'colander',
+        'deform>=2.0a2',
+        'pyramid',
+        'pyramid_chameleon',
+        'pyramid_layout',
+        'rfc6266',
     ],
     'test_suite': '__main__.alltests',
     'tests_require': tests_require,
