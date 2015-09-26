@@ -19,23 +19,23 @@
 from __future__ import absolute_import
 from __future__ import unicode_literals
 
-from zope.interface import implements
+from zope.interface import implementer
 
 from .interfaces import INavItem
 from .interfaces import INavItemCollection
 from .interfaces import INavItemSeparator
 
 
+@implementer(INavItem)
 class NavItem(object):
-    implements(INavItem)
 
     title = None
     url = None
     current = None
 
 
+@implementer(INavItemCollection)
 class NavItemCollection(object):
-    implements(INavItemCollection)
 
     title = None
 
@@ -43,5 +43,7 @@ class NavItemCollection(object):
         self.items = []
 
 
+@implementer(INavItemSeparator)
 class NavItemSeparator(object):
-    implements(INavItemSeparator)
+    '''
+    '''

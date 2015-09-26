@@ -178,6 +178,7 @@ setup_info = {
         'pyramid_chameleon',
         'pyramid_layout',
         'rfc6266',
+        'six',
     ],
     'test_suite': '__main__.alltests',
     'tests_require': tests_require,

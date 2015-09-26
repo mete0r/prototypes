@@ -18,9 +18,9 @@
 #
 from __future__ import absolute_import
 from __future__ import unicode_literals
-from itertools import imap
 
 from pyramid_layout.panel import panel_config
+from six.moves import map as imap
 
 from .interfaces import IFolder
 from .interfaces import IDocument
