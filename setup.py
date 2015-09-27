@@ -138,6 +138,7 @@ def alltests():
 tests_require = [
     'zope.testrunner',
     'webtest',
+    'pillow',
 ]
 
 

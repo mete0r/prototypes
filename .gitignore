@@ -2,6 +2,8 @@
 /.eggs
 /.installed.cfg
 /.tox
+/app.ini
+/app.yaml
 /bin
 /build
 /develop-eggs

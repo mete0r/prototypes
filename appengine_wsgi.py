@@ -18,28 +18,16 @@
 #
 from __future__ import absolute_import
 from __future__ import unicode_literals
-from __future__ import print_function
+import os.path
 
-from unittest import TestCase
+from paste.deploy import loadapp
 
-from .layer_testbed import TestbedLayer
+if os.environ['APPLICATION_ID'].startswith('dev~'):
+    # XXX HACK: pyramid_debugtoolbar for dev_appserver
+    import platform
+    platform.platform = lambda: 'Linux'
 
 
-class AppTest(TestCase):
-
-    layer = TestbedLayer
-
-    def make_one(self):
-        from webtest.app import TestApp
-        from ..wsgi import app_factory
-
-        app = app_factory({}, **{
-            'session.secret': 'not-so-secret',
-        })
-        app = TestApp(app)
-        return app
-
-    def test_root(self):
-        app = self.make_one()
-        resp = app.get('/')
-        self.assertEquals(resp.status, '200 OK')
+app_ini = os.path.join(os.path.dirname(__file__), 'app.ini')
+app_ini = os.path.realpath(app_ini)
+app = loadapp('config:' + app_ini)

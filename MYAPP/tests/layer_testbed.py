@@ -20,26 +20,25 @@ from __future__ import absolute_import
 from __future__ import unicode_literals
 from __future__ import print_function
 
-from unittest import TestCase
 
-from .layer_testbed import TestbedLayer
+class TestbedLayer(object):
 
+    @classmethod
+    def setUp(cls):
+        pass
 
-class AppTest(TestCase):
+    @classmethod
+    def tearDown(cls):
+        pass
 
-    layer = TestbedLayer
+    @classmethod
+    def testSetUp(cls):
+        from google.appengine.ext import testbed
+        cls.testbed = testbed.Testbed()
+        cls.testbed.activate()
+        cls.testbed.init_all_stubs()
 
-    def make_one(self):
-        from webtest.app import TestApp
-        from ..wsgi import app_factory
-
-        app = app_factory({}, **{
-            'session.secret': 'not-so-secret',
-        })
-        app = TestApp(app)
-        return app
-
-    def test_root(self):
-        app = self.make_one()
-        resp = app.get('/')
-        self.assertEquals(resp.status, '200 OK')
+    @classmethod
+    def testTearDown(cls):
+        cls.testbed.deactivate()
+        del cls.testbed
