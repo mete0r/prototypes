@@ -27,8 +27,15 @@ from .bowerstatic import request_include
 from .bowerstatic import jquery_js
 
 
+def module_relative_path(path):
+    import os.path
+    path = os.path.join(os.path.dirname(__file__), path)
+    path = os.path.realpath(path)
+    return path
+
+
 deform = local_components.component(
-    bowerstatic.module_relative_path('static/deform'),
+    module_relative_path('static/deform'),
     version=None
 )
 
