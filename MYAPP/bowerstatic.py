@@ -21,17 +21,25 @@ from __future__ import unicode_literals
 
 import bowerstatic
 
+
+def module_relative_path(path):
+    import os.path
+    path = os.path.join(os.path.dirname(__file__), path)
+    path = os.path.realpath(path)
+    return path
+
+
 bower = bowerstatic.Bower()
 
 components = bower.components(
     'components',
-    bowerstatic.module_relative_path('bower_components')
+    module_relative_path('bower_components')
 )
 
 local_components = bower.local_components('local', components)
 
 theme = local_components.component(
-    bowerstatic.module_relative_path('static/theme'),
+    module_relative_path('static/theme'),
     version=None
 )
 
