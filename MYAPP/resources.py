@@ -20,6 +20,9 @@ from __future__ import absolute_import
 from __future__ import unicode_literals
 import logging
 
+from pyramid.security import Allow
+from pyramid.security import Authenticated
+from pyramid.security import Everyone
 from zope.interface import implementer
 import colander
 
@@ -67,6 +70,14 @@ class NodeSchema(colander.MappingSchema):
 
 @implementer(IFolder)
 class Folder(Node):
+
+    __acl__ = [
+        (Allow, Everyone, 'view'),
+        (Allow, Authenticated, 'add'),
+        (Allow, Authenticated, 'edit'),
+        (Allow, Authenticated, 'upload'),
+        (Allow, Authenticated, 'delete'),
+    ]
 
     def __init__(self):
         self._children = {}
@@ -152,6 +163,13 @@ class FolderEdit(object):
 
 @implementer(IDocument, IDownloadable)
 class Document(Node):
+
+    __acl__ = [
+        (Allow, Everyone, 'view'),
+        (Allow, Authenticated, 'download'),
+        (Allow, Authenticated, 'edit'),
+        (Allow, Authenticated, 'delete'),
+    ]
 
     title = None
     html_content = None
