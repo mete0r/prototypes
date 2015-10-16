@@ -21,7 +21,10 @@ from __future__ import unicode_literals
 import logging
 
 from pyramid.httpexceptions import HTTPFound
+from pyramid.httpexceptions import HTTPUnauthorized
 from pyramid.response import Response
+from pyramid.security import forget
+from pyramid.view import forbidden_view_config
 from pyramid.view import view_config
 from deform import Form
 from deform import ValidationFailure
@@ -44,15 +47,24 @@ from .widgets import deferred_fileupload_widget
 logger = logging.getLogger(__name__)
 
 
+@forbidden_view_config()
+def forbidden(request):
+    response = HTTPUnauthorized()
+    response.headers.update(forget(request))
+    return response
+
+
 @view_config(context=IViewable,
-             renderer='templates/node_view.pt')
+             renderer='templates/node_view.pt',
+             permission='view')
 def node_view(context, request):
     return {
     }
 
 
 @view_config(context=IDownloadable, name='download',
-             request_method='GET')
+             request_method='GET',
+             permission='download')
 def node_download(context, request):
     content_type = context.content_type
     content_bytes = context.content_bytes
@@ -75,7 +87,8 @@ class UploadSchema(colander.MappingSchema):
 
 
 @view_config(context=IUploadable, name='upload',
-             renderer='templates/node_upload.pt')
+             renderer='templates/node_upload.pt',
+             permission='upload')
 def node_upload(context, request):
     schema = UploadSchema()
     schema = schema.bind()
@@ -88,7 +101,8 @@ def node_upload(context, request):
 
 @view_config(context=IUploadable, name='upload',
              request_method='POST',
-             renderer='templates/node_upload.pt')
+             renderer='templates/node_upload.pt',
+             permission='upload')
 def node_upload_post(context, request):
     schema = UploadSchema()
     schema = schema.bind()
@@ -113,7 +127,8 @@ def node_upload_post(context, request):
 
 
 @view_config(context=IAddable, name='add',
-             renderer='templates/node_add.pt')
+             renderer='templates/node_add.pt',
+             permission='add')
 def node_add(context, request):
     typename = request.GET['type']
     add = request.registry.getAdapter(context, IAdd, typename)
@@ -126,7 +141,8 @@ def node_add(context, request):
 
 @view_config(context=IAddable, name='add',
              request_method='POST',
-             renderer='templates/node_add.pt')
+             renderer='templates/node_add.pt',
+             permission='add')
 def node_add_post(context, request):
     typename = request.GET['type']
     add = request.registry.getAdapter(context, IAdd, typename)
@@ -149,7 +165,8 @@ def node_add_post(context, request):
 
 
 @view_config(context=IEditable, name='edit',
-             renderer='templates/node_edit.pt')
+             renderer='templates/node_edit.pt',
+             permission='edit')
 def node_edit(context, request):
     edit = request.registry.getAdapter(context, IEdit)
     form = Form(edit.schema.bind(), buttons=('submit',))
@@ -161,7 +178,8 @@ def node_edit(context, request):
 
 @view_config(context=IEditable, name='edit',
              request_method='POST',
-             renderer='templates/node_edit.pt')
+             renderer='templates/node_edit.pt',
+             permission='edit')
 def node_edit_post(context, request):
     edit = request.registry.getAdapter(context, IEdit)
     form = Form(edit.schema.bind(), buttons=('submit',))
@@ -183,14 +201,16 @@ def node_edit_post(context, request):
 
 
 @view_config(context=IDeletable, name='delete',
-             renderer='templates/node_delete.pt')
+             renderer='templates/node_delete.pt',
+             permission='delete')
 def node_delete(context, request):
     return {
     }
 
 
 @view_config(context=IDeletable, name='delete',
-             request_method='POST')
+             request_method='POST',
+             permission='delete')
 def node_delete_post(context, request):
     parent = context.__parent__
     del parent[context.__name__]

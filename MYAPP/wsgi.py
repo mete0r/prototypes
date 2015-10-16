@@ -20,12 +20,20 @@ from __future__ import absolute_import
 from __future__ import unicode_literals
 
 from pyramid.config import Configurator
+from pyramid.authentication import BasicAuthAuthenticationPolicy
+from pyramid.authorization import ACLAuthorizationPolicy
 
 from .resources import root_factory
+from .security import authenticate_userpass
 
 
 def app_factory(global_config, **settings):
+    authn_policy = BasicAuthAuthenticationPolicy(check=authenticate_userpass)
+    authz_policy = ACLAuthorizationPolicy()
+
     config = Configurator(root_factory=root_factory, settings=settings)
+    config.set_authentication_policy(authn_policy)
+    config.set_authorization_policy(authz_policy)
     config.include('pyramid_chameleon')
     config.include('.bowerstatic')
     config.include('.bowerstatic_deform')
