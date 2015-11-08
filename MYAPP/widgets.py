@@ -30,7 +30,7 @@ def includeme(config):
     deform_templates = resource_filename('deform', 'templates')
     my_templates = resource_filename('MYAPP', 'templates/deform')
     search_path = (my_templates, deform_templates)
-    Form.set_zpt_renderer(search_path)
+    Form.set_zpt_renderer(search_path, debug=False)
 
 
 class RichTextInlineWidget(RichTextWidget):

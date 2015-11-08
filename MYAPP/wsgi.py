@@ -42,4 +42,5 @@ def app_factory(global_config, **settings):
     config.include('.widgets')
     config.add_static_view('static/deform', 'deform:static')
     config.scan()
+
     return config.make_wsgi_app()
