@@ -22,8 +22,6 @@ from __future__ import unicode_literals
 from pyramid.location import lineage
 from pyramid_layout.layout import layout_config
 
-from .interfaces import IFolder
-from .interfaces import IDocument
 from .bowerstatic import bootstrap_css
 from .bowerstatic import bootstrap_js
 
@@ -35,6 +33,7 @@ def includeme(config):
     config.include('pyramid_layout')
 
 
+@layout_config(template='templates/default_layout.pt')
 class DefaultLayout(object):
 
     brand_name = 'MYAPP'
@@ -51,6 +50,10 @@ class DefaultLayout(object):
         if self.is_root:
             return self.brand_name
         return self.title
+
+    @property
+    def title(self):
+        return self.context.__name__
 
     @property
     def is_root(self):
@@ -82,21 +85,3 @@ class DefaultLayout(object):
             navitem.current = navitem.url == url
             nav.items.append(navitem)
         return nav
-
-
-@layout_config(context=IFolder,
-               template='templates/default_layout.pt')
-class FolderLayout(DefaultLayout):
-
-    @property
-    def title(self):
-        return self.context.__name__
-
-
-@layout_config(context=IDocument,
-               template='templates/default_layout.pt')
-class DocumentLayout(DefaultLayout):
-
-    @property
-    def title(self):
-        return self.context.title
