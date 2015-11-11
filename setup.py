@@ -168,6 +168,9 @@ setup_info = {
                        exclude_templates_for_install)
         + [
         ],
+        'MYAPP.recipe': [
+            'files/*',
+        ],
         # 'MYAPP.tests': [
         #   'files/*',
         # ],
