@@ -166,6 +166,9 @@ setup_info = {
             find_files('MYAPP', 'MYAPP/templates',
                        exclude_templates_for_install)
         ),
+        'MYAPP.recipe': [
+            'files/*',
+        ],
         # 'MYAPP.tests': [
         #   'files/*',
         # ],
