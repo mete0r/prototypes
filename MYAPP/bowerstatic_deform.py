@@ -71,6 +71,10 @@ pickadate_legacy_js =\
     components.resource('pickadate/lib/legacy.js')
 
 
+signature_pad_js =\
+    components.resource('signature_pad/signature_pad.js')
+
+
 deform_requirements_registry = {
     'deform': [
         jquery_form_js,
@@ -99,6 +103,9 @@ deform_requirements_registry = {
         pickadate_picker_date_js,
         pickadate_picker_time_js,
         pickadate_legacy_js,
+    ],
+    'signature_pad': [
+        signature_pad_js,
     ],
 }
 
