@@ -20,8 +20,10 @@ from __future__ import absolute_import
 from __future__ import unicode_literals
 
 from deform import Form
+from deform.compat import string_types
 from deform.widget import FileUploadWidget
 from deform.widget import RichTextWidget
+from deform.widget import Widget
 from pkg_resources import resource_filename
 import colander
 
@@ -39,6 +41,30 @@ class RichTextInlineWidget(RichTextWidget):
     default_options = (RichTextWidget.default_options +
                        (('inline', True),
                         ('hidden_input', False)))
+
+
+class SignatureWidget(Widget):
+
+    template = 'signature'
+    readonly_template = 'readonly/signature'
+    requirements = (('signature_pad', None),)
+
+    def serialize(self, field, cstruct, **kw):
+        if cstruct in (colander.null, None):
+            cstruct = ''
+        readonly = kw.get('readonly', self.readonly)
+        template = readonly and self.readonly_template or self.template
+        values = self.get_template_values(field, cstruct, kw)
+        return field.renderer(template, **values)
+
+    def deserialize(self, field, pstruct):
+        if pstruct is colander.null:
+            return colander.null
+        elif not isinstance(pstruct, string_types):
+            raise colander.Invalid(field.schema, 'Pstruct is not a string')
+        if not pstruct:
+            return colander.null
+        return pstruct
 
 
 @colander.deferred
