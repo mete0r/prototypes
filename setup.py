@@ -158,6 +158,7 @@ setup_info = {
         'MYAPP.framework',
         'MYAPP.framework.deform',
         'MYAPP.recipe',
+        'MYAPP.renderers',
         'MYAPP.tests',
         'MYAPP.widgets',
         'MYAPP.widgets.signature',
