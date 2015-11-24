@@ -41,6 +41,7 @@ def app_factory(global_config, **settings):
     config.include('.framework.deform')
     config.include('.framework.deform.bowerstatic')
     config.include('.layouts')
+    config.include('.renderers')
     config.include('.resources')
     config.include('.widgets')
     config.add_static_view('static/deform', 'deform:static')
