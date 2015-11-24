@@ -19,8 +19,6 @@
 from __future__ import absolute_import
 from __future__ import unicode_literals
 
-import bowerstatic
-
 from .bowerstatic import components
 from .bowerstatic import local_components
 from .bowerstatic import request_include
