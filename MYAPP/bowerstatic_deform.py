@@ -53,6 +53,19 @@ jquery_sortable_js =\
 tinymce_js =\
     components.resource('tinymce/tinymce.js')
 
+modernizr_js =\
+    components.resource('modernizr/modernizr.js')
+
+
+pickadate_picker_js =\
+    components.resource('pickadate/lib/picker.js')
+pickadate_picker_date_js =\
+    components.resource('pickadate/lib/picker.date.js')
+pickadate_picker_time_js =\
+    components.resource('pickadate/lib/picker.time.js')
+pickadate_legacy_js =\
+    components.resource('pickadate/lib/legacy.js')
+
 
 deform_requirements_registry = {
     'deform': [
@@ -70,6 +83,15 @@ deform_requirements_registry = {
     ],
     'tinymce': [
         tinymce_js,
+    ],
+    'modernizr': [
+        modernizr_js,
+    ],
+    'pickadate': [
+        pickadate_picker_js,
+        pickadate_picker_date_js,
+        pickadate_picker_time_js,
+        pickadate_legacy_js,
     ],
 }
 
