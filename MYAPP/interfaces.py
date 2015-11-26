@@ -40,6 +40,12 @@ class INavItemSeparator(Interface):
     pass
 
 
+class IMailer(Interface):
+
+    def send(mime_message):
+        ''' Send a MIME message. '''
+
+
 class IViewable(Interface):
     '''
     '''
