@@ -1,0 +1,5 @@
+<div>
+  <input id="${field.oid}" type="hidden" name="${field.name}" value="${cstruct}">
+  <p class="form-control-static"
+     id="${field.oid}-static" tal:content="cstruct"></p>
+</div>
