@@ -159,6 +159,7 @@ setup_info = {
         'MYAPP.framework',
         'MYAPP.framework.deform',
         'MYAPP.gae',
+        'MYAPP.gae.authentication',
         'MYAPP.layouts',
         'MYAPP.panels',
         'MYAPP.recipe',
@@ -193,6 +194,10 @@ setup_info = {
             find_files('MYAPP/framework/deform',
                        'MYAPP/framework/deform/templates',
                        None),
+        'MYAPP.gae.authentication': [
+            'templates/forbidden.pt',
+            'templates/unauthorized.pt',
+        ],
         'MYAPP.recipe': [
             'files/*',
         ],

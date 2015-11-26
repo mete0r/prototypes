@@ -1,0 +1,18 @@
+<metal:block metal:use-macro="main_template">
+  <div metal:fill-slot="content">
+    <div class="container-fluid">
+      <div class="panel panel-danger">
+        <div class="panel-heading">
+          <h3 class="panel-title">403 Forbidden</h3>
+        </div>
+        <div class="panel-body">
+          <div class="text-center">
+            <p>접근 권한이 없습니다. 다시 로그인해야 합니다.</p>
+            <a class="btn btn-default"
+               href="${request.get_logout_url()}">다시 로그인</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</metal:block>
