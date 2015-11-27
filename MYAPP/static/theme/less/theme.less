@@ -1,0 +1,47 @@
+.navbar-brand-icon {
+  color: red;
+}
+
+.navbar-brand-name {
+  .hidden-xs();
+}
+
+.navbar-title {
+  position: absolute;
+  left: 50%;
+  margin: 0;
+  line-height: @line-height-computed;
+  height: @navbar-height;
+
+  background-color: transparent;
+  border: 1px solid transparent;
+  border-radius: @border-radius-base;
+  font-size: @font-size-large;
+  font-weight: bold;
+
+  .visible-xs();
+
+  &-inner {
+    display: block;
+    position: relative;
+    left: -50%;
+    padding: @navbar-padding-vertical @navbar-padding-horizontal;
+  }
+}
+
+.navbar-default {
+  .navbar-title {
+    color: @navbar-default-brand-color;
+  }
+}
+
+.navbar-inverse {
+  .navbar-title {
+    color: @navbar-inverse-brand-color;
+  }
+}
+
+.content-title {
+  .hidden-xs();
+  margin-top: 0;
+}

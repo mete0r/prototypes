@@ -2,6 +2,7 @@ include Makefile.rules
 
 BOWER_COMPONENTS := ../../bower_components
 BOOTSTRAP_FONTS_PATH := $(BOWER_COMPONENTS)/bootstrap/fonts
+bootswatch ?= cosmo
 
 # Sources
 
@@ -11,7 +12,7 @@ LESS_FILES	:= less/bootstrap.less
 # Targets
 
 FONTS	:= $(addprefix fonts/, $(notdir $(BOOTSTRAP_FONTS)))
-TARGETS	+= $(FONTS)
+TARGETS	+= $(FONTS) less/bootswatch.less less/variables.less
 
 # Rules
 
@@ -24,6 +25,10 @@ debug:
 all: $(BOWER_COMPONENTS) $(TARGETS)
 
 $(CSS_FILES): LESS_INCLUDE_PATH=less
+less/bootswatch.less: $(BOWER_COMPONENTS)/bootswatch/$(bootswatch)/bootswatch.less
+	ln -sf ../$(source) $(target)
+less/variables.less: $(BOWER_COMPONENTS)/bootswatch/$(bootswatch)/variables.less
+	ln -sf ../$(source) $(target)
 css/bootstrap.css: less/bootswatch.less less/variables.less
 $(FONTS): fonts/%: $(BOOTSTRAP_FONTS_PATH)/%
 	[ -e fonts ] || mkdir fonts

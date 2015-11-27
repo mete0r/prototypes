@@ -20,6 +20,8 @@
 /share
 /site-packages
 /var
+MYAPP/static/theme/less/bootswatch.less
+MYAPP/static/theme/less/variables.less
 .*.sw?
 *.pyc
 *.pyo
