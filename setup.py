@@ -159,6 +159,7 @@ setup_info = {
         'MYAPP.framework.deform',
         'MYAPP.recipe',
         'MYAPP.tests',
+        'MYAPP.widgets',
     ],
 
     # do not use '.'; just omit to specify setup.py directory
