@@ -18,6 +18,7 @@
 #
 from __future__ import absolute_import
 from __future__ import unicode_literals
+import logging
 
 from pyramid.location import lineage
 from pyramid_layout.layout import layout_config
@@ -27,6 +28,9 @@ from .bowerstatic import bootstrap_js
 
 from .nav import NavItem
 from .nav import NavItemCollection
+
+
+logger = logging.getLogger(__name__)
 
 
 def includeme(config):
