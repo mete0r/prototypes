@@ -19,7 +19,8 @@
 from __future__ import absolute_import
 from __future__ import unicode_literals
 
-import bowerstatic
+from .framework.bowerstatic import IBowerComponents
+from .framework.bowerstatic import bower
 
 
 def module_relative_path(path):
@@ -28,8 +29,6 @@ def module_relative_path(path):
     path = os.path.realpath(path)
     return path
 
-
-bower = bowerstatic.Bower()
 
 components = bower.components(
     'components',
@@ -44,22 +43,16 @@ theme = local_components.component(
 )
 
 jquery_js = components.resource('jquery/dist/jquery.js')
-bootstrap_css = local_components.resource('theme/css/bootstrap.css')
 bootstrap_js = components.resource('bootstrap/dist/js/bootstrap.js',
                                    dependencies=[jquery_js])
+bootstrap_css = local_components.resource('theme/css/bootstrap.css')
 
 
 def includeme(config):
+    config.registry.registerUtility(components, IBowerComponents)
     config.add_request_method(request_include, 'include')
-    config.add_tween(__name__ + '.tween_factory')
 
 
 def request_include(request, *args, **kwargs):
     include = local_components.includer(request.environ)
     return include(*args, **kwargs)
-
-
-def tween_factory(handler, registry):
-    injector = bowerstatic.InjectorTween(bower, handler)
-    publisher = bowerstatic.PublisherTween(bower, injector)
-    return publisher

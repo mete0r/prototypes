@@ -1,4 +1,0 @@
-<div>
-  <input id="${field.oid}" type="hidden" name="${field.name}" value="${cstruct}">
-  <img src="${cstruct}">
-</div>
