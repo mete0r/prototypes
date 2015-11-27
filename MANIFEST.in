@@ -22,6 +22,7 @@ recursive-include MYAPP *.pt
 recursive-include MYAPP/templates *.pt
 graft MYAPP/static/deform
 graft MYAPP/static/theme
+include MYAPP/widgets/signature/Makefile
 prune MYAPP/bower_components
 graft MYAPP/static
 prune MYAPP/static/theme/css

@@ -2,6 +2,7 @@ define ALL
 	update-requirements
 	theme
 	deform
+	deform.signature
 endef
 ALL:=$(shell echo $(ALL))  # to remove line-feeds
 
@@ -63,6 +64,7 @@ npmtools := $(lessc) $(minify) $(bower)
 
 THEME_DIR := MYAPP/static/theme
 DEFORM_DIR:= MYAPP/static/deform
+DEFORM_SIGNATURE_DIR:= MYAPP/widgets/signature
 
 $(npmtools):
 	npm install less minify bower --save-dev
@@ -72,6 +74,9 @@ theme: $(npmtools)
 
 deform: $(npmtools)
 	make -C $(DEFORM_DIR) node_modules_bin=$(node_modules_bin)
+
+deform.signature: $(npmtools)
+	make -C $(DEFORM_SIGNATURE_DIR) node_modules_bin=$(node_modules_bin)
 
 clean:
 	make -C $(THEME_DIR) clean

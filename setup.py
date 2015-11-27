@@ -160,6 +160,7 @@ setup_info = {
         'MYAPP.recipe',
         'MYAPP.tests',
         'MYAPP.widgets',
+        'MYAPP.widgets.signature',
     ],
 
     # do not use '.'; just omit to specify setup.py directory
@@ -192,6 +193,12 @@ setup_info = {
         # 'MYAPP.tests': [
         #   'files/*',
         # ],
+        'MYAPP.widgets.signature': [
+            '.bowerrc',
+            'bower.json',
+            'templates/signature.pt',
+            'templates/readonly/signature.pt',
+        ],
     },
     'install_requires': install_requires,
     'test_suite': '__main__.alltests',
