@@ -22,4 +22,9 @@ recursive-include MYAPP *.pt
 recursive-include MYAPP/templates *.pt
 graft MYAPP/static/deform
 graft MYAPP/static/theme
+prune MYAPP/bower_components
+graft MYAPP/static
+prune MYAPP/static/theme/css
+prune MYAPP/static/theme/fonts
+graft MYAPP/templates
 global-exclude .*.sw?

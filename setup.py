@@ -83,12 +83,23 @@ def find_files(relative_to, root_path, exclude):
     return found
 
 
+def exclude_bowercomponents_for_install(path):
+    pathcomp = path.split(os.path.sep)
+
+    # No npm packages
+    if 'node_modules' in pathcomp:
+        return True
+
+    # include everything
+    return False
+
+
 def exclude_static_for_install(path):
     dirname = os.path.dirname(path)
     filename = os.path.basename(path)
 
     # No npm packages
-    if 'node_modules' in dirname:
+    if 'node_modules' in path.split(os.path.sep):
         return True
 
     # for bowerstatic
@@ -99,19 +110,13 @@ def exclude_static_for_install(path):
     if fnmatch(filename, '*.css'):
         return False
 
+    if fnmatch(filename, '*.less'):
+        return False
+
     if fnmatch(filename, '*.js'):
         return False
 
     if dirname == 'static/theme/fonts':
-        return False
-
-    # exclude everything
-    return True
-
-
-def exclude_templates_for_install(path):
-    # include PageTemplate files
-    if path.endswith('.pt'):
         return False
 
     # exclude everything
@@ -153,19 +158,23 @@ setup_info = {
         'MYAPP.recipe',
         'MYAPP.tests',
     ],
+
     # do not use '.'; just omit to specify setup.py directory
     'package_dir': {
         # '': 'src',
     },
+
+    # 'package_data' specify files to be included in bdist.
+    # sdist does additional +/- on these result with MANIFEST.in
     'package_data': {
         'MYAPP': [
             'locale/*/*/*.mo',
         ] + find_files('MYAPP', 'MYAPP/bower_components',
-                       None) +
+                       exclude_bowercomponents_for_install) +
             find_files('MYAPP', 'MYAPP/static',
                        exclude_static_for_install) +
             find_files('MYAPP', 'MYAPP/templates',
-                       exclude_templates_for_install)
+                       None)
         + [
         ],
         'MYAPP.recipe': [
