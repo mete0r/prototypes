@@ -155,6 +155,7 @@ setup_info = {
 
     'packages': [
         'MYAPP',
+        'MYAPP.framework',
         'MYAPP.recipe',
         'MYAPP.tests',
     ],
