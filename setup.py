@@ -156,6 +156,7 @@ setup_info = {
     'packages': [
         'MYAPP',
         'MYAPP.framework',
+        'MYAPP.framework.deform',
         'MYAPP.recipe',
         'MYAPP.tests',
     ],
@@ -178,6 +179,10 @@ setup_info = {
                        None)
         + [
         ],
+        'MYAPP.framework.deform':
+            find_files('MYAPP/framework/deform',
+                       'MYAPP/framework/deform/templates',
+                       None),
         'MYAPP.recipe': [
             'files/*',
         ],
