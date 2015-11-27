@@ -1,0 +1,18 @@
+{
+  "name": "deform.signature",
+  "private": true,
+  "version": "0.0.0",
+  "homepage": "https://github.com/mete0r/prototypes",
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "../../bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "signature_pad": "~1.5.2"
+  }
+}
