@@ -182,7 +182,9 @@ setup_info = {
         'MYAPP.framework.deform':
             find_files('MYAPP/framework/deform',
                        'MYAPP/framework/deform/templates',
-                       None),
+                       None) + [
+                'bower.json',
+            ],
         'MYAPP.recipe': [
             'files/*',
         ],
