@@ -21,10 +21,7 @@ from __future__ import unicode_literals
 import logging
 
 from pyramid.httpexceptions import HTTPFound
-from pyramid.httpexceptions import HTTPUnauthorized
 from pyramid.response import Response
-from pyramid.security import forget
-from pyramid.view import forbidden_view_config
 from pyramid.view import view_config
 from deform import Form
 from deform import ValidationFailure
@@ -45,13 +42,6 @@ from .widgets import deferred_fileupload_widget
 
 
 logger = logging.getLogger(__name__)
-
-
-@forbidden_view_config()
-def forbidden(request):
-    response = HTTPUnauthorized()
-    response.headers.update(forget(request))
-    return response
 
 
 @view_config(context=IViewable,
