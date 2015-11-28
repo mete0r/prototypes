@@ -220,6 +220,7 @@ setup_info = {
         'pyramid_chameleon',
         'pyramid_layout',
         'PyYAML',
+        'relatorio',
         'rfc6266',
         'six',
     ],
