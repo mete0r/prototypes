@@ -34,6 +34,11 @@ def app_factory(global_config, **settings):
     config = Configurator(root_factory=root_factory, settings=settings)
     config.set_authentication_policy(authn_policy)
     config.set_authorization_policy(authz_policy)
+    config.add_translation_dirs(*[
+        'colander:locale',
+        'deform:locale',
+        'locale',
+    ])
     config.include('pyramid_chameleon')
     config.include('.framework')
     config.include('.framework.bowerstatic')
