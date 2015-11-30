@@ -178,7 +178,10 @@ setup_info = {
             find_files('MYAPP', 'MYAPP/static',
                        exclude_static_for_install) +
             find_files('MYAPP', 'MYAPP/templates',
-                       None)
+                       None) +
+            find_files('MYAPP', 'MYAPP/locale',
+                       None) +
+            []
         ),
         'MYAPP.framework.deform':
             find_files('MYAPP/framework/deform',
