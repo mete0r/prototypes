@@ -221,6 +221,7 @@ setup_info = {
         ],
         'zc.buildout': [
             'default = MYAPP.recipe:Recipe',
+            'app.ini = MYAPP.recipe.app_ini:AppIniRecipe',
             'supervisord = MYAPP.recipe.supervisord:SupervisordRecipe',
         ],
         'zc.buildout.uninstall': [
