@@ -34,7 +34,7 @@ logger = logging.getLogger(__name__)
 
 
 def includeme(config):
-    config.include('pyramid_layout')
+    config.scan('.layouts')
 
 
 @layout_config(template='templates/default_layout.pt')

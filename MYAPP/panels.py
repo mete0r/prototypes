@@ -35,6 +35,10 @@ from .interfaces import IDownloadable
 from .interfaces import IUploadable
 
 
+def includeme(config):
+    config.scan('.panels')
+
+
 @panel_config(name='navbar',
               renderer='templates/navbar.pt')
 def navbar(context, request, brand_name, title=''):

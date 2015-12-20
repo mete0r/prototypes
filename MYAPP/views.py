@@ -44,6 +44,10 @@ from .widgets import deferred_fileupload_widget
 logger = logging.getLogger(__name__)
 
 
+def includeme(config):
+    config.scan('.views')
+
+
 @view_config(context=IViewable,
              renderer='templates/node_view.pt',
              permission='view')
