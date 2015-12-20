@@ -23,7 +23,7 @@ from pyramid.config import Configurator
 from pyramid.authentication import BasicAuthAuthenticationPolicy
 from pyramid.authorization import ACLAuthorizationPolicy
 
-from .resources import root_factory
+from .gae.resources import root_factory
 from .security import authenticate_userpass
 
 
@@ -46,12 +46,12 @@ def app_factory(global_config, **settings):
     config.include('.bowerstatic')
     config.include('.framework.deform')
     config.include('.framework.deform.bowerstatic')
+    config.include('.gae.resources')
+    config.include('.gae.resources.folder')
+    config.include('.gae.resources.document')
     config.include('.layouts')
     config.include('.panels')
     config.include('.renderers')
-    config.include('.resources')
-    config.include('.resources.folder')
-    config.include('.resources.document')
     config.include('.session')
     config.include('.views')
     config.include('.widgets')
