@@ -163,6 +163,7 @@ setup_info = {
         'MYAPP.renderers',
         'MYAPP.resources',
         'MYAPP.tests',
+        'MYAPP.views',
         'MYAPP.widgets',
         'MYAPP.widgets.signature',
     ],

@@ -29,31 +29,18 @@ import colander
 import deform
 import rfc6266
 
-from .interfaces import IViewable
-from .interfaces import IAddable
-from .interfaces import IAdd
-from .interfaces import IEditable
-from .interfaces import IEdit
-from .interfaces import IDeletable
-from .interfaces import IDownloadable
-from .interfaces import IUploadable
-from .interfaces import IUpload
-from .widgets import deferred_fileupload_widget
+from ..interfaces import IAddable
+from ..interfaces import IAdd
+from ..interfaces import IEditable
+from ..interfaces import IEdit
+from ..interfaces import IDeletable
+from ..interfaces import IDownloadable
+from ..interfaces import IUploadable
+from ..interfaces import IUpload
+from ..widgets import deferred_fileupload_widget
 
 
 logger = logging.getLogger(__name__)
-
-
-def includeme(config):
-    config.scan('.views')
-
-
-@view_config(context=IViewable,
-             renderer='templates/node_view.pt',
-             permission='view')
-def node_view(context, request):
-    return {
-    }
 
 
 @view_config(context=IDownloadable, name='download',
@@ -81,7 +68,7 @@ class UploadSchema(colander.MappingSchema):
 
 
 @view_config(context=IUploadable, name='upload',
-             renderer='templates/node_upload.pt',
+             renderer='../templates/views/action/node_upload.pt',
              permission='upload')
 def node_upload(context, request):
     schema = UploadSchema()
@@ -95,7 +82,7 @@ def node_upload(context, request):
 
 @view_config(context=IUploadable, name='upload',
              request_method='POST',
-             renderer='templates/node_upload.pt',
+             renderer='../templates/views/action/node_upload.pt',
              permission='upload')
 def node_upload_post(context, request):
     schema = UploadSchema()
@@ -121,7 +108,7 @@ def node_upload_post(context, request):
 
 
 @view_config(context=IAddable, name='add',
-             renderer='templates/node_add.pt',
+             renderer='../templates/views/action/node_add.pt',
              permission='add')
 def node_add(context, request):
     typename = request.GET['type']
@@ -135,7 +122,7 @@ def node_add(context, request):
 
 @view_config(context=IAddable, name='add',
              request_method='POST',
-             renderer='templates/node_add.pt',
+             renderer='../templates/views/action/node_add.pt',
              permission='add')
 def node_add_post(context, request):
     typename = request.GET['type']
@@ -159,7 +146,7 @@ def node_add_post(context, request):
 
 
 @view_config(context=IEditable, name='edit',
-             renderer='templates/node_edit.pt',
+             renderer='../templates/views/action/node_edit.pt',
              permission='edit')
 def node_edit(context, request):
     edit = request.registry.getAdapter(context, IEdit)
@@ -172,7 +159,7 @@ def node_edit(context, request):
 
 @view_config(context=IEditable, name='edit',
              request_method='POST',
-             renderer='templates/node_edit.pt',
+             renderer='../templates/views/action/node_edit.pt',
              permission='edit')
 def node_edit_post(context, request):
     edit = request.registry.getAdapter(context, IEdit)
@@ -195,7 +182,7 @@ def node_edit_post(context, request):
 
 
 @view_config(context=IDeletable, name='delete',
-             renderer='templates/node_delete.pt',
+             renderer='../templates/views/action/node_delete.pt',
              permission='delete')
 def node_delete(context, request):
     return {
