@@ -161,6 +161,7 @@ setup_info = {
         'MYAPP.panels',
         'MYAPP.recipe',
         'MYAPP.renderers',
+        'MYAPP.resources',
         'MYAPP.tests',
         'MYAPP.widgets',
         'MYAPP.widgets.signature',

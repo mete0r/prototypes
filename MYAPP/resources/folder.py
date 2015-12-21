@@ -24,14 +24,12 @@ from pyramid.security import Allow
 from pyramid.security import Authenticated
 from pyramid.security import Everyone
 from zope.interface import implementer
-import colander
 
-from .interfaces import IDocument
-from .interfaces import IFolder
-from .interfaces import IAdd
-from .interfaces import IEdit
-from .interfaces import IDownloadable
-from .widgets import deferred_html_widget
+from ..interfaces import IAdd
+from ..interfaces import IEdit
+from ..interfaces import IFolder
+from .node import Node
+from .node import NodeSchema
 
 
 logger = logging.getLogger(__name__)
@@ -44,28 +42,6 @@ def includeme(config):
 def register_components(components):
     components.registerAdapter(FolderEdit, (Folder, ), IEdit)
     components.registerAdapter(FolderAddFolder, (Folder, ), IAdd, 'folder')
-    components.registerAdapter(FolderAddDocument, (Folder, ), IAdd, 'document')
-    components.registerAdapter(DocumentEdit, (Document, ), IEdit)
-
-
-def root_factory(request):
-    root = Folder()
-    root.__name__ = ''
-    root['index'] = Document('Index', '<p>This is folder index.</p>')
-    root['foo'] = Document('Foo', '<p>Foo content</p>')
-    root['folder'] = folder = Folder()
-    folder['bar'] = Document('Bar', '<p>Bar content</p>')
-    return root
-
-
-class Node(object):
-
-    __parent__ = None
-    __name__ = None
-
-
-class NodeSchema(colander.MappingSchema):
-    title = colander.SchemaNode(colander.String())
 
 
 @implementer(IFolder)
@@ -121,23 +97,6 @@ class FolderAddFolder(object):
         return node
 
 
-@implementer(IAdd)
-class FolderAddDocument(object):
-
-    def __init__(self, context):
-        self.context = context
-
-    @property
-    def schema(self):
-        return DocumentSchema()
-
-    def __call__(self, appstruct):
-        node = Document(**appstruct)
-        self.context[node.title] = node
-        logger.info('node %s added', node.__name__)
-        return node
-
-
 @implementer(IEdit)
 class FolderEdit(object):
 
@@ -159,63 +118,3 @@ class FolderEdit(object):
         self.context.__name__ = appstruct['title']
         logger.error('title: %s',
                      self.context.title)
-
-
-@implementer(IDocument, IDownloadable)
-class Document(Node):
-
-    __acl__ = [
-        (Allow, Everyone, 'view'),
-        (Allow, Authenticated, 'download'),
-        (Allow, Authenticated, 'edit'),
-        (Allow, Authenticated, 'delete'),
-    ]
-
-    title = None
-    html_content = None
-
-    def __init__(self, title, html_content):
-        self.title = title
-        self.html_content = html_content
-
-    content_type = 'text/html'
-
-    @property
-    def content_filename(self):
-        return self.__name__
-
-    @property
-    def content_bytes(self):
-        return self.html_content.encode('utf-8')
-
-
-class DocumentSchema(NodeSchema):
-    html_content = colander.SchemaNode(colander.String(),
-                                       widget=deferred_html_widget)
-
-
-@implementer(IEdit)
-class DocumentEdit(object):
-
-    def __init__(self, context):
-        self.context = context
-
-    @property
-    def schema(self):
-        return DocumentSchema()
-
-    def getAppStruct(self):
-        return {
-            'title': self.context.title,
-            'html_content': self.context.html_content,
-        }
-
-    def setAppStruct(self, appstruct):
-        self.context.title = appstruct['title']
-        self.context.html_content = appstruct['html_content']
-        logger.error('title: %s, html_content: %s',
-                     self.context.title,
-                     self.context.html_content)
-
-    appstruct = property(getAppStruct,
-                         setAppStruct)
