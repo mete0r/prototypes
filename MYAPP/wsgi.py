@@ -50,6 +50,8 @@ def app_factory(global_config, **settings):
     config.include('.panels')
     config.include('.renderers')
     config.include('.resources')
+    config.include('.resources.folder')
+    config.include('.resources.document')
     config.include('.views')
     config.include('.widgets')
     config.add_static_view('static/deform', 'deform:static')
