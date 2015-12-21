@@ -23,21 +23,17 @@ import logging
 from pyramid.location import lineage
 from pyramid_layout.layout import layout_config
 
-from .bowerstatic import bootstrap_css
-from .bowerstatic import bootstrap_js
+from ..bowerstatic import bootstrap_css
+from ..bowerstatic import bootstrap_js
 
-from .nav import NavItem
-from .nav import NavItemCollection
+from ..nav import NavItem
+from ..nav import NavItemCollection
 
 
 logger = logging.getLogger(__name__)
 
 
-def includeme(config):
-    config.scan('.layouts')
-
-
-@layout_config(template='templates/default_layout.pt')
+@layout_config(template='../templates/layouts/default.pt')
 class DefaultLayout(object):
 
     brand_name = 'MYAPP'
