@@ -208,6 +208,7 @@ setup_info = {
         'bowerstatic',
         'colander',
         'deform>=2.0a2',
+        'dogpile.cache>=0.5',
         'pyramid',
         'pyramid_chameleon',
         'pyramid_layout',

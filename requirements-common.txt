@@ -1,4 +1,6 @@
 bowerstatic==0.9
+dogpile.cache==0.5.7
+dogpile.core==0.4.1
 Chameleon==2.22
 colander==1.0
 deform==2.0a2
