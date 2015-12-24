@@ -1,6 +1,7 @@
 bowerstatic
 colander
 deform>=2.0a2
+dogpile.cache>=0.5
 pyramid
 pyramid-chameleon
 pyramid-layout
