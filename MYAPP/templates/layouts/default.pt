@@ -13,6 +13,13 @@
 
     <div class="container">
 
+      <div class="row"
+           tal:condition="layout.flash_messages">
+        <div class="alert alert-info" tal:repeat="message layout.flash_messages">
+          ${message}
+        </div>
+      </div>
+
       <div class="row">
         <div class="col-md-8">
           <h1 class="content-title" tal:content="layout.title"></h1>

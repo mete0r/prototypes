@@ -44,6 +44,14 @@ class DefaultLayout(object):
         request.include(bootstrap_css)
         request.include(bootstrap_js)
         self.use_deform = False
+        session = self.request.session
+        if not session.new:
+            self.flash_messages = self.request.session.peek_flash()
+            if self.flash_messages:
+                logger.debug('pop flash messages')
+                self.request.session.pop_flash()
+        else:
+            self.flash_messages = ()
 
     @property
     def navbar_title(self):
@@ -85,3 +93,15 @@ class DefaultLayout(object):
             navitem.current = navitem.url == url
             nav.items.append(navitem)
         return nav
+
+    @property
+    def can_logout(self):
+        if self.request.authenticated_userid:
+            try:
+                return self.logout_url
+            except Exception as e:
+                logger.exception(e)
+
+    @property
+    def logout_url(self):
+        return self.request.get_logout_url()
