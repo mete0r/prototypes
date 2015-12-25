@@ -229,6 +229,9 @@ setup_info = {
         'console_scripts': [
             'MYAPP = MYAPP.cli:main',
         ],
+        'dogpile.cache': [
+            'google.appengine.ext.ndb = MYAPP.gae.dogpile_cache:NDBBackend',  # noqa
+        ],
         'zc.buildout': [
             'default = MYAPP.recipe:Recipe',
             'app.ini = MYAPP.recipe.app_ini:AppIniRecipe',
