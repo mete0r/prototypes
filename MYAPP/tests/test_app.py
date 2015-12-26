@@ -37,6 +37,7 @@ class AppTest(TestCase):
         from ..wsgi import app_factory
 
         app = app_factory({}, **{
+            'session.secret': 'not-so-secret',
         })
         app = TestApp(app)
         return app
