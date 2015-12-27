@@ -23,12 +23,15 @@ import logging
 from pyramid.httpexceptions import HTTPFound
 from pyramid.response import Response
 from pyramid.view import view_config
+from deform import Button
 from deform import Form
 from deform import ValidationFailure
 import colander
 import deform
 import rfc6266
 
+from ..i18n import _
+from ..i18n import translate
 from ..interfaces import IAddable
 from ..interfaces import IAdd
 from ..interfaces import IEditable
@@ -41,6 +44,11 @@ from ..widgets import deferred_fileupload_widget
 
 
 logger = logging.getLogger(__name__)
+
+
+MSG_ADD = _('Add')
+MSG_SAVE = _('Save')
+MSG_UPLOAD = _('Upload')
 
 
 @view_config(context=IDownloadable, name='download',
@@ -73,7 +81,10 @@ class UploadSchema(colander.MappingSchema):
 def node_upload(context, request):
     schema = UploadSchema()
     schema = schema.bind()
-    form = Form(schema, buttons=('upload',))
+    buttons = (
+        Button('upload', translate(MSG_UPLOAD, request)),
+    )
+    form = Form(schema, buttons=buttons)
     request.include_deform_widget(form)
     return {
         'form': form.render(),
@@ -87,7 +98,10 @@ def node_upload(context, request):
 def node_upload_post(context, request):
     schema = UploadSchema()
     schema = schema.bind()
-    form = Form(schema, buttons=('upload',))
+    buttons = (
+        Button('upload', translate(MSG_UPLOAD, request)),
+    )
+    form = Form(schema, buttons=buttons)
     upload = request.registry.getAdapter(context, IUpload)
     if 'upload' in request.POST:
         controls = request.POST.items()
@@ -112,8 +126,11 @@ def node_upload_post(context, request):
              permission='add')
 def node_add(context, request):
     typename = request.GET['type']
+    buttons = (
+        Button('add', translate(MSG_ADD, request)),
+    )
     add = request.registry.getAdapter(context, IAdd, typename)
-    form = Form(add.schema.bind(), buttons=('add',))
+    form = Form(add.schema.bind(), buttons=buttons)
     request.include_deform_widget(form)
     return {
         'form': form.render(),
@@ -126,8 +143,11 @@ def node_add(context, request):
              permission='add')
 def node_add_post(context, request):
     typename = request.GET['type']
+    buttons = (
+        Button('add', translate(MSG_ADD, request)),
+    )
     add = request.registry.getAdapter(context, IAdd, typename)
-    form = Form(add.schema.bind(), buttons=('add',))
+    form = Form(add.schema.bind(), buttons=buttons)
     if 'add' in request.POST:
         controls = request.POST.items()
         try:
@@ -150,7 +170,10 @@ def node_add_post(context, request):
              permission='edit')
 def node_edit(context, request):
     edit = request.registry.getAdapter(context, IEdit)
-    form = Form(edit.schema.bind(), buttons=('submit',))
+    buttons = (
+        Button('save', translate(MSG_SAVE, request)),
+    )
+    form = Form(edit.schema.bind(), buttons=buttons)
     request.include_deform_widget(form)
     return {
         'form': form.render(edit.appstruct),
@@ -163,8 +186,11 @@ def node_edit(context, request):
              permission='edit')
 def node_edit_post(context, request):
     edit = request.registry.getAdapter(context, IEdit)
-    form = Form(edit.schema.bind(), buttons=('submit',))
-    if 'submit' in request.POST:
+    buttons = (
+        Button('save', translate(MSG_SAVE, request)),
+    )
+    form = Form(edit.schema.bind(), buttons=buttons)
+    if 'save' in request.POST:
         controls = request.POST.items()
         try:
             appstruct = form.validate(controls)
