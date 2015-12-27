@@ -210,6 +210,9 @@ setup_info = {
     'tests_require': tests_require,
     'extras_require': {
         'test': tests_require,
+        'i18n': [
+            'lingua>=3.7',
+        ],
     },
     'setup_requires': [
         'babel',
