@@ -108,7 +108,7 @@ def node_upload_post(context, request):
         Button('upload', translate(MSG_UPLOAD, request)),
     )
     form = Form(schema, buttons=buttons)
-    upload = request.registry.getAdapter(context, IUpload)
+    upload = request.registry.getMultiAdapter((context, request), IUpload)
     if 'upload' in request.POST:
         controls = request.POST.items()
         try:
@@ -135,7 +135,7 @@ def node_add(context, request):
     buttons = (
         Button('add', translate(MSG_ADD, request)),
     )
-    add = request.registry.getAdapter(context, IAdd, typename)
+    add = request.registry.getMultiAdapter((context, request), IAdd, typename)
     schema = add.schema.bind()
     schema.add(CSRF_TOKEN_SCHEMA)
     form = Form(schema, buttons=buttons)
@@ -157,7 +157,7 @@ def node_add_post(context, request):
     buttons = (
         Button('add', translate(MSG_ADD, request)),
     )
-    add = request.registry.getAdapter(context, IAdd, typename)
+    add = request.registry.getMultiAdapter((context, request), IAdd, typename)
     form = Form(add.schema.bind(), buttons=buttons)
     if 'add' in request.POST:
         controls = request.POST.items()
@@ -180,7 +180,7 @@ def node_add_post(context, request):
              renderer='../templates/views/action/node_edit.pt',
              permission='edit')
 def node_edit(context, request):
-    edit = request.registry.getAdapter(context, IEdit)
+    edit = request.registry.getMultiAdapter((context, request), IEdit)
     buttons = (
         Button('save', translate(MSG_SAVE, request)),
     )
@@ -201,7 +201,7 @@ def node_edit(context, request):
              renderer='../templates/views/action/node_edit.pt',
              permission='edit')
 def node_edit_post(context, request):
-    edit = request.registry.getAdapter(context, IEdit)
+    edit = request.registry.getMultiAdapter((context, request), IEdit)
     buttons = (
         Button('save', translate(MSG_SAVE, request)),
     )
