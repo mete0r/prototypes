@@ -20,6 +20,7 @@ from __future__ import absolute_import
 from __future__ import unicode_literals
 import logging
 
+from pyramid.interfaces import IRequest
 from pyramid.security import Allow
 from pyramid.security import Authenticated
 from pyramid.security import Everyone
@@ -44,8 +45,10 @@ def includeme(config):
 
 
 def register_components(components):
-    components.registerAdapter(DocumentEdit, (Document, ), IEdit)
-    components.registerAdapter(DocumentAddToFolder, (Folder, ), IAdd,
+    components.registerAdapter(DocumentEdit, (Document, IRequest), IEdit)
+    components.registerAdapter(DocumentAddToFolder,
+                               (Folder, IRequest),
+                               IAdd,
                                'document')
 
 
@@ -85,8 +88,9 @@ class DocumentSchema(NodeSchema):
 @implementer(IAdd)
 class DocumentAddToFolder(object):
 
-    def __init__(self, context):
+    def __init__(self, context, request):
         self.context = context
+        self.request = request
 
     @property
     def schema(self):
@@ -102,8 +106,9 @@ class DocumentAddToFolder(object):
 @implementer(IEdit)
 class DocumentEdit(object):
 
-    def __init__(self, context):
+    def __init__(self, context, request):
         self.context = context
+        self.request = request
 
     @property
     def schema(self):

@@ -20,6 +20,7 @@ from __future__ import absolute_import
 from __future__ import unicode_literals
 import logging
 
+from pyramid.interfaces import IRequest
 from pyramid.security import Allow
 from pyramid.security import Authenticated
 from pyramid.security import Everyone
@@ -40,8 +41,11 @@ def includeme(config):
 
 
 def register_components(components):
-    components.registerAdapter(FolderEdit, (Folder, ), IEdit)
-    components.registerAdapter(FolderAddFolder, (Folder, ), IAdd, 'folder')
+    components.registerAdapter(FolderEdit, (Folder, IRequest), IEdit)
+    components.registerAdapter(FolderAddFolder,
+                               (Folder, IRequest),
+                               IAdd,
+                               'folder')
 
 
 @implementer(IFolder)
@@ -82,8 +86,9 @@ class FolderSchema(NodeSchema):
 @implementer(IAdd)
 class FolderAddFolder(object):
 
-    def __init__(self, context):
+    def __init__(self, context, request):
         self.context = context
+        self.request = request
 
     @property
     def schema(self):
@@ -100,8 +105,8 @@ class FolderAddFolder(object):
 @implementer(IEdit)
 class FolderEdit(object):
 
-    def __init__(self, context):
-        self.context = context
+    def __init__(self, context, request):
+        self.context = context, request
 
     @property
     def schema(self):
