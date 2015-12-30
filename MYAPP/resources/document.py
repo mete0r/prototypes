@@ -96,6 +96,11 @@ class DocumentAddToFolder(object):
     def schema(self):
         return DocumentSchema()
 
+    @property
+    def appstruct(self):
+        return {
+        }
+
     def __call__(self, appstruct):
         node = Document(**appstruct)
         self.context[node.title] = node

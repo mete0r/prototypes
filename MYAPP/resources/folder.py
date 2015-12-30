@@ -94,6 +94,11 @@ class FolderAddFolder(object):
     def schema(self):
         return FolderSchema()
 
+    @property
+    def appstruct(self):
+        return {
+        }
+
     def __call__(self, appstruct):
         name = appstruct['title']
         node = Folder()
