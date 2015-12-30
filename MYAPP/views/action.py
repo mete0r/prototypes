@@ -139,7 +139,7 @@ def node_add(context, request):
     schema = add.schema.bind()
     schema.add(CSRF_TOKEN_SCHEMA)
     form = Form(schema, buttons=buttons)
-    appstruct = {}
+    appstruct = add.appstruct
     appstruct[CSRF_TOKEN_NAME] = request.session.new_csrf_token()
     request.include_deform_widget(form)
     return {

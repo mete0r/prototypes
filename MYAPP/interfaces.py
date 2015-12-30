@@ -80,6 +80,7 @@ class IAddable(Interface):
 class IAdd(Interface):
 
     schema = Attribute('Colander Schema.')
+    appstruct = Attribute('Initial appstruct. Read-only.')
 
     def __call__(appstruct):
         '''
