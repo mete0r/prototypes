@@ -38,7 +38,7 @@ logger = logging.getLogger(__name__)
               context=IAddable,
               renderer='../templates/panels/action/add-dropdown.pt')
 def action_add_dropdown(context, request):
-    itemtypes = request.registry.getAdapters((context,), IAdd)
+    itemtypes = request.registry.getAdapters((context, request), IAdd)
     itemtypes = imap(lambda x: x[0], itemtypes)
     return {
         'title': 'Add',
