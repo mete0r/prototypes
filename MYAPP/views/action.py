@@ -41,6 +41,8 @@ from ..interfaces import IDownloadable
 from ..interfaces import IUploadable
 from ..interfaces import IUpload
 from ..widgets import deferred_fileupload_widget
+from .csrf import CSRF_TOKEN_NAME
+from .csrf import CSRF_TOKEN_SCHEMA
 
 
 logger = logging.getLogger(__name__)
@@ -81,18 +83,22 @@ class UploadSchema(colander.MappingSchema):
 def node_upload(context, request):
     schema = UploadSchema()
     schema = schema.bind()
+    schema.add(CSRF_TOKEN_SCHEMA)
     buttons = (
         Button('upload', translate(MSG_UPLOAD, request)),
     )
     form = Form(schema, buttons=buttons)
     request.include_deform_widget(form)
+    appstruct = {}
+    appstruct[CSRF_TOKEN_NAME] = request.session.new_csrf_token()
     return {
-        'form': form.render(),
+        'form': form.render(appstruct),
     }
 
 
 @view_config(context=IUploadable, name='upload',
              request_method='POST',
+             check_csrf=CSRF_TOKEN_NAME,
              renderer='../templates/views/action/node_upload.pt',
              permission='upload')
 def node_upload_post(context, request):
@@ -130,15 +136,20 @@ def node_add(context, request):
         Button('add', translate(MSG_ADD, request)),
     )
     add = request.registry.getAdapter(context, IAdd, typename)
-    form = Form(add.schema.bind(), buttons=buttons)
+    schema = add.schema.bind()
+    schema.add(CSRF_TOKEN_SCHEMA)
+    form = Form(schema, buttons=buttons)
+    appstruct = {}
+    appstruct[CSRF_TOKEN_NAME] = request.session.new_csrf_token()
     request.include_deform_widget(form)
     return {
-        'form': form.render(),
+        'form': form.render(appstruct),
     }
 
 
 @view_config(context=IAddable, name='add',
              request_method='POST',
+             check_csrf=CSRF_TOKEN_NAME,
              renderer='../templates/views/action/node_add.pt',
              permission='add')
 def node_add_post(context, request):
@@ -173,15 +184,20 @@ def node_edit(context, request):
     buttons = (
         Button('save', translate(MSG_SAVE, request)),
     )
-    form = Form(edit.schema.bind(), buttons=buttons)
+    schema = edit.schema.bind()
+    schema.add(CSRF_TOKEN_SCHEMA)
+    form = Form(schema, buttons=buttons)
     request.include_deform_widget(form)
+    appstruct = edit.appstruct
+    appstruct[CSRF_TOKEN_NAME] = request.session.new_csrf_token()
     return {
-        'form': form.render(edit.appstruct),
+        'form': form.render(appstruct),
     }
 
 
 @view_config(context=IEditable, name='edit',
              request_method='POST',
+             check_csrf=CSRF_TOKEN_NAME,
              renderer='../templates/views/action/node_edit.pt',
              permission='edit')
 def node_edit_post(context, request):
@@ -212,11 +228,14 @@ def node_edit_post(context, request):
              permission='delete')
 def node_delete(context, request):
     return {
+        'csrf_token_name': CSRF_TOKEN_NAME,
+        'csrf_token_value': request.session.new_csrf_token(),
     }
 
 
 @view_config(context=IDeletable, name='delete',
              request_method='POST',
+             check_csrf=CSRF_TOKEN_NAME,
              permission='delete')
 def node_delete_post(context, request):
     parent = context.__parent__

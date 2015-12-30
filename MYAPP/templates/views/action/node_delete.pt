@@ -1,6 +1,7 @@
 <metal:block metal:use-macro="main_template">
   <form method="POST" metal:fill-slot="content">
     Delete?
+    <input type="hidden" name="${csrf_token_name}" value="${csrf_token_value}">
     <button class="btn btn-danger" type="submit">Delete</button>
   </form>
 </metal:block>
