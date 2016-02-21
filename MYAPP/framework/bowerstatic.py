@@ -31,15 +31,18 @@ class IBowerComponents(Interface):
     ''' Marker interface '''
 
 
-bower = bowerstatic.Bower()
+class IBowerLocalComponents(Interface):
+    ''' Marker interface '''
 
 
 def includeme(config):
+    bower = bowerstatic.Bower()
     config.registry.registerUtility(bower, IBower)
     config.add_tween(__name__ + '.tween_factory')
 
 
 def tween_factory(handler, registry):
+    bower = registry.getUtility(IBower)
     injector = bowerstatic.InjectorTween(bower, handler)
     publisher = bowerstatic.PublisherTween(bower, injector)
     return publisher

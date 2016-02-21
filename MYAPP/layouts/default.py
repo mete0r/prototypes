@@ -23,8 +23,8 @@ import logging
 from pyramid.location import lineage
 from pyramid_layout.layout import layout_config
 
-from ..bowerstatic import bootstrap_css
-from ..bowerstatic import bootstrap_js
+from ..bowerstatic import IBootstrapCSS
+from ..bowerstatic import IBootstrapJS
 
 from ..nav import NavItem
 from ..nav import NavItemCollection
@@ -41,6 +41,8 @@ class DefaultLayout(object):
     def __init__(self, context, request):
         self.context = context
         self.request = request
+        bootstrap_js = request.registry.getUtility(IBootstrapJS)
+        bootstrap_css = request.registry.getUtility(IBootstrapCSS)
         request.include(bootstrap_css)
         request.include(bootstrap_js)
         self.use_deform = False
