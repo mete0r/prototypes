@@ -4,11 +4,13 @@
 #
 #    pip-compile --output-file requirements.txt requirements.in
 #
+chameleon==3.4            # via pyramid-chameleon
 hupper==1.3               # via pyramid
 pastedeploy==1.5.2        # via plaster-pastedeploy, pyramid
 plaster-pastedeploy==0.6  # via pyramid
 plaster==1.0              # via plaster-pastedeploy, pyramid
 pyjwt==1.6.4              # via pyramid-jwt
+pyramid-chameleon==0.3
 pyramid-jwt==1.4.1
 pyramid==1.9.2
 repoze.lru==0.7           # via pyramid

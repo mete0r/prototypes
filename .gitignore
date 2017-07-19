@@ -3,6 +3,7 @@
 /.installed.cfg
 /.pip-sync
 /.tox
+/METE0R_PACKAGE/static
 /bin
 /build
 /develop-eggs
@@ -13,6 +14,7 @@
 /lib-python
 /lib_pypy
 /local
+/node_modules
 /notebooks/.ipynb_checkpoints
 /parts
 /pip-selfcheck.json

@@ -98,6 +98,16 @@ requirements/dev.txt: $(REQUIREMENTS_IN_DEV)
 bootstrap-virtualenv.py: requirements.txt bootstrap-virtualenv.in
 	python setup.py virtualenv_bootstrap_script -o $@ -r $<
 
+NODEJS_VERSION:=v8.11.4
+bin/node:
+	mkdir -p share/dists/nodejs/$(NODEJS_VERSION)
+	cd share/dists/nodejs/$(NODEJS_VERSION) && wget --no-clobber 'https://nodejs.org/dist/$(NODEJS_VERSION)/node-$(NODEJS_VERSION)-linux-x64.tar.xz'
+	cd share/dists/nodejs/$(NODEJS_VERSION) && wget --no-clobber 'https://nodejs.org/dist/$(NODEJS_VERSION)/SHASUMS256.txt.asc'
+	cd share/dists/nodejs/$(NODEJS_VERSION) && gpg --verify SHASUMS256.txt.asc
+	cd share/dists/nodejs/$(NODEJS_VERSION) && grep node-$(NODEJS_VERSION)-linux-x64.tar.xz SHASUMS256.txt.asc | shasum -a 256 -c -
+	tar -f share/dists/nodejs/$(NODEJS_VERSION)/node-$(NODEJS_VERSION)-linux-x64.tar.xz -xJ --strip-components=1	\
+		--exclude=LICENSE --exclude=CHANGELOG.md --exclude=README.md
+
 .PHONY: notebook
 notebook:
 	$(VENV)	jupyter notebook --notebook-dir=notebooks
@@ -115,5 +125,5 @@ devshell: update-requirements
 
 .PHONY: qtconsole
 qtconsole: update-requirements
-	$(VENV) python setup.py egg_info
+	$(VENV) python setup.py build
 	$(VENV) env PYTHONPATH=$(PWD) jupyter qtconsole

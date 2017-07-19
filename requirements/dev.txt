@@ -6,6 +6,7 @@
 #
 alabaster==0.7.11
 argcomplete==1.9.4
+babel-lingua-chameleon==0.1.0
 babel==2.6.0
 backports-abc==0.5        # via tornado
 backports.shutil-get-terminal-size==1.0.0  # via ipython
@@ -13,6 +14,7 @@ beautifulsoup4==4.6.3     # via webtest
 bleach==2.1.4             # via nbconvert, readme-renderer
 certifi==2018.8.24        # via requests
 cffi==1.11.5              # via cmarkgfm
+chameleon==3.4            # via lingua, pyramid-chameleon
 chardet==3.0.4            # via requests
 check-manifest==0.37
 click==6.7                # via pip-tools, sphinx-intl
@@ -48,6 +50,7 @@ jupyter-client==5.2.3     # via ipykernel, jupyter-console, notebook, qtconsole
 jupyter-console==5.2.0    # via jupyter
 jupyter-core==4.4.0       # via jupyter-client, nbconvert, nbformat, notebook, qtconsole
 jupyter==1.0.0
+lingua==4.13              # via babel-lingua-chameleon
 lxml==4.2.4               # via pyquery
 mako==1.0.7               # via pyramid-mako
 markupsafe==1.0           # via jinja2, mako
@@ -68,6 +71,7 @@ pkginfo==1.4.2            # via twine
 plaster-pastedeploy==0.6  # via pyramid
 plaster==1.0              # via plaster-pastedeploy, pyramid
 pluggy==0.7.1             # via tox
+polib==1.1.0              # via lingua
 prometheus-client==0.3.1  # via notebook
 prompt-toolkit==1.0.15    # via ipython, jupyter-console
 ptyprocess==0.6.0         # via pexpect, terminado
@@ -79,6 +83,7 @@ pygments==2.2.0           # via httpie, ipython, jupyter-console, nbconvert, pyr
 pyjwt==1.6.4              # via pyramid-jwt
 pyparsing==2.2.0          # via packaging
 pyquery==1.4.0
+pyramid-chameleon==0.3
 pyramid-debugtoolbar==4.4
 pyramid-ipython==0.2
 pyramid-jwt==1.4.1

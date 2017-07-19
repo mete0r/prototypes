@@ -75,7 +75,9 @@ class AppTest(TestCase):
     def test_root(self, app):
         testapp = TestApp(app)
 
-        r = testapp.get('/')
+        r = testapp.get('/', headers={
+            'Accept': str('application/json'),
+        })
         self.assertEquals(None, r.json)
 
         r = testapp.put_json('/', 'Hello', status=403)
@@ -89,5 +91,7 @@ class AppTest(TestCase):
         testapp.authorization = ('JWT', token)
         r = testapp.put_json('/', 'Hello')
 
-        r = testapp.get('/')
+        r = testapp.get('/', headers={
+            'Accept': str('application/json'),
+        })
         self.assertEquals('Hello', r.json)

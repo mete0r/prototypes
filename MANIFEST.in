@@ -3,11 +3,14 @@ include CHANGES.rst
 include Makefile
 include README.rst
 include *.py
+include .eslintrc
 include bootstrap-virtualenv.in
 include bootstrap-virtualenv.py
 include buildout.cfg
 include development.ini
 exclude new-project.sh
+include package.json
+include package-lock.json
 include requirements.in
 include requirements.txt
 include requirements/dev.in
@@ -22,9 +25,14 @@ include requirements/test.in
 include requirements/test.txt
 include tox.ini
 include virtualenv_support/README.rst
+include webpack.config.js
 include METE0R_PACKAGE/locale/METE0R-PROJECT.pot
 include METE0R_PACKAGE/locale/*/LC_MESSAGES/*.po
 exclude METE0R_PACKAGE/locale/*/LC_MESSAGES/*.mo
+include METE0R_PACKAGE/templates/*.pt
+include METE0R_PACKAGE/templates/*.js
+include METE0R_PACKAGE/templates/*.scss
+exclude METE0R_PACKAGE/static/*
 recursive-include docs *.bat
 recursive-include docs *.py
 recursive-include docs *.rst

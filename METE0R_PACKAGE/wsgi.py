@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 #
 #   METE0R-PROJECT: SOME_DESCRIPTION
-#   Copyright (C) 2015-2017 mete0r <mete0r@sarangbang.or.kr>
+#   Copyright (C) 2015-2018 mete0r <mete0r@sarangbang.or.kr>
 #
 #   This program is free software: you can redistribute it and/or modify
 #   it under the terms of the GNU Affero General Public License as published by
@@ -34,6 +34,7 @@ from pyramid.httpexceptions import HTTPNoContent
 from pyramid.security import Allow
 from pyramid.security import Authenticated
 from pyramid.security import Everyone
+from pyramid.static import ManifestCacheBuster
 from pyramid.view import view_config
 from zope.interface import implementer
 from zope.location import ILocation
@@ -82,12 +83,28 @@ def app_factory(global_config, **settings):
     config.add_translation_dirs(*[
         'locale',
     ])
+
     config.include('pyramid_jwt')
     config.set_jwt_authentication_policy()
     config.set_authorization_policy(
         ACLAuthorizationPolicy()
     )
-    config.include('pyramid_layout')
+
+    config.include('pyramid_chameleon')
+
+    cachebuster_reload = settings.get(
+        'manifestcachebuster.reload', 'false'
+    )
+    cachebuster_reload = cachebuster_reload == 'true'
+    cachebuster = ManifestCacheBuster(
+        'static/manifest.json',
+        reload=cachebuster_reload,
+    )
+    config.add_static_view(name='static', path='static')
+    config.add_cache_buster(
+        'static', cachebuster,
+    )
+
     config.scan(ignore=[
         b'.tests'
     ])
@@ -112,6 +129,27 @@ class Site(object):
 
 @view_config(context=Site,
              request_method='GET',
+             accept='text/html',
+             permission='read',
+             renderer='templates/site.pt')
+def site_get_html(context, request):
+    path = os.path.join(
+        request.registry.settings['lib-directory'],
+        'site.json',
+    )
+    try:
+        fp = io.open(path, 'r', encoding='utf-8')
+    except IOError:
+        return None
+    with fp:
+        return {
+            'data': json.load(fp)
+        }
+
+
+@view_config(context=Site,
+             request_method='GET',
+             accept='application/json',
              permission='read',
              renderer='json')
 def site_get(context, request):

@@ -21,6 +21,7 @@ from contextlib import contextmanager
 from distutils.command.build import build as _build
 import io
 import os.path
+import subprocess
 
 
 def setup_dir(f):
@@ -116,6 +117,8 @@ setup_info = {
     'package_data': {
         'METE0R_PACKAGE': [
             'locale/*/*/*.mo',
+            'static/*',
+            'templates/*.pt',
         ],
         # 'METE0R_PACKAGE.tests': [
         #   'files/*',
@@ -134,6 +137,7 @@ setup_info = {
     'message_extractors': {
         'METE0R_PACKAGE': [
             ('**.py', 'python', None),
+            ('**.pt', 'lingua-chameleon', None),
         ]
     },
     'entry_points': {
@@ -169,6 +173,14 @@ setup_info = {
 class build(_build):
     def run(self):
         self.run_command('compile_catalog')
+
+        npm_path = os.environ.get('NPM', 'npm')
+
+        if not os.path.exists('node_modules'):
+            subprocess.check_call([npm_path, 'install'])
+
+        subprocess.check_call([npm_path, 'run', 'build'])
+
         _build.run(self)
 
 

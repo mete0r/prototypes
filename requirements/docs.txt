@@ -7,6 +7,7 @@
 alabaster==0.7.11
 babel==2.6.0              # via sphinx, sphinx-intl
 certifi==2018.8.24        # via requests
+chameleon==3.4            # via pyramid-chameleon
 chardet==3.0.4            # via requests
 click==6.7                # via sphinx-intl
 docutils==0.14            # via sphinx
@@ -22,6 +23,7 @@ plaster==1.0              # via plaster-pastedeploy, pyramid
 pygments==2.2.0           # via sphinx
 pyjwt==1.6.4              # via pyramid-jwt
 pyparsing==2.2.0          # via packaging
+pyramid-chameleon==0.3
 pyramid-jwt==1.4.1
 pyramid==1.9.2
 pytz==2018.5              # via babel

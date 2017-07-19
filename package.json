@@ -1,0 +1,45 @@
+{
+  "name": "METE0R-PROJECT",
+  "version": "0.0.0",
+  "description": "SOME_DESCRIPTION",
+  "main": "index.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "dependencies": {
+    "bootstrap": "^4.1.3",
+    "bootswatch": "^4.1.3",
+    "jquery": "^3.3.1",
+    "popper.js": "^1.14.4"
+  },
+  "devDependencies": {
+    "babel-core": "^6.26.3",
+    "babel-eslint": "^9.0.0",
+    "babel-loader": "^7.1.5",
+    "babel-preset-env": "^1.7.0",
+    "clean-webpack-plugin": "^0.1.19",
+    "css-loader": "^1.0.0",
+    "eslint": "^5.5.0",
+    "eslint-loader": "^2.1.0",
+    "mini-css-extract-plugin": "^0.4.2",
+    "node-sass": "^4.9.3",
+    "sass-loader": "^7.1.0",
+    "webpack": "^4.16.5",
+    "webpack-cli": "^3.1.0",
+    "webpack-manifest-plugin": "^2.0.3"
+  },
+  "scripts": {
+    "build": "webpack --mode=production",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mete0r/prototypes.git"
+  },
+  "author": "mete0r <mete0r@sarangbang.or.kr>",
+  "license": "AGPL-3.0+",
+  "bugs": {
+    "url": "https://github.com/mete0r/prototypes/issues"
+  },
+  "homepage": "https://github.com/mete0r/prototypes"
+}
