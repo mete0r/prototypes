@@ -18,16 +18,128 @@
 #
 from __future__ import absolute_import
 from __future__ import unicode_literals
+try:
+    from ConfigParser import ConfigParser
+except ImportError:
+    from configparser import ConfigParser
+import io
+import json
+import logging
+import os.path
+import sys
+
+from pyramid.authorization import ACLAuthorizationPolicy
+from pyramid.config import Configurator
+from pyramid.httpexceptions import HTTPNoContent
+from pyramid.security import Allow
+from pyramid.security import Authenticated
+from pyramid.security import Everyone
+from pyramid.view import view_config
+from zope.interface import implementer
+from zope.location import ILocation
+import six
 
 
-def app_factory(global_config, **local_conf):
-    ''' PasteDeploy app_factory
+logger = logging.getLogger(__name__)
 
-    see http://pythonpaste.org/deploy/
-    '''
-    def app(environ, start_response):
-        status = b'200 OK'
-        headers = [(b'Content-Type', b'text/plain; charset=utf-8')]
-        start_response(status, headers)
-        yield b'app ok'
-    return app
+
+def app_factory(global_config, **settings):
+    etc_directory = settings.setdefault(
+        'etc-directory',
+        os.path.join(sys.prefix, 'etc', 'METE0R-PROJECT'),
+    )
+    run_directory = settings.setdefault(
+        'run-directory',
+        os.path.join(sys.prefix, 'var', 'run', 'METE0R-PROJECT'),
+    )
+    lib_directory = settings.setdefault(
+        'lib-directory',
+        os.path.join(sys.prefix, 'var', 'lib', 'METE0R-PROJECT'),
+    )
+    cache_directory = settings.setdefault(
+        'cache-directory',
+        os.path.join(sys.prefix, 'var', 'cache', 'METE0R-PROJECT'),
+    )
+    logger.info('etc-directory: %s', etc_directory)
+    logger.info('run-directory: %s', run_directory)
+    logger.info('lib-directory: %s', lib_directory)
+    logger.info('cache-directory: %s', cache_directory)
+
+    credentials_ini = settings.get(
+        'credentials.ini',
+        os.path.join(etc_directory, 'credentials.ini'),
+    )
+    if os.path.exists(credentials_ini):
+        logger.info('loading %s', credentials_ini)
+        configparser = ConfigParser()
+        configparser.read(credentials_ini)
+        settings.update(
+            dict(configparser.items('credentials'))
+        )
+
+    config = Configurator(settings=settings)
+    config.set_root_factory(root_factory)
+    config.add_translation_dirs(*[
+        'locale',
+    ])
+    config.include('pyramid_jwt')
+    config.set_jwt_authentication_policy()
+    config.set_authorization_policy(
+        ACLAuthorizationPolicy()
+    )
+    config.include('pyramid_layout')
+    config.scan(ignore=[
+        b'.tests'
+    ])
+    config.commit()
+
+    return config.make_wsgi_app()
+
+
+def root_factory(request):
+    return Site()
+
+
+@implementer(ILocation)
+class Site(object):
+    __name__ = ''
+    __parent__ = None
+    __acl__ = (
+        (Allow, Everyone, 'read'),
+        (Allow, Authenticated, 'write'),
+    )
+
+
+@view_config(context=Site,
+             request_method='GET',
+             permission='read',
+             renderer='json')
+def site_get(context, request):
+    path = os.path.join(
+        request.registry.settings['lib-directory'],
+        'site.json',
+    )
+    try:
+        fp = io.open(path, 'r', encoding='utf-8')
+    except IOError:
+        return None
+    with fp:
+        return json.load(fp)
+
+
+@view_config(context=Site,
+             request_method='PUT',
+             permission='write')
+def site_put(context, request):
+    obj = request.json_body
+    path = os.path.join(
+        request.registry.settings['lib-directory'],
+        'site.json',
+    )
+    if six.PY3:
+        fp = io.open(path, 'w', encoding='utf-8')
+    else:
+        fp = io.open(path, 'wb')
+    with fp:
+        json.dump(obj, fp)
+    return HTTPNoContent()

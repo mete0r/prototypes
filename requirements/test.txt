@@ -4,7 +4,35 @@
 #
 #    pip-compile --output-file requirements/test.txt requirements/test.in requirements.in
 #
-six==1.10.0               # via zope.testrunner
+beautifulsoup4==4.6.3     # via webtest
+cssselect==1.0.3          # via pyquery
+hupper==1.3               # via pyramid
+ipaddress==1.0.22         # via pyramid-debugtoolbar
+lxml==4.2.4               # via pyquery
+mako==1.0.7               # via pyramid-mako
+markupsafe==1.0           # via mako
+pastedeploy==1.5.2        # via plaster-pastedeploy, pyramid
+plaster-pastedeploy==0.6  # via pyramid
+plaster==1.0              # via plaster-pastedeploy, pyramid
+pygments==2.2.0           # via pyramid-debugtoolbar
+pyjwt==1.6.4              # via pyramid-jwt
+pyquery==1.4.0
+pyramid-debugtoolbar==4.5
+pyramid-jwt==1.4.1
+pyramid-mako==1.0.2       # via pyramid-debugtoolbar
+pyramid==1.9.2
+repoze.lru==0.7           # via pyramid, pyramid-debugtoolbar
+six==1.11.0               # via webtest, zope.testrunner
+translationstring==1.3    # via pyramid
+venusian==1.1.0           # via pyramid
+waitress==1.1.0           # via webtest
+webob==1.8.2              # via pyramid, webtest
+webtest==2.0.30
+zope.deprecation==4.3.0   # via pyramid
+zope.event==4.3.0         # via zope.schema
 zope.exceptions==4.2.0    # via zope.testrunner
-zope.interface==4.5.0     # via zope.exceptions, zope.testrunner
+zope.interface==4.5.0     # via pyramid, zope.exceptions, zope.location, zope.proxy, zope.schema, zope.testrunner
+zope.location==4.1.0
+zope.proxy==4.3.1         # via zope.location
+zope.schema==4.6.0        # via zope.location
 zope.testrunner==4.8.1

@@ -6,6 +6,7 @@ include *.py
 include bootstrap-virtualenv.in
 include bootstrap-virtualenv.py
 include buildout.cfg
+include development.ini
 exclude new-project.sh
 include requirements.in
 include requirements.txt

@@ -4,3 +4,20 @@
 #
 #    pip-compile --output-file requirements/site.txt requirements.in requirements/site.in
 #
+hupper==1.3               # via pyramid
+pastedeploy==1.5.2        # via plaster-pastedeploy, pyramid
+plaster-pastedeploy==0.6  # via pyramid
+plaster==1.0              # via plaster-pastedeploy, pyramid
+pyjwt==1.6.4              # via pyramid-jwt
+pyramid-jwt==1.4.1
+pyramid==1.9.2
+repoze.lru==0.7           # via pyramid
+translationstring==1.3    # via pyramid
+venusian==1.1.0           # via pyramid
+webob==1.8.2              # via pyramid
+zope.deprecation==4.3.0   # via pyramid
+zope.event==4.3.0         # via zope.schema
+zope.interface==4.5.0     # via pyramid, zope.location, zope.proxy, zope.schema
+zope.location==4.1.0
+zope.proxy==4.3.1         # via zope.location
+zope.schema==4.6.0        # via zope.location

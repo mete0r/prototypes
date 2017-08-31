@@ -98,7 +98,22 @@ requirements/dev.txt: $(REQUIREMENTS_IN_DEV)
 bootstrap-virtualenv.py: requirements.txt bootstrap-virtualenv.in
 	python setup.py virtualenv_bootstrap_script -o $@ -r $<
 
-
 .PHONY: notebook
 notebook:
 	$(VENV)	jupyter notebook --notebook-dir=notebooks
+
+.PHONY:	devserver
+devserver:	update-requirements
+	$(VENV) python setup.py build
+	$(VENV) env PYTHONPATH=$(PWD) pserve development.ini
+	# $(VENV) env PYTHONPATH=$(PWD) uwsgi --paste config:$(PWD)/development.ini --http :8080
+
+.PHONY: devshell
+devshell: update-requirements
+	$(VENV) python setup.py build
+	$(VENV) env PYTHONPATH=$(PWD) pshell -p ipython development.ini
+
+.PHONY: qtconsole
+qtconsole: update-requirements
+	$(VENV) python setup.py egg_info
+	$(VENV) env PYTHONPATH=$(PWD) jupyter qtconsole

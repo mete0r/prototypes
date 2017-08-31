@@ -9,6 +9,7 @@ argcomplete==1.9.4
 babel==2.6.0
 backports-abc==0.5        # via tornado
 backports.shutil-get-terminal-size==1.0.0  # via ipython
+beautifulsoup4==4.6.3     # via webtest
 bleach==2.1.4             # via nbconvert, readme-renderer
 certifi==2018.8.24        # via requests
 cffi==1.11.5              # via cmarkgfm
@@ -19,6 +20,7 @@ cmarkgfm==0.4.2           # via readme-renderer
 colorama==0.3.9           # via zest.releaser
 coloredlogs==10.0
 configparser==3.5.0       # via entrypoints, flake8
+cssselect==1.0.3          # via pyquery
 decorator==4.3.0          # via ipython, traitlets
 defusedxml==0.5.0         # via nbconvert
 docutils==0.14            # via pyroma, readme-renderer, restview, sphinx
@@ -30,13 +32,15 @@ functools32==3.2.3.post2  # via jsonschema
 future==0.16.0            # via readme-renderer
 futures==3.2.0            # via tornado
 html5lib==1.0.1           # via bleach
+httpie==0.9.9
 humanfriendly==4.16.1     # via coloredlogs
+hupper==1.3               # via pyramid
 idna==2.7                 # via requests
 imagesize==1.1.0          # via sphinx
-ipaddress==1.0.22         # via notebook
+ipaddress==1.0.22         # via notebook, pyramid-debugtoolbar
 ipykernel==4.9.0          # via ipywidgets, jupyter, jupyter-console, notebook, qtconsole
 ipython-genutils==0.2.0   # via nbformat, notebook, qtconsole, traitlets
-ipython==5.8.0            # via ipykernel, ipywidgets, jupyter-console
+ipython==5.8.0            # via ipykernel, ipywidgets, jupyter-console, pyramid-ipython
 ipywidgets==7.4.1         # via jupyter
 jinja2==2.10              # via nbconvert, notebook, sphinx
 jsonschema==2.6.0         # via nbformat
@@ -44,7 +48,9 @@ jupyter-client==5.2.3     # via ipykernel, jupyter-console, notebook, qtconsole
 jupyter-console==5.2.0    # via jupyter
 jupyter-core==4.4.0       # via jupyter-client, nbconvert, nbformat, notebook, qtconsole
 jupyter==1.0.0
-markupsafe==1.0           # via jinja2
+lxml==4.2.4               # via pyquery
+mako==1.0.7               # via pyramid-mako
+markupsafe==1.0           # via jinja2, mako
 mccabe==0.6.1             # via flake8
 mistune==0.8.3            # via nbconvert
 monotonic==1.5            # via humanfriendly
@@ -53,11 +59,14 @@ nbformat==4.4.0           # via ipywidgets, nbconvert, notebook
 notebook==5.6.0           # via jupyter, widgetsnbextension
 packaging==17.1           # via sphinx
 pandocfilters==1.4.2      # via nbconvert
+pastedeploy==1.5.2        # via plaster-pastedeploy, pyramid
 pathlib2==2.3.2           # via ipython, pickleshare
 pexpect==4.6.0            # via ipython
 pickleshare==0.7.4        # via ipython
 pip-tools==2.0.2
 pkginfo==1.4.2            # via twine
+plaster-pastedeploy==0.6  # via pyramid
+plaster==1.0              # via plaster-pastedeploy, pyramid
 pluggy==0.7.1             # via tox
 prometheus-client==0.3.1  # via notebook
 prompt-toolkit==1.0.15    # via ipython, jupyter-console
@@ -66,8 +75,15 @@ py==1.6.0                 # via tox
 pycodestyle==2.3.1        # via flake8
 pycparser==2.18           # via cffi
 pyflakes==1.6.0           # via flake8
-pygments==2.2.0           # via ipython, jupyter-console, nbconvert, qtconsole, readme-renderer, restview, sphinx
+pygments==2.2.0           # via httpie, ipython, jupyter-console, nbconvert, pyramid-debugtoolbar, qtconsole, readme-renderer, restview, sphinx
+pyjwt==1.6.4              # via pyramid-jwt
 pyparsing==2.2.0          # via packaging
+pyquery==1.4.0
+pyramid-debugtoolbar==4.4
+pyramid-ipython==0.2
+pyramid-jwt==1.4.1
+pyramid-mako==1.0.2       # via pyramid-debugtoolbar
+pyramid==1.9.2
 pyroma==2.4
 pyside==1.2.4
 python-dateutil==2.7.3    # via jupyter-client
@@ -75,15 +91,16 @@ pytz==2018.5              # via babel
 pyzmq==17.1.2             # via jupyter-client, notebook
 qtconsole==4.4.1
 readme-renderer==21.0     # via restview
+repoze.lru==0.7           # via pyramid, pyramid-debugtoolbar
 repoze.sphinx.autointerface==0.8
 requests-toolbelt==0.8.0  # via twine
-requests==2.19.1          # via requests-toolbelt, sphinx, twine, zest.releaser
+requests==2.19.1          # via httpie, requests-toolbelt, sphinx, twine, zest.releaser
 restview==2.9.1
 scandir==1.9.0            # via pathlib2
 send2trash==1.5.0         # via notebook
 simplegeneric==0.8.1      # via ipython
 singledispatch==3.4.0.3   # via tornado
-six==1.11.0               # via bleach, html5lib, packaging, pathlib2, pip-tools, prompt-toolkit, python-dateutil, readme-renderer, singledispatch, sphinx, sphinx-intl, tox, traitlets, zest.releaser, zope.testrunner
+six==1.11.0               # via bleach, html5lib, packaging, pathlib2, pip-tools, prompt-toolkit, python-dateutil, readme-renderer, singledispatch, sphinx, sphinx-intl, tox, traitlets, webtest, zest.releaser, zope.testrunner
 snowballstemmer==1.2.1    # via sphinx
 sphinx-argparse==0.2.2
 sphinx-intl==0.9.11
@@ -95,16 +112,27 @@ tornado==5.1              # via ipykernel, jupyter-client, notebook, terminado
 tox==3.2.1
 tqdm==4.25.0              # via twine
 traitlets==4.3.2          # via ipykernel, ipython, ipywidgets, jupyter-client, jupyter-core, nbconvert, nbformat, notebook, qtconsole
+translationstring==1.3    # via pyramid
 twine==1.11.0             # via zest.releaser
 typing==3.6.6             # via sphinx
 urllib3==1.23             # via requests
+uwsgi==2.0.17.1
+venusian==1.1.0           # via pyramid
 virtualenv==16.0.0        # via tox
+waitress==1.1.0
 wcwidth==0.1.7            # via prompt-toolkit
 webencodings==0.5.1       # via html5lib
+webob==1.8.2              # via pyramid, webtest
+webtest==2.0.30
 wheel==0.31.1
 widgetsnbextension==3.4.1  # via ipywidgets
 zc.buildout==2.12.2
 zest.releaser==6.15.2
+zope.deprecation==4.3.0   # via pyramid
+zope.event==4.3.0         # via zope.schema
 zope.exceptions==4.2.0    # via zope.testrunner
-zope.interface==4.5.0     # via repoze.sphinx.autointerface, zope.exceptions, zope.testrunner
+zope.interface==4.5.0     # via pyramid, repoze.sphinx.autointerface, zope.exceptions, zope.location, zope.proxy, zope.schema, zope.testrunner
+zope.location==4.1.0
+zope.proxy==4.3.1         # via zope.location
+zope.schema==4.6.0        # via zope.location
 zope.testrunner==4.8.1
