@@ -1,0 +1,15 @@
+<metal:block use-macro="main_template">
+  <metal:block metal:fill-slot="title">
+    ${request.exception.code} ${request.exception.title}
+  </metal:block>
+  <metal:block metal:fill-slot="body">
+    <div class="httpexception-explanation">
+      ${request.exception.explanation}
+    </div>
+    <div class="httpexception-detail text-monospace"
+         tal:condition="request.exception.detail">
+      <hr>
+      ${request.exception.detail}
+    </div>
+  </metal:block>
+</metal:block>

@@ -5,6 +5,7 @@
 #    pip-compile --output-file requirements/docs.txt requirements/docs.in requirements.in
 #
 alabaster==0.7.11
+attrs==18.2.0
 babel==2.6.0              # via sphinx, sphinx-intl
 certifi==2018.8.24        # via requests
 chameleon==3.4            # via pyramid-chameleon
@@ -25,6 +26,7 @@ pyjwt==1.6.4              # via pyramid-jwt
 pyparsing==2.2.0          # via packaging
 pyramid-chameleon==0.3
 pyramid-jwt==1.4.1
+pyramid-layout==1.0
 pyramid==1.9.2
 pytz==2018.5              # via babel
 repoze.lru==0.7           # via pyramid

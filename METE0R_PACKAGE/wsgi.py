@@ -30,7 +30,10 @@ import sys
 
 from pyramid.authorization import ACLAuthorizationPolicy
 from pyramid.config import Configurator
+from pyramid.httpexceptions import HTTPClientError
 from pyramid.httpexceptions import HTTPNoContent
+from pyramid.httpexceptions import HTTPServerError
+from pyramid.renderers import render_to_response
 from pyramid.security import Allow
 from pyramid.security import Authenticated
 from pyramid.security import Everyone
@@ -105,6 +108,8 @@ def app_factory(global_config, **settings):
         'static', cachebuster,
     )
 
+    config.include('pyramid_layout')
+
     config.scan(ignore=[
         b'.tests'
     ])
@@ -115,6 +120,18 @@ def app_factory(global_config, **settings):
 
 def root_factory(request):
     return Site()
+
+
+@view_config(context=HTTPClientError,
+             accept='text/html',
+             layout='cover')
+@view_config(context=HTTPServerError,
+             accept='text/html',
+             layout='cover')
+def httpexception_view(context, request):
+    render_to_response('templates/httpexception.pt', {
+    }, request=request, response=context)
+    return context
 
 
 @implementer(ILocation)

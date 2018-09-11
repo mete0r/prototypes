@@ -4,6 +4,7 @@
 #
 #    pip-compile --output-file requirements/test.txt requirements/test.in requirements.in
 #
+attrs==18.2.0
 beautifulsoup4==4.6.3     # via webtest
 chameleon==3.4            # via pyramid-chameleon
 cssselect==1.0.3          # via pyquery
@@ -21,6 +22,7 @@ pyquery==1.4.0
 pyramid-chameleon==0.3
 pyramid-debugtoolbar==4.5
 pyramid-jwt==1.4.1
+pyramid-layout==1.0
 pyramid-mako==1.0.2       # via pyramid-debugtoolbar
 pyramid==1.9.2
 repoze.lru==0.7           # via pyramid, pyramid-debugtoolbar

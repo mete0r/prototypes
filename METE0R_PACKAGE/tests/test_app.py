@@ -81,6 +81,14 @@ class AppTest(TestCase):
         self.assertEquals(None, r.json)
 
         r = testapp.put_json('/', 'Hello', status=403)
+        self.assertEquals(
+            r.pyquery('.card-header').text(),
+            '403 Forbidden',
+        )
+        self.assertEquals(
+            r.pyquery('.httpexception-explanation').text(),
+            'Access was denied to this resource.',
+        )
 
         token = jwt.encode({
             'sub': 'admin',
@@ -95,3 +103,23 @@ class AppTest(TestCase):
             'Accept': str('application/json'),
         })
         self.assertEquals('Hello', r.json)
+
+    def test_notfound(self):
+        from ..wsgi import app_factory
+        global_config = {
+        }
+        settings = {
+            'jwt.private_key': 'not-a-secret',
+        }
+        app = app_factory(global_config, **settings)
+        testapp = TestApp(app)
+
+        r = testapp.get('/not-found', status=404)
+        self.assertEquals(
+            r.pyquery('.card-header').text(),
+            '404 Not Found',
+        )
+        self.assertEquals(
+            r.pyquery('.httpexception-explanation').text(),
+            'The resource could not be found.',
+        )
