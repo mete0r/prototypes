@@ -2,5 +2,7 @@ attrs >= 18.2.0
 pyramid >= 1.9.2
 pyramid_chameleon >= 0.3
 pyramid_layout >= 1.0
+pyramid_multiauth >= 0.9.0
 pyramid_jwt >= 1.4.1
+velruse >= 1.1.1
 zope.location >= 4.1.0

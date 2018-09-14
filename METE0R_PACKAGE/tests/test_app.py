@@ -80,6 +80,14 @@ class AppTest(TestCase):
         })
         self.assertEquals(None, r.json)
 
+        r = testapp.get('/', headers={
+            'Accept': str('text/html'),
+        })
+        self.assertEquals(
+            r.pyquery('body').text(),
+            '준비됨.'
+        )
+
         r = testapp.put_json('/', 'Hello', status=403)
         self.assertEquals(
             r.pyquery('.card-header').text(),
@@ -104,14 +112,9 @@ class AppTest(TestCase):
         })
         self.assertEquals('Hello', r.json)
 
-    def test_notfound(self):
-        from ..wsgi import app_factory
-        global_config = {
-        }
-        settings = {
-            'jwt.private_key': 'not-a-secret',
-        }
-        app = app_factory(global_config, **settings)
+    @isolated_directory
+    @app_factory
+    def test_notfound(self, app):
         testapp = TestApp(app)
 
         r = testapp.get('/not-found', status=404)

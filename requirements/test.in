@@ -1,4 +1,5 @@
 pyquery >= 1.4.0
 pyramid-debugtoolbar >= 4.4
+selenium >= 3.14.0
 webtest >= 2.0.30
 zope.testrunner >= 4.8.1

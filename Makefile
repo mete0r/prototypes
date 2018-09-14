@@ -1,3 +1,8 @@
+define GOOGLE_CLIENT_SECRET_FILE
+	secrets/client_secret_1095429056605-1bcsqp8a1epqpt8sgtu47a9uaku5gmf2.apps.googleusercontent.com.json
+endef
+GOOGLE_CLIENT_SECRET_FILE:=$(shell echo $(GOOGLE_CLIENT_SECRET_FILE))
+
 define ALL
 	update-requirements
 endef
@@ -114,6 +119,9 @@ notebook:
 
 .PHONY:	devserver
 devserver:	update-requirements
+	rm	-f $(GOOGLE_CLIENT_SECRET_FILE)
+	gpg	-o $(GOOGLE_CLIENT_SECRET_FILE)	\
+		-d $(GOOGLE_CLIENT_SECRET_FILE).asc
 	$(VENV) python setup.py build
 	$(VENV) env PYTHONPATH=$(PWD) pserve development.ini
 	# $(VENV) env PYTHONPATH=$(PWD) uwsgi --paste config:$(PWD)/development.ini --http :8080
