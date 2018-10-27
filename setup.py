@@ -21,6 +21,7 @@ from contextlib import contextmanager
 from distutils.command.build import build as _build
 import io
 import os.path
+import re
 
 
 def setup_dir(f):
@@ -67,8 +68,12 @@ def readfile(path):
 
 @setup_dir
 def get_version():
-    from METE0R_PACKAGE import __version__
-    return __version__
+    source = readfile('METE0R_PACKAGE/__init__.py')
+    version_match = re.search(r'^__version__ = [\'"]([^\'"]*)[\'"]',
+                              source, re.M)
+    if not version_match:
+        raise RuntimeError('Unable to find version string.')
+    return version_match.group(1)
 
 
 def alltests():
