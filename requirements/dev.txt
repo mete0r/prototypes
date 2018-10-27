@@ -19,16 +19,21 @@ cmarkgfm==0.4.2           # via readme-renderer
 colorama==0.3.9           # via zest.releaser
 coloredlogs==10.0
 configparser==3.5.0       # via entrypoints, flake8
+coverage==4.5.1
 decorator==4.3.0          # via ipython, traitlets
 defusedxml==0.5.0         # via nbconvert
+detox==0.15
+dnspython==1.15.0         # via eventlet
 docutils==0.14            # via pyroma, readme-renderer, restview, sphinx
 entrypoints==0.2.3        # via nbconvert
-enum34==1.1.6             # via flake8, traitlets
+enum34==1.1.6             # via eventlet, flake8, traitlets
+eventlet==0.24.1          # via detox
 first==2.0.1              # via pip-tools
 flake8==3.5.0
 functools32==3.2.3.post2  # via jsonschema
 future==0.16.0            # via readme-renderer
 futures==3.2.0            # via tornado
+greenlet==0.4.15          # via eventlet
 html5lib==1.0.1           # via bleach
 humanfriendly==4.16.1     # via coloredlogs
 idna==2.7                 # via requests
@@ -47,7 +52,7 @@ jupyter==1.0.0
 markupsafe==1.0           # via jinja2
 mccabe==0.6.1             # via flake8
 mistune==0.8.3            # via nbconvert
-monotonic==1.5            # via humanfriendly
+monotonic==1.5            # via eventlet, humanfriendly
 nbconvert==5.4.0          # via jupyter, notebook
 nbformat==4.4.0           # via ipywidgets, nbconvert, notebook
 notebook==5.6.0           # via jupyter, widgetsnbextension
@@ -62,7 +67,7 @@ pluggy==0.7.1             # via tox
 prometheus-client==0.3.1  # via notebook
 prompt-toolkit==1.0.15    # via ipython, jupyter-console
 ptyprocess==0.6.0         # via pexpect, terminado
-py==1.6.0                 # via tox
+py==1.6.0                 # via detox, tox
 pycodestyle==2.3.1        # via flake8
 pycparser==2.18           # via cffi
 pyflakes==1.6.0           # via flake8
@@ -83,7 +88,7 @@ scandir==1.9.0            # via pathlib2
 send2trash==1.5.0         # via notebook
 simplegeneric==0.8.1      # via ipython
 singledispatch==3.4.0.3   # via tornado
-six==1.11.0               # via bleach, html5lib, packaging, pathlib2, pip-tools, prompt-toolkit, python-dateutil, readme-renderer, singledispatch, sphinx, sphinx-intl, tox, traitlets, zest.releaser, zope.testrunner
+six==1.11.0               # via bleach, eventlet, html5lib, packaging, pathlib2, pip-tools, prompt-toolkit, python-dateutil, readme-renderer, singledispatch, sphinx, sphinx-intl, tox, traitlets, zest.releaser, zope.testrunner
 snowballstemmer==1.2.1    # via sphinx
 sphinx-argparse==0.2.2
 sphinx-intl==0.9.11

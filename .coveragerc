@@ -1,0 +1,9 @@
+[run]
+branch = True
+source = METE0R_PACKAGE
+
+[paths]
+source =
+	METE0R_PACKAGE
+	.tox/*/lib/python*/site-packages/METE0R_PACKAGE
+	.tox/pypy*/site-packages/METE0R_PACKAGE

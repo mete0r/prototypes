@@ -2,6 +2,7 @@ include COPYING
 include CHANGES.rst
 include Makefile
 include README.rst
+include .coveragerc
 include *.py
 include bootstrap-virtualenv.in
 include bootstrap-virtualenv.py

@@ -4,6 +4,7 @@
 #
 #    pip-compile --output-file requirements/test.txt requirements/test.in requirements.in
 #
+coverage==4.5.1
 six==1.10.0               # via zope.testrunner
 zope.exceptions==4.2.0    # via zope.testrunner
 zope.interface==4.5.0     # via zope.exceptions, zope.testrunner

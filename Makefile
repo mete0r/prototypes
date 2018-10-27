@@ -102,3 +102,9 @@ bootstrap-virtualenv.py: requirements.txt bootstrap-virtualenv.in
 .PHONY: notebook
 notebook:
 	$(VENV)	jupyter notebook --notebook-dir=notebooks
+
+.PHONY: test
+test: requirements/lint.txt requirements/docs.txt requirements/test.txt
+	$(VENV) detox -e lint,docs,py27,py34,pypy
+	$(VENV) coverage combine
+	$(VENV) coverage report
