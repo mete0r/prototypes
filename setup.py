@@ -129,7 +129,6 @@ setup_info = {
     },
     'setup_requires': [
         'babel',
-        'mete0r.distutils.virtualenv == 0.0.2',
     ],
     'message_extractors': {
         'METE0R_PACKAGE': [
