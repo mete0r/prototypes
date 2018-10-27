@@ -27,7 +27,7 @@ def app_factory(global_config, **local_conf):
     '''
     def app(environ, start_response):
         status = b'200 OK'
-        headers = [(b'Content-Type', b'text/plain; charset=utf-8')]
+        headers = [(b'Content-Type', b'application/json')]
         start_response(status, headers)
-        yield b'app ok'
+        yield b'null'
     return app

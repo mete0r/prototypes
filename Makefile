@@ -25,12 +25,14 @@ endef
 REQUIREMENTS_IN_SITE:=$(shell echo $(REQUIREMENTS_IN_SITE))
 
 define REQUIREMENTS_IN_TEST
+	requirements/setup.in
 	requirements/test.in
 	requirements.in
 endef
 REQUIREMENTS_IN_TEST:=$(shell echo $(REQUIREMENTS_IN_TEST))
 
 define REQUIREMENTS_IN_LINT
+	requirements/setup.in
 	requirements/lint.in
 endef
 REQUIREMENTS_IN_LINT:=$(shell echo $(REQUIREMENTS_IN_LINT))
@@ -42,6 +44,7 @@ endef
 REQUIREMENTS_IN_DOCS:=$(shell echo $(REQUIREMENTS_IN_DOCS))
 
 define REQUIREMENTS_IN_DEV
+	requirements/setup.in
 	requirements/dev.in
 	requirements/docs.in
 	requirements/lint.in
@@ -104,7 +107,7 @@ notebook:
 	$(VENV)	jupyter notebook --notebook-dir=notebooks
 
 .PHONY: test
-test: requirements/lint.txt requirements/docs.txt requirements/test.txt
-	$(VENV) detox -e lint,docs,py27,py34,pypy
+test: requirements/test.txt
+	$(VENV) detox -e py27,py34,pypy
 	$(VENV) coverage combine
 	$(VENV) coverage report

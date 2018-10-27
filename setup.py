@@ -68,7 +68,7 @@ def readfile(path):
 
 @setup_dir
 def get_version():
-    source = readfile('METE0R_PACKAGE/__init__.py')
+    source = readfile('src/METE0R_PACKAGE/__init__.py')
     version_match = re.search(r'^__version__ = [\'"]([^\'"]*)[\'"]',
                               source, re.M)
     if not version_match:
@@ -88,6 +88,8 @@ def alltests():
     suites = list(zope.testrunner.find.find_suites(options))
     return unittest.TestSuite(suites)
 
+
+setup_requires = readfile('requirements/setup.in')
 
 install_requires_filename = 'requirements.in'
 install_requires = readfile(install_requires_filename)
@@ -110,13 +112,10 @@ setup_info = {
     'packages': [
         'METE0R_PACKAGE',
         'METE0R_PACKAGE.recipe',
-        'METE0R_PACKAGE.tests',
-        'METE0R_PACKAGE.tests.fixtures',
-        'METE0R_PACKAGE.tests.layers',
     ],
     # do not use '.'; just omit to specify setup.py directory
     'package_dir': {
-        # '': 'src',
+        '': 'src',
     },
     'package_data': {
         'METE0R_PACKAGE': [
@@ -132,11 +131,9 @@ setup_info = {
     'extras_require': {
         'test': tests_require,
     },
-    'setup_requires': [
-        'babel',
-    ],
+    'setup_requires': setup_requires,
     'message_extractors': {
-        'METE0R_PACKAGE': [
+        'src/METE0R_PACKAGE': [
             ('**.py', 'python', None),
         ]
     },

@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 #
 #   METE0R-PROJECT: SOME_DESCRIPTION
-#   Copyright (C) 2015-2018 mete0r <mete0r@sarangbang.or.kr>
+#   Copyright (C) 2015-2017 mete0r <mete0r@sarangbang.or.kr>
 #
 #   This program is free software: you can redistribute it and/or modify
 #   it under the terms of the GNU Affero General Public License as published by
@@ -19,11 +19,22 @@
 from __future__ import absolute_import
 from __future__ import print_function
 from __future__ import unicode_literals
-from unittest import TestCase
+from functools import wraps
+import os.path
+import shutil
+
+from . import __name__ as testPackageName
 
 
-class WsgiAppTest(TestCase):
-
-    def test_app_factory(self):
-        from METE0R_PACKAGE.wsgi import app_factory
-        app = app_factory({}, **{})
+def isolated_directory(test_fn):
+    @wraps(test_fn)
+    def wrapper(self):
+        name = self.id()
+        name = name[len(testPackageName)+1:]
+        path = os.environ.get('TMPDIR', '/tmp')
+        path = os.path.join(path, name)
+        if os.path.exists(path):
+            shutil.rmtree(path)
+        os.makedirs(path)
+        return test_fn(self, isolated_directory=path)
+    return wrapper
