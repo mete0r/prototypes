@@ -18,7 +18,7 @@ import sys
 # If extensions (or modules to document with autodoc) are in another directory,
 # add these directories to sys.path here. If the directory is relative to the
 # documentation root, use os.path.abspath to make it absolute, like shown here.
-prj_path = os.path.join(os.path.dirname(__file__), '..')
+prj_path = os.path.join(os.path.dirname(__file__), '../src')
 prj_path = os.path.abspath(prj_path)
 sys.path.insert(0, prj_path)
 
@@ -27,7 +27,7 @@ import METE0R_PACKAGE  # noqa
 # -- General configuration ------------------------------------------------
 
 # If your documentation needs a minimal Sphinx version, state it here.
-needs_sphinx = '1.5'
+needs_sphinx = '1.8.1'
 
 # Add any Sphinx extension module names here, as strings. They can be
 # extensions coming with Sphinx (named 'sphinx.ext.*') or your custom
@@ -55,7 +55,7 @@ master_doc = 'index'
 
 # General information about the project.
 project = u'METE0R-PROJECT'
-copyright = u'2015-2017, mete0r'
+copyright = u'2015-2018, mete0r'
 author = u'mete0r'
 description = u'SOME_DESCRIPTION'
 doc_title = project
@@ -78,7 +78,7 @@ language = None
 
 locale_dirs = [
     'locale/',
-    '../METE0R_PACKAGE/locale/',
+    '../src/METE0R_PACKAGE/locale/',
 ]
 
 # There are two options for replacing |today|: either, you set today to some
@@ -235,7 +235,17 @@ htmlhelp_basename = 'METE0R-PROJECT'
 
 # -- Options for LaTeX output ---------------------------------------------
 
+# tested with TeX Live 2018
+
+latex_engine = 'xelatex'
+
 latex_elements = {
+    'fontpkg': '''
+        \setmainfont{NanumMyeongjo}
+        \setsansfont{NanumGothic}
+        \setmonofont{NanumGothicCoding}
+    ''',
+
     # The paper size ('letterpaper' or 'a4paper').
     'papersize': 'a4paper',
 
@@ -250,9 +260,6 @@ latex_elements = {
     # Latex figure (float) alignment
     # 'figure_align': 'htbp',
 }
-latex_elements['babel'] = r'\usepackage[nil]{babel}'
-if os.environ['LANG'].startswith('ko'):
-    latex_elements['preamble'] += '\n' + r'\usepackage{kotex}'
 
 # Grouping the document tree into LaTeX files. List of tuples
 # (source start file, target name, title,
