@@ -19,9 +19,14 @@
 from __future__ import with_statement
 from contextlib import contextmanager
 from distutils.command.build import build as _build
+from distutils.errors import CCompilerError
+from distutils.errors import DistutilsExecError
+from distutils.errors import DistutilsPlatformError
 import io
 import os.path
+import platform
 import re
+import sys
 
 
 def setup_dir(f):
@@ -180,9 +185,68 @@ requirements_path = 'requirements.txt'
 @setup_dir
 def main():
     setuptools = import_setuptools()
+    from setuptools import Extension
+    from setuptools import Feature
+    from setuptools.command.build_ext import build_ext
+
+    class optional_build_ext(build_ext):
+
+        def run(self):
+            try:
+                build_ext.run(self)
+            except DistutilsPlatformError as e:
+                self._unavailable(e)
+
+        def build_extension(self, ext):
+            try:
+                build_ext.build_extension(self, ext)
+            except (CCompilerError, DistutilsExecError, OSError) as e:
+                self._unavailable(e)
+
+        def _unavailable(self, e):
+            print('*' * 80)
+            print('''WARNING:
+
+            An optional code optimization (C extension) could not be compiled.
+
+            Optimizations for this package will not be available!''')
+
+            print()
+            print(e)
+            print('*' * 80)
+
+    codeoptimization_c = os.path.join(
+        'src', 'METE0R_PACKAGE', '_foo.c'
+    )
+    extensions = [
+        Extension(
+            name='METE0R_PACKAGE._foo',
+            sources=[os.path.normcase(codeoptimization_c)],
+        )
+    ]
+    codeoptimization = Feature(
+        'Optional code optimization',
+        standard=True,
+        ext_modules=extensions,
+    )
+
+    py_impl = getattr(platform, 'python_implementation', lambda: None)
+    is_pypy = py_impl() == 'PyPy'
+    is_jython = 'java' in sys.platform
+    is_pure = 'PURE_PYTHON' in os.environ
+
+    if is_pypy or is_jython or is_pure:
+        features = {
+        }
+    else:
+        features = {
+            'codeoptimization': codeoptimization,
+        }
     setup_info['cmdclass'] = {
         'build': build,
+        'build_ext': optional_build_ext,
     }
+    setup_info['features'] = features
     setuptools.setup(**setup_info)
 
 
