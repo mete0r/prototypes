@@ -7,3 +7,11 @@ source =
 	src/METE0R_PACKAGE
 	.tox/*/lib/python*/site-packages/METE0R_PACKAGE
 	.tox/pypy*/site-packages/METE0R_PACKAGE
+
+
+[html]
+directory = build/htmlcov
+
+
+[xml]
+output = build/coverage.xml
