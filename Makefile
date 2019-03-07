@@ -109,7 +109,7 @@ notebook:
 .PHONY: test
 test: requirements/test.txt
 	$(VENV) coverage erase
-	$(VENV) detox -e py27,py34,pypy
+	$(VENV) tox --parallel=4 -e py27,py34,pypy
 
 .PHONY: test-report
 test-report:
