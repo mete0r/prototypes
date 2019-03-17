@@ -10,7 +10,7 @@ source =
 
 
 [html]
-directory = build/htmlcov
+directory = build/coverage.html
 
 
 [xml]
