@@ -20,7 +20,7 @@ Development environment
 
 To setup development environment::
 
-   virtualenv -p python2.7 .
+   virtualenv -p python3.4 .
    bin/pip install -U setuptools pip pip-tools
    make
    make test
