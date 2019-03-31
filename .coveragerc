@@ -1,6 +1,7 @@
 [run]
 branch = True
 source = METE0R_PACKAGE
+data_file = build/.coverage
 
 [paths]
 source =
