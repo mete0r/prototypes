@@ -36,8 +36,8 @@ from . import __version__
 PY3 = sys.version_info.major == 3
 logger = logging.getLogger(__name__)
 
-locale_dir = os.path.join(os.path.dirname(__file__), 'locale')
-t = gettext.translation('METE0R-PROJECT', locale_dir, fallback=True)
+locale_dir = os.path.join(os.path.dirname(__file__), "locale")
+t = gettext.translation("METE0R-PROJECT", locale_dir, fallback=True)
 if PY3:
     _ = t.gettext
 else:
@@ -51,22 +51,18 @@ def main():
         argcomplete.autocomplete(parser)
     args = parser.parse_args()
     configureLogging(args.verbose)
-    logger.info('args: %s', args)
+    logger.info("args: %s", args)
 
 
 def main_argparse():
     parser = ArgumentParser()
     parser.add_argument(
-        '--version',
-        action='version',
-        version='%(prog)s {}'.format(__version__),
-        help=_('output version information and exit')
+        "--version",
+        action="version",
+        version="%(prog)s {}".format(__version__),
+        help=_("output version information and exit"),
     )
-    parser.add_argument(
-        '-v', '--verbose',
-        action='count',
-        help=_('increase verbosity')
-    )
+    parser.add_argument("-v", "--verbose", action="count", help=_("increase verbosity"))
     return parser
 
 

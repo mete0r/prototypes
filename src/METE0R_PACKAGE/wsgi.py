@@ -21,13 +21,15 @@ from __future__ import unicode_literals
 
 
 def app_factory(global_config, **local_conf):
-    ''' PasteDeploy app_factory
+    """PasteDeploy app_factory
 
     see http://pythonpaste.org/deploy/
-    '''
+    """
+
     def app(environ, start_response):
-        status = b'200 OK'
-        headers = [(b'Content-Type', b'application/json')]
+        status = b"200 OK"
+        headers = [(b"Content-Type", b"application/json")]
         start_response(status, headers)
-        yield b'null'
+        yield b"null"
+
     return app

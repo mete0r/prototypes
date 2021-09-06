@@ -21,7 +21,6 @@ from __future__ import unicode_literals
 
 
 class Recipe:
-
     def __init__(self, buildout, name, options):
         pass
 

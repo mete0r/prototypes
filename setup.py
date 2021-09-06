@@ -25,8 +25,7 @@ import re
 
 
 def setup_dir(f):
-    ''' Decorate f to run inside the directory where setup.py resides.
-    '''
+    """Decorate f to run inside the directory where setup.py resides."""
     setup_dir = os.path.dirname(os.path.abspath(__file__))
 
     def wrapped(*args, **kwargs):
@@ -50,29 +49,31 @@ def chdir(new_dir):
 def import_setuptools():
     try:
         import setuptools
+
         return setuptools
     except ImportError:
         pass
 
     import ez_setup
+
     ez_setup.use_setuptools()
     import setuptools
+
     return setuptools
 
 
 @setup_dir
 def readfile(path):
-    with io.open(path, encoding='utf-8') as f:
+    with io.open(path, encoding="utf-8") as f:
         return f.read()
 
 
 @setup_dir
 def get_version():
-    source = readfile('src/METE0R_PACKAGE/__init__.py')
-    version_match = re.search(r'^__version__ = [\'"]([^\'"]*)[\'"]',
-                              source, re.M)
+    source = readfile("src/METE0R_PACKAGE/__init__.py")
+    version_match = re.search(r'^__version__ = [\'"]([^\'"]*)[\'"]', source, re.M)
     if not version_match:
-        raise RuntimeError('Unable to find version string.')
+        raise RuntimeError("Unable to find version string.")
     return version_match.group(1)
 
 
@@ -81,110 +82,107 @@ def alltests():
     import unittest
     import zope.testrunner.find
     import zope.testrunner.options
+
     here = os.path.abspath(os.path.join(os.path.dirname(__file__)))
     args = sys.argv[:]
-    defaults = ['--test-path', here]
+    defaults = ["--test-path", here]
     options = zope.testrunner.options.get_options(args, defaults)
     suites = list(zope.testrunner.find.find_suites(options))
     return unittest.TestSuite(suites)
 
 
-setup_requires = readfile('requirements/setup.in')
+setup_requires = readfile("requirements/setup.in")
 
-install_requires_filename = 'requirements.in'
+install_requires_filename = "requirements.in"
 install_requires = readfile(install_requires_filename)
 
-tests_require = readfile('requirements/test.in')
+tests_require = readfile("requirements/test.in")
 
 
 setup_info = {
-    'name': 'METE0R-PROJECT',
-    'version': get_version(),
-    'description': 'SOME_DESCRIPTION',
-    'long_description': '\n'.join([readfile('README.rst'),
-                                   readfile('CHANGES.rst')]),
-
-    'author': 'mete0r',
-    'author_email': 'mete0r@sarangbang.or.kr',
-    'license': 'GNU Affero General Public License v3 or later (AGPLv3+)',
+    "name": "METE0R-PROJECT",
+    "version": get_version(),
+    "description": "SOME_DESCRIPTION",
+    "long_description": "\n".join([readfile("README.rst"), readfile("CHANGES.rst")]),
+    "author": "mete0r",
+    "author_email": "mete0r@sarangbang.or.kr",
+    "license": "GNU Affero General Public License v3 or later (AGPLv3+)",
     # 'url': 'https://github.com/mete0r/METE0R-PROJECT',
-
-    'packages': [
-        'METE0R_PACKAGE',
-        'METE0R_PACKAGE.recipe',
+    "packages": [
+        "METE0R_PACKAGE",
+        "METE0R_PACKAGE.recipe",
     ],
     # do not use '.'; just omit to specify setup.py directory
-    'package_dir': {
-        '': 'src',
+    "package_dir": {
+        "": "src",
     },
-    'package_data': {
-        'METE0R_PACKAGE': [
-            'locale/*/*/*.mo',
+    "package_data": {
+        "METE0R_PACKAGE": [
+            "locale/*/*/*.mo",
         ],
         # 'METE0R_PACKAGE.tests': [
         #   'files/*',
         # ],
     },
-    'install_requires': install_requires,
-    'test_suite': '__main__.alltests',
-    'tests_require': tests_require,
-    'extras_require': {
-        'test': tests_require,
+    "install_requires": install_requires,
+    "test_suite": "__main__.alltests",
+    "tests_require": tests_require,
+    "extras_require": {
+        "test": tests_require,
     },
-    'setup_requires': setup_requires,
-    'message_extractors': {
-        'src/METE0R_PACKAGE': [
-            ('**.py', 'python', None),
+    "setup_requires": setup_requires,
+    "message_extractors": {
+        "src/METE0R_PACKAGE": [
+            ("**.py", "python", None),
         ]
     },
-    'entry_points': {
-        'console_scripts': [
-            'METE0R-PROJECT = METE0R_PACKAGE.cli:main',
+    "entry_points": {
+        "console_scripts": [
+            "METE0R-PROJECT = METE0R_PACKAGE.cli:main",
         ],
-        'zc.buildout': [
-            'default = METE0R_PACKAGE.recipe:Recipe',
+        "zc.buildout": [
+            "default = METE0R_PACKAGE.recipe:Recipe",
         ],
-        'zc.buildout.uninstall': [
-            'default = METE0R_PACKAGE.recipe:uninstall',
+        "zc.buildout.uninstall": [
+            "default = METE0R_PACKAGE.recipe:uninstall",
         ],
-        'paste.app_factory': [
-            'main = METE0R_PACKAGE.wsgi:app_factory',
+        "paste.app_factory": [
+            "main = METE0R_PACKAGE.wsgi:app_factory",
         ],
     },
-    'classifiers': [
-        'Development Status :: 1 - Planning',
+    "classifiers": [
+        "Development Status :: 1 - Planning",
         # 'Intended Audience :: Developers',
-        'License :: OSI Approved :: GNU Affero General Public License v3 or later (AGPLv3+)',  # noqa
+        "License :: OSI Approved :: GNU Affero General Public License v3 or later (AGPLv3+)",  # noqa
         # 'Operating System :: OS Independent',
         # 'Programming Language :: Python',
         # 'Programming Language :: Python :: 2.7',
         # 'Programming Language :: Python :: 3.4',
         # 'Programming Language :: Python :: Implementation :: CPython',
     ],
-    'keywords': [
-    ],
-    'zip_safe': False,
+    "keywords": [],
+    "zip_safe": False,
 }
 
 
 class build(_build):
     def run(self):
-        self.run_command('compile_catalog')
+        self.run_command("compile_catalog")
         _build.run(self)
 
 
 project_root_directory = os.path.abspath(os.path.dirname(__file__))
-requirements_path = 'requirements.txt'
+requirements_path = "requirements.txt"
 
 
 @setup_dir
 def main():
     setuptools = import_setuptools()
-    setup_info['cmdclass'] = {
-        'build': build,
+    setup_info["cmdclass"] = {
+        "build": build,
     }
     setuptools.setup(**setup_info)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()
