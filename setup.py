@@ -71,7 +71,9 @@ def readfile(path):
 @setup_dir
 def get_version():
     source = readfile("src/METE0R_PACKAGE/__init__.py")
-    version_match = re.search(r'^__version__ = [\'"]([^\'"]*)[\'"]', source, re.M)
+    version_match = re.search(
+        r'^__version__ = [\'"]([^\'"]*)[\'"]', source, re.M
+    )
     if not version_match:
         raise RuntimeError("Unable to find version string.")
     return version_match.group(1)
@@ -103,7 +105,10 @@ setup_info = {
     "name": "METE0R-PROJECT",
     "version": get_version(),
     "description": "SOME_DESCRIPTION",
-    "long_description": "\n".join([readfile("README.rst"), readfile("CHANGES.rst")]),
+    "long_description": "\n".join([
+        readfile("README.rst"),
+        readfile("CHANGES.rst"),
+    ]),
     "author": "mete0r",
     "author_email": "mete0r@sarangbang.or.kr",
     "license": "GNU Affero General Public License v3 or later (AGPLv3+)",
