@@ -50,7 +50,7 @@ class WsgiAppTest(TestCase):
             'wsgi.version': (1, 0),
         }
         result = dispatch(app, environ)
-        self.assertEquals({
+        self.assertEqual({
             'status': b'200 OK',
             'headers': [(b'Content-Type', b'application/json')],
             'body': b'null',
