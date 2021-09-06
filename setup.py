@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 #
 #   METE0R-PROJECT: SOME_DESCRIPTION
-#   Copyright (C) 2015-2017 mete0r <mete0r@sarangbang.or.kr>
+#   Copyright (C) 2015-2021 Yoosung Moon <yoosungmoon@naver.com>
 #
 #   This program is free software: you can redistribute it and/or modify
 #   it under the terms of the GNU Affero General Public License as published by
@@ -109,8 +109,8 @@ setup_info = {
         readfile("README.rst"),
         readfile("CHANGES.rst"),
     ]),
-    "author": "mete0r",
-    "author_email": "mete0r@sarangbang.or.kr",
+    "author": "Yoosung Moon",
+    "author_email": "yoosungmoon@naver.com",
     "license": "GNU Affero General Public License v3 or later (AGPLv3+)",
     # 'url': 'https://github.com/mete0r/METE0R-PROJECT',
     "packages": [

@@ -55,8 +55,8 @@ master_doc = 'index'
 
 # General information about the project.
 project = u'METE0R-PROJECT'
-copyright = u'2015-2018, mete0r'
-author = u'mete0r'
+copyright = u'2015-2021, Yoosung Moon'
+author = u'Yoosung Moon'
 description = u'SOME_DESCRIPTION'
 doc_title = project
 
@@ -240,7 +240,7 @@ htmlhelp_basename = 'METE0R-PROJECT'
 latex_engine = 'xelatex'
 
 latex_elements = {
-    'fontpkg': '''
+    'fontpkg': r'''
         \setmainfont{NanumMyeongjo}
         \setsansfont{NanumGothic}
         \setmonofont{NanumGothicCoding}
