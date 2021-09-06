@@ -1,5 +1,6 @@
 argcomplete >= 1.9.4
 babel >= 2.6.0
+black
 coloredlogs >= 10.0
 jupyter
 notebook >= 5.7.2
