@@ -129,3 +129,30 @@ docs:
 .PHONY: black
 black:
 	$(VENV) black --line-length=79 setup.py src tests docs/conf.py
+
+# https://docs.pylonsproject.org/projects/pyramid/en/latest/narr/i18n.html#extracting-messages-from-code-and-templates
+.PHONY: msg-pot
+msg-pot:
+	$(VENV) pot-create\
+		--output src/METE0R_PACKAGE/locale/METE0R-PROJECT.pot\
+		--width 79\
+		--sort-by-file\
+		--copyright-holder "Yoosung Moon <yoosungmoon@naver.com>"\
+		--package-name "METE0R-PROJECT"\
+		--package-version "0.0.0"\
+		--msgid-bugs-address yoosungmoon@naver.com\
+		src
+
+# https://docs.pylonsproject.org/projects/pyramid/en/latest/narr/i18n.html#updating-a-catalog-file
+.PHONY: msg-update
+msg-update:
+	msgmerge --update --backup=off --width=79 src/METE0R_PACKAGE/locale/en/LC_MESSAGES/METE0R-PROJECT.po src/METE0R_PACKAGE/locale/METE0R-PROJECT.pot
+	msgmerge --update --backup=off --width=79 src/METE0R_PACKAGE/locale/ko/LC_MESSAGES/METE0R-PROJECT.po src/METE0R_PACKAGE/locale/METE0R-PROJECT.pot
+
+.PHONY: run
+run:
+	$(VENV) pserve development.ini --reload
+
+.PHONY: shell
+shell:
+	$(VENV) pshell development.ini

@@ -117,6 +117,7 @@ setup_info = {
     # 'url': 'https://github.com/mete0r/METE0R-PROJECT',
     "packages": [
         "METE0R_PACKAGE",
+        "METE0R_PACKAGE.models",
         "METE0R_PACKAGE.recipe",
     ],
     # do not use '.'; just omit to specify setup.py directory

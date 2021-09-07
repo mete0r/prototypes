@@ -16,21 +16,18 @@
 #   You should have received a copy of the GNU Affero General Public License
 #   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
-from __future__ import absolute_import
-
-from pyramid.config import Configurator
+from pyramid.view import view_config
 
 
-def app_factory(global_config, **settings):
-    """PasteDeploy app_factory
+class Root:
+    __name__ = ""
+    __parent__ = None
 
-    see http://pythonpaste.org/deploy/
-    """
 
-    with Configurator(
-        settings=settings,
-    ) as config:
-        config.include(".locale")
-        config.include(".models")
-        config.scan()
-    return config.make_wsgi_app()
+def root_factory(request):
+    return Root()
+
+
+@view_config(context=Root, accept="application/json", renderer="json")
+def root_json(context, request):
+    return None

@@ -17,20 +17,12 @@
 #   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 from __future__ import absolute_import
+from __future__ import print_function
+from __future__ import unicode_literals
 
-from pyramid.config import Configurator
 
-
-def app_factory(global_config, **settings):
-    """PasteDeploy app_factory
-
-    see http://pythonpaste.org/deploy/
+def setup(env):
     """
-
-    with Configurator(
-        settings=settings,
-    ) as config:
-        config.include(".locale")
-        config.include(".models")
-        config.scan()
-    return config.make_wsgi_app()
+    Setup pshell environment.
+    """
+    pass

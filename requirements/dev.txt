@@ -45,6 +45,7 @@ check-manifest==0.42
 click==7.1.2
     # via
     #   black
+    #   lingua
     #   pip-tools
     #   sphinx-intl
 colorama==0.4.3
@@ -60,7 +61,9 @@ decorator==4.4.2
     #   ipython
     #   traitlets
 defusedxml==0.6.0
-    # via nbconvert
+    # via
+    #   httpie
+    #   nbconvert
 distlib==0.3.0
     # via virtualenv
 docutils==0.16
@@ -77,8 +80,12 @@ filelock==3.0.12
     #   virtualenv
 flake8==3.9.2
     # via -r requirements/lint.in
+httpie==2.5.0
+    # via -r requirements/dev.in
 humanfriendly==8.2
     # via coloredlogs
+hupper==1.10.3
+    # via pyramid
 idna==2.9
     # via requests
 imagesize==1.2.0
@@ -135,8 +142,14 @@ jupyter-core==4.6.3
     #   qtconsole
 keyring==21.2.1
     # via twine
+lingua==4.14
+    # via -r requirements/dev.in
+mako==1.1.5
+    # via pyramid-mako
 markupsafe==1.1.1
-    # via jinja2
+    # via
+    #   jinja2
+    #   mako
 mccabe==0.6.1
     # via flake8
 mistune==0.8.4
@@ -169,6 +182,8 @@ pandocfilters==1.4.2
     # via nbconvert
 parso==0.7.0
     # via jedi
+pastedeploy==2.1.1
+    # via plaster-pastedeploy
 pathspec==0.9.0
     # via black
 pep517==0.8.2
@@ -183,12 +198,22 @@ pip-tools==6.2.0
     # via -r requirements/dev.in
 pkginfo==1.5.0.1
     # via twine
+plaster==1.0
+    # via
+    #   plaster-pastedeploy
+    #   pyramid
+plaster-pastedeploy==0.7
+    # via
+    #   -r requirements.in
+    #   pyramid
 platformdirs==2.3.0
     # via black
 pluggy==0.13.1
     # via
     #   pytest
     #   tox
+polib==1.1.1
+    # via lingua
 prometheus-client==0.7.1
     # via notebook
 prompt-toolkit==3.0.5
@@ -211,9 +236,11 @@ pyflakes==2.3.1
     # via flake8
 pygments==2.6.1
     # via
+    #   httpie
     #   ipython
     #   jupyter-console
     #   nbconvert
+    #   pyramid-debugtoolbar
     #   pyroma
     #   qtconsole
     #   readme-renderer
@@ -221,10 +248,21 @@ pygments==2.6.1
     #   sphinx
 pyparsing==2.4.7
     # via packaging
+pyramid==2.0
+    # via
+    #   -r requirements.in
+    #   pyramid-debugtoolbar
+    #   pyramid-mako
+pyramid-debugtoolbar==4.9
+    # via -r requirements.in
+pyramid-mako==1.1.0
+    # via pyramid-debugtoolbar
 pyroma==2.6
     # via -r requirements/lint.in
 pyrsistent==0.16.0
     # via jsonschema
+pysocks==1.7.1
+    # via requests
 pytest==5.4.1
     # via -r requirements/test.in
 python-dateutil==2.8.1
@@ -246,17 +284,22 @@ readme-renderer==26.0
     #   twine
 regex==2021.8.28
     # via black
+repoze.lru==0.7
+    # via pyramid-debugtoolbar
 repoze.sphinx.autointerface==0.8
     # via -r requirements/docs.in
-requests==2.23.0
+requests[socks]==2.23.0
     # via
     #   -r requirements/docs.in
+    #   httpie
     #   requests-toolbelt
     #   sphinx
     #   twine
     #   zest.releaser
 requests-toolbelt==0.9.1
-    # via twine
+    # via
+    #   httpie
+    #   twine
 restview==2.9.2
     # via -r requirements/dev.in
 secretstorage==3.1.2
@@ -334,16 +377,22 @@ traitlets==4.3.3
     #   nbformat
     #   notebook
     #   qtconsole
+translationstring==1.4
+    # via pyramid
 twine==3.1.1
     # via zest.releaser
 typing-extensions==3.10.0.2
     # via black
 urllib3==1.25.9
     # via requests
+venusian==3.0.0
+    # via pyramid
 virtualenv==20.0.20
     # via tox
 waitress==2.0.0
-    # via webtest
+    # via
+    #   -r requirements.in
+    #   webtest
 wcwidth==0.1.9
     # via
     #   prompt-toolkit
@@ -351,7 +400,9 @@ wcwidth==0.1.9
 webencodings==0.5.1
     # via bleach
 webob==1.8.7
-    # via webtest
+    # via
+    #   pyramid
+    #   webtest
 webtest==3.0.0
     # via -r requirements/test.in
 wheel==0.34.2
@@ -364,8 +415,12 @@ zc.buildout==2.13.3
     # via -r requirements/dev.in
 zest.releaser==6.20.1
     # via -r requirements/dev.in
+zope.deprecation==4.4.0
+    # via pyramid
 zope.interface==5.1.0
-    # via repoze.sphinx.autointerface
+    # via
+    #   pyramid
+    #   repoze.sphinx.autointerface
 
 # The following packages are considered to be unsafe in a requirements file:
 # pip

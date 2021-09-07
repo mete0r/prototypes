@@ -1,28 +1,28 @@
-# Translations template for METE0R-PROJECT.
-# Copyright (C) 2018 yoosungmoon@naver.com
-# This file is distributed under the same license as the METE0R-PROJECT
-# project.
-# FIRST AUTHOR <EMAIL@ADDRESS>, 2018.
 #
+# Translations template for METE0R-PROJECT.
+# Copyright (C) 2021 Yoosung Moon <yoosungmoon@naver.com>
+# This file is distributed under the same license as the METE0R-PROJECT
+# package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2021.
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: METE0R-PROJECT 0.0.0\n"
 "Report-Msgid-Bugs-To: yoosungmoon@naver.com\n"
-"POT-Creation-Date: 2018-10-27 14:32+0900\n"
+"POT-Creation-Date: 2021-09-22 20:25+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=utf-8\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Generated-By: Babel 2.6.0\n"
+"Generated-By: Lingua 4.14\n"
 
-#: src/METE0R_PACKAGE/cli.py:63
+#: ./src/METE0R_PACKAGE/cli.py:63
 msgid "output version information and exit"
 msgstr ""
 
-#: src/METE0R_PACKAGE/cli.py:68
+#: ./src/METE0R_PACKAGE/cli.py:66
 msgid "increase verbosity"
 msgstr ""
-

@@ -6,3 +6,47 @@
 #
 --find-links virtualenv_support
 
+hupper==1.10.3
+    # via pyramid
+mako==1.1.5
+    # via pyramid-mako
+markupsafe==2.0.1
+    # via mako
+pastedeploy==2.1.1
+    # via plaster-pastedeploy
+plaster==1.0
+    # via
+    #   plaster-pastedeploy
+    #   pyramid
+plaster-pastedeploy==0.7
+    # via
+    #   -r requirements.in
+    #   pyramid
+pygments==2.10.0
+    # via pyramid-debugtoolbar
+pyramid==2.0
+    # via
+    #   -r requirements.in
+    #   pyramid-debugtoolbar
+    #   pyramid-mako
+pyramid-debugtoolbar==4.9
+    # via -r requirements.in
+pyramid-mako==1.1.0
+    # via pyramid-debugtoolbar
+repoze.lru==0.7
+    # via pyramid-debugtoolbar
+translationstring==1.4
+    # via pyramid
+venusian==3.0.0
+    # via pyramid
+waitress==2.0.0
+    # via -r requirements.in
+webob==1.8.7
+    # via pyramid
+zope.deprecation==4.4.0
+    # via pyramid
+zope.interface==5.4.0
+    # via pyramid
+
+# The following packages are considered to be unsafe in a requirements file:
+# setuptools
