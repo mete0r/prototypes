@@ -26,6 +26,7 @@ include requirements/site.txt
 include requirements/test.in
 include requirements/test.txt
 include requirements/setup.in
+include testing.ini
 include tox.ini
 include virtualenv_support/README.rst
 include webpack.config.js

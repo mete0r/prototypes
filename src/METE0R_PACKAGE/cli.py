@@ -31,7 +31,12 @@ try:
 except ImportError:
     argcomplete = None
 
+from pyramid.paster import bootstrap
+from pyramid.paster import setup_logging
+
 from . import __version__
+
+# from .models.node import Node
 
 PY3 = sys.version_info.major == 3
 logger = logging.getLogger(__name__)
@@ -51,7 +56,28 @@ def main():
         argcomplete.autocomplete(parser)
     args = parser.parse_args()
     configureLogging(args.verbose)
+    setup_logging(args.config_uri)
+    env = bootstrap(args.config_uri)
     logger.info("args: %s", args)
+
+    with env["request"].tm:
+        dbsession = env["request"].dbsession
+        root = env["root"]
+        populate_db(dbsession, root)
+
+
+def populate_db(dbsession, root):
+    """
+    Add or update models / fixtures in the database.
+    """
+    # node = Node(
+    #   name="hello-world",
+    #   content="Hello, World!",
+    #   parent_id=root.id,
+    # )
+    # dbsession.add(node)
+    # dbsession.flush(node)
+    pass
 
 
 def main_argparse():
@@ -65,11 +91,15 @@ def main_argparse():
     parser.add_argument(
         "-v", "--verbose", action="count", help=_("increase verbosity")
     )
+    parser.add_argument(
+        "config_uri",
+        help=_("Configuration file, e.g., development.ini"),
+    )
     return parser
 
 
 def configureLogging(verbosity):
-    if verbosity == 1:
+    if verbosity == 1 or verbosity is None:
         level = logging.INFO
     elif verbosity > 1:
         level = logging.DEBUG

@@ -20,15 +20,36 @@ from __future__ import absolute_import
 from __future__ import print_function
 from __future__ import unicode_literals
 
+from sqlalchemy import and_
 
-def setup(env):
-    """
-    Setup pshell environment.
-    """
-    request = env["request"]
+from METE0R_PACKAGE.models.node import Node
 
-    # start a transaction
-    request.tm.begin()
 
-    env["tm"] = request.tm
-    env["dbsession"] = request.dbsession
+def test_node_parent_relationship(dbsession):
+    root = (
+        dbsession.query(Node)
+        .filter(and_(Node.parent_id == None, Node.name == ""))  # noqa
+        .one()
+    )
+    foo = Node(name="foo", content="Foo", parent_id=root.id)
+    dbsession.add(foo)
+    dbsession.flush()
+
+    assert foo.parent is root
+
+    foo.parent = None
+    dbsession.flush()
+
+    assert foo.parent_id is None
+
+    foo.parent = root
+    dbsession.flush()
+
+    assert foo.parent_id is root.id
+
+    # ANTI PATTERN
+    foo.parent_id = None
+    dbsession.flush()
+
+    # WARNING WARNING WARNING
+    assert foo.parent is root

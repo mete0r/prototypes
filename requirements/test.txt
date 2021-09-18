@@ -6,6 +6,8 @@
 #
 --find-links virtualenv_support
 
+alembic==1.7.3
+    # via -r requirements.in
 attrs==19.3.0
     # via pytest
 babel==2.8.0
@@ -16,10 +18,14 @@ chameleon==3.9.1
     # via pyramid-chameleon
 coverage==5.1
     # via -r requirements/test.in
+greenlet==1.1.1
+    # via sqlalchemy
 hupper==1.10.3
     # via pyramid
 mako==1.1.5
-    # via pyramid-mako
+    # via
+    #   alembic
+    #   pyramid-mako
 markupsafe==2.0.1
     # via mako
 more-itertools==8.2.0
@@ -50,12 +56,18 @@ pyramid==2.0
     #   pyramid-chameleon
     #   pyramid-debugtoolbar
     #   pyramid-mako
+    #   pyramid-retry
+    #   pyramid-tm
 pyramid-chameleon==0.3
     # via -r requirements.in
 pyramid-debugtoolbar==4.9
     # via -r requirements.in
 pyramid-mako==1.1.0
     # via pyramid-debugtoolbar
+pyramid-retry==2.1.1
+    # via -r requirements.in
+pyramid-tm==2.4
+    # via -r requirements.in
 pytest==5.4.1
     # via -r requirements/test.in
 pytz==2020.1
@@ -66,6 +78,16 @@ six==1.14.0
     # via packaging
 soupsieve==2.2.1
     # via beautifulsoup4
+sqlalchemy==1.4.23
+    # via
+    #   -r requirements.in
+    #   alembic
+    #   zope.sqlalchemy
+transaction==3.0.1
+    # via
+    #   -r requirements.in
+    #   pyramid-tm
+    #   zope.sqlalchemy
 translationstring==1.4
     # via pyramid
 venusian==3.0.0
@@ -85,7 +107,13 @@ webtest==3.0.0
 zope.deprecation==4.4.0
     # via pyramid
 zope.interface==5.4.0
-    # via pyramid
+    # via
+    #   pyramid
+    #   pyramid-retry
+    #   transaction
+    #   zope.sqlalchemy
+zope.sqlalchemy==1.6
+    # via -r requirements.in
 
 # The following packages are considered to be unsafe in a requirements file:
 # setuptools

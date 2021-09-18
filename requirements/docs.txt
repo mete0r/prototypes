@@ -10,6 +10,8 @@ alabaster==0.7.12
     # via
     #   -r requirements/docs.in
     #   sphinx
+alembic==1.7.3
+    # via -r requirements.in
 babel==2.8.0
     # via
     #   sphinx
@@ -24,6 +26,8 @@ click==7.1.2
     # via sphinx-intl
 docutils==0.16
     # via sphinx
+greenlet==1.1.1
+    # via sqlalchemy
 hupper==1.10.3
     # via pyramid
 idna==2.9
@@ -33,7 +37,9 @@ imagesize==1.2.0
 jinja2==2.11.2
     # via sphinx
 mako==1.1.5
-    # via pyramid-mako
+    # via
+    #   alembic
+    #   pyramid-mako
 markupsafe==1.1.1
     # via
     #   jinja2
@@ -62,12 +68,18 @@ pyramid==2.0
     #   pyramid-chameleon
     #   pyramid-debugtoolbar
     #   pyramid-mako
+    #   pyramid-retry
+    #   pyramid-tm
 pyramid-chameleon==0.3
     # via -r requirements.in
 pyramid-debugtoolbar==4.9
     # via -r requirements.in
 pyramid-mako==1.1.0
     # via pyramid-debugtoolbar
+pyramid-retry==2.1.1
+    # via -r requirements.in
+pyramid-tm==2.4
+    # via -r requirements.in
 pytz==2020.1
     # via babel
 repoze.lru==0.7
@@ -104,6 +116,16 @@ sphinxcontrib-qthelp==1.0.3
     # via sphinx
 sphinxcontrib-serializinghtml==1.1.4
     # via sphinx
+sqlalchemy==1.4.23
+    # via
+    #   -r requirements.in
+    #   alembic
+    #   zope.sqlalchemy
+transaction==3.0.1
+    # via
+    #   -r requirements.in
+    #   pyramid-tm
+    #   zope.sqlalchemy
 translationstring==1.4
     # via pyramid
 urllib3==1.25.9
@@ -119,7 +141,12 @@ zope.deprecation==4.4.0
 zope.interface==5.1.0
     # via
     #   pyramid
+    #   pyramid-retry
     #   repoze.sphinx.autointerface
+    #   transaction
+    #   zope.sqlalchemy
+zope.sqlalchemy==1.6
+    # via -r requirements.in
 
 # The following packages are considered to be unsafe in a requirements file:
 # setuptools

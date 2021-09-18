@@ -1,5 +1,11 @@
+alembic
 plaster-pastedeploy
 pyramid
 pyramid-chameleon
 pyramid-debugtoolbar
+pyramid-retry
+pyramid-tm
+sqlalchemy
+transaction
 waitress
+zope.sqlalchemy

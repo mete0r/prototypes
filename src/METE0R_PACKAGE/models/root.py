@@ -16,29 +16,19 @@
 #   You should have received a copy of the GNU Affero General Public License
 #   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
-from pyramid.view import view_config
+from sqlalchemy import and_
+from transaction.interfaces import NoTransaction
 
-
-class Root:
-    __name__ = ""
-    __parent__ = None
+from .node import Node
 
 
 def root_factory(request):
-    return Root()
-
-
-@view_config(context=Root, accept="application/json", renderer="json")
-def root_json(context, request):
-    return None
-
-
-@view_config(
-    context=Root,
-    accept="text/html",
-    renderer="METE0R_PACKAGE:templates/root.pt",
-)
-def root_html(context, request):
-    return {
-        "title": "Welcome!",
-    }
+    q = request.dbsession.query(Node).filter(
+        and_(Node.parent_id == None, Node.name == "")  # noqa
+    )
+    try:
+        return q.one()
+    except NoTransaction:
+        # XXX: pshell에서 NoTransaction 예외가 발생한다.
+        # XXX: 이 때 다시 시도하면 성공적으로 반환한다.
+        return q.one()

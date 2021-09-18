@@ -126,6 +126,9 @@ setup_info = {
     },
     "package_data": {
         "METE0R_PACKAGE": [
+            "alembic/env.py",
+            "alembic/script.py.mako",
+            "alembic/versions/*.py",
             "locale/*/*/*.mo",
             "static/*",
             "templates/*.pt",

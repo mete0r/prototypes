@@ -6,6 +6,8 @@
 /bin
 /build
 /develop-eggs
+/development.sqlite
+/development.sqlite-journal
 /dist
 /eggs
 /include
@@ -21,6 +23,7 @@
 /setuptools-*
 /share
 /site-packages
+/testing.sqlite
 .*.sw?
 *.pyc
 *.pyo

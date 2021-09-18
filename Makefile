@@ -128,7 +128,7 @@ docs:
 
 .PHONY: black
 black:
-	$(VENV) black --line-length=79 setup.py src tests docs/conf.py
+	$(VENV) black --line-length=79 docs/conf.py setup.py src tests
 
 # https://docs.pylonsproject.org/projects/pyramid/en/latest/narr/i18n.html#extracting-messages-from-code-and-templates
 .PHONY: msg-pot
@@ -156,3 +156,7 @@ run:
 .PHONY: shell
 shell:
 	$(VENV) pshell development.ini
+
+.PHONY: alembic-upgrade
+alembic-upgrade:
+	$(VENV) alembic -c development.ini upgrade head

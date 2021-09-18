@@ -10,6 +10,8 @@ alabaster==0.7.12
     # via
     #   -r requirements/docs.in
     #   sphinx
+alembic==1.7.3
+    # via -r requirements.in
 appdirs==1.4.3
     # via virtualenv
 argcomplete==1.11.1
@@ -82,6 +84,8 @@ filelock==3.0.12
     #   virtualenv
 flake8==3.9.2
     # via -r requirements/lint.in
+greenlet==1.1.1
+    # via sqlalchemy
 httpie==2.5.0
     # via -r requirements/dev.in
 humanfriendly==8.2
@@ -147,7 +151,9 @@ keyring==21.2.1
 lingua==4.14
     # via -r requirements/dev.in
 mako==1.1.5
-    # via pyramid-mako
+    # via
+    #   alembic
+    #   pyramid-mako
 markupsafe==1.1.1
     # via
     #   jinja2
@@ -256,12 +262,18 @@ pyramid==2.0
     #   pyramid-chameleon
     #   pyramid-debugtoolbar
     #   pyramid-mako
+    #   pyramid-retry
+    #   pyramid-tm
 pyramid-chameleon==0.3
     # via -r requirements.in
 pyramid-debugtoolbar==4.9
     # via -r requirements.in
 pyramid-mako==1.1.0
     # via pyramid-debugtoolbar
+pyramid-retry==2.1.1
+    # via -r requirements.in
+pyramid-tm==2.4
+    # via -r requirements.in
 pyroma==2.6
     # via -r requirements/lint.in
 pyrsistent==0.16.0
@@ -350,6 +362,11 @@ sphinxcontrib-qthelp==1.0.3
     # via sphinx
 sphinxcontrib-serializinghtml==1.1.4
     # via sphinx
+sqlalchemy==1.4.23
+    # via
+    #   -r requirements.in
+    #   alembic
+    #   zope.sqlalchemy
 terminado==0.8.3
     # via notebook
 testpath==0.4.4
@@ -382,6 +399,11 @@ traitlets==4.3.3
     #   nbformat
     #   notebook
     #   qtconsole
+transaction==3.0.1
+    # via
+    #   -r requirements.in
+    #   pyramid-tm
+    #   zope.sqlalchemy
 translationstring==1.4
     # via pyramid
 twine==3.1.1
@@ -425,7 +447,12 @@ zope.deprecation==4.4.0
 zope.interface==5.1.0
     # via
     #   pyramid
+    #   pyramid-retry
     #   repoze.sphinx.autointerface
+    #   transaction
+    #   zope.sqlalchemy
+zope.sqlalchemy==1.6
+    # via -r requirements.in
 
 # The following packages are considered to be unsafe in a requirements file:
 # pip
