@@ -10,6 +10,8 @@ attrs==19.3.0
     # via pytest
 babel==2.8.0
     # via -r requirements/setup.in
+beautifulsoup4==4.10.0
+    # via webtest
 coverage==5.1
     # via -r requirements/test.in
 more-itertools==8.2.0
@@ -28,5 +30,13 @@ pytz==2020.1
     # via babel
 six==1.14.0
     # via packaging
+soupsieve==2.2.1
+    # via beautifulsoup4
+waitress==2.0.0
+    # via webtest
 wcwidth==0.1.9
     # via pytest
+webob==1.8.7
+    # via webtest
+webtest==3.0.0
+    # via -r requirements/test.in

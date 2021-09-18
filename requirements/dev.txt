@@ -26,6 +26,8 @@ babel==2.8.0
     #   sphinx-intl
 backcall==0.1.0
     # via ipython
+beautifulsoup4==4.10.0
+    # via webtest
 black==21.8b0
     # via -r requirements/dev.in
 bleach==3.1.5
@@ -278,6 +280,8 @@ six==1.14.0
     #   zest.releaser
 snowballstemmer==2.0.0
     # via sphinx
+soupsieve==2.2.1
+    # via beautifulsoup4
 sphinx==3.0.3
     # via
     #   -r requirements/docs.in
@@ -340,12 +344,18 @@ urllib3==1.25.9
     # via requests
 virtualenv==20.0.20
     # via tox
+waitress==2.0.0
+    # via webtest
 wcwidth==0.1.9
     # via
     #   prompt-toolkit
     #   pytest
 webencodings==0.5.1
     # via bleach
+webob==1.8.7
+    # via webtest
+webtest==3.0.0
+    # via -r requirements/test.in
 wheel==0.34.2
     # via
     #   -r requirements/dev.in

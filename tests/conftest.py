@@ -17,20 +17,22 @@
 #   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 from __future__ import absolute_import
+from __future__ import print_function
+from __future__ import unicode_literals
+
+import pytest
+import webtest
+
+from METE0R_PACKAGE.wsgi import app_factory
 
 
-def app_factory(global_config, **local_conf):
-    """PasteDeploy app_factory
+@pytest.fixture(scope="session")
+def wsgi_app():
+    global_config = {}
+    local_config = {}
+    return app_factory(global_config, **local_config)
 
-    see http://pythonpaste.org/deploy/
-    """
 
-    def app(environ, start_response):
-        # https://www.python.org/dev/peps/pep-3333/#a-note-on-string-types
-        # https://www.python.org/dev/peps/pep-3333/#the-start-response-callable
-        status = "200 OK"
-        headers = [("Content-Type", "application/json")]
-        start_response(status, headers)
-        yield b"null"
-
-    return app
+@pytest.fixture
+def wsgi_test_app(wsgi_app):
+    return webtest.TestApp(wsgi_app, extra_environ={})

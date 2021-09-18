@@ -19,50 +19,9 @@
 from __future__ import absolute_import
 from __future__ import print_function
 from __future__ import unicode_literals
-from io import BytesIO
-from unittest import TestCase
 
 
-class WsgiAppTest(TestCase):
-
-    def test_app_factory(self):
-        from METE0R_PACKAGE.wsgi import app_factory
-        app = app_factory({}, **{})
-
-        environ = {
-            'HTTP_ACCEPT': '*/*',
-            'PATH_INFO': '/',
-            'QUERY_STRING': '',
-            'REMOTE_ADDR': '127.0.0.1',
-            'REMOTE_HOST': 'localhost',
-            'REQUEST_METHOD': 'GET',
-            'SCRIPT_NAME': '',
-            'SERVER_NAME': 'localhost',
-            'SERVER_PORT': '8080',
-            'SERVER_PROTOCOL': 'HTTP/1.1',
-            'SERVER_SOFTWARE': 'WSGIServer/0.1',
-            'wsgi.error': BytesIO(),
-            'wsgi.input': BytesIO(),
-            'wsgi.multiprocess': False,
-            'wsgi.multithread': False,
-            'wsgi.run_once': False,
-            'wsgi.url_scheme': 'http',
-            'wsgi.version': (1, 0),
-        }
-        result = dispatch(app, environ)
-        self.assertEqual({
-            'status': b'200 OK',
-            'headers': [(b'Content-Type', b'application/json')],
-            'body': b'null',
-        }, result)
-
-
-def dispatch(app, environ):
-    result = {
-    }
-
-    def start_response(status, headers):
-        result['status'] = status
-        result['headers'] = headers
-    result['body'] = b''.join(app(environ, start_response))
-    return result
+def test_wsgi_app(wsgi_test_app):
+    response = wsgi_test_app.get("/")
+    assert response.content_type == "application/json"
+    assert response.body == b"null"
