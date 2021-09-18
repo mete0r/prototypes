@@ -63,9 +63,7 @@ def main_argparse():
         help=_("output version information and exit"),
     )
     parser.add_argument(
-        "-v", "--verbose",
-        action="count",
-        help=_("increase verbosity")
+        "-v", "--verbose", action="count", help=_("increase verbosity")
     )
     return parser
 

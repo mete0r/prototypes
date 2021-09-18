@@ -23,16 +23,17 @@ from unittest import TestCase
 
 
 class RecipeTest(TestCase):
-
     def test_install_and_update(self):
         from METE0R_PACKAGE.recipe import Recipe
+
         buildout = {}
         options = {}
-        recipe = Recipe(buildout, 'foo', options)
+        recipe = Recipe(buildout, "foo", options)
         recipe.install()
         recipe.update()
 
     def test_uninstall(self):
         from METE0R_PACKAGE.recipe import uninstall
+
         options = {}
-        uninstall('foo', options)
+        uninstall("foo", options)

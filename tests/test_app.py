@@ -29,7 +29,6 @@ from .utils import isolated_directory
 
 
 class AppTest(TestCase):
-
     @property
     def logger(self):
         name = self.id()
@@ -37,6 +36,6 @@ class AppTest(TestCase):
 
     @isolated_directory
     def test_nothing(self, isolated_directory):
-        self.logger.debug('test!')
-        with io.open(os.path.join(isolated_directory, 'foo.txt'), 'wb'):
+        self.logger.debug("test!")
+        with io.open(os.path.join(isolated_directory, "foo.txt"), "wb"):
             pass

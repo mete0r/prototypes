@@ -30,11 +30,12 @@ def isolated_directory(test_fn):
     @wraps(test_fn)
     def wrapper(self):
         name = self.id()
-        name = name[len(testPackageName)+1:]
-        path = os.environ.get('TMPDIR', '/tmp')
+        name = name[len(testPackageName) + 1 :]
+        path = os.environ.get("TMPDIR", "/tmp")
         path = os.path.join(path, name)
         if os.path.exists(path):
             shutil.rmtree(path)
         os.makedirs(path)
         return test_fn(self, isolated_directory=path)
+
     return wrapper

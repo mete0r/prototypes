@@ -105,10 +105,12 @@ setup_info = {
     "name": "METE0R-PROJECT",
     "version": get_version(),
     "description": "SOME_DESCRIPTION",
-    "long_description": "\n".join([
-        readfile("README.rst"),
-        readfile("CHANGES.rst"),
-    ]),
+    "long_description": "\n".join(
+        [
+            readfile("README.rst"),
+            readfile("CHANGES.rst"),
+        ]
+    ),
     "author": "Yoosung Moon",
     "author_email": "yoosungmoon@naver.com",
     "license": "GNU Affero General Public License v3 or later (AGPLv3+)",
