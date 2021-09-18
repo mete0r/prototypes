@@ -118,6 +118,14 @@ test-report:
 	$(VENV) coverage html
 	$(VENV) coverage xml
 
+.PHONY: lint
+lint:
+	$(VENV) tox -e lint
+
+.PHONY: docs
+docs:
+	$(VENV) tox -e docs
+
 .PHONY: black
 black:
 	$(VENV) black --line-length=80 setup.py src tests docs/conf.py
