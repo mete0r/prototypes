@@ -29,7 +29,7 @@ backcall==0.1.0
 beautifulsoup4==4.10.0
     # via webtest
 black==21.8b0
-    # via -r requirements/dev.in
+    # via -r requirements/lint.in
 bleach==3.1.5
     # via
     #   nbconvert

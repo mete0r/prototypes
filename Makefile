@@ -117,3 +117,7 @@ test-report:
 	$(VENV) coverage report
 	$(VENV) coverage html
 	$(VENV) coverage xml
+
+.PHONY: black
+black:
+	$(VENV) black --line-length=80 setup.py src tests docs/conf.py
