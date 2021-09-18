@@ -128,4 +128,4 @@ docs:
 
 .PHONY: black
 black:
-	$(VENV) black --line-length=80 setup.py src tests docs/conf.py
+	$(VENV) black --line-length=79 setup.py src tests docs/conf.py
