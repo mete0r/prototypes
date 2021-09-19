@@ -70,14 +70,12 @@ docutils==0.16
     #   restview
     #   sphinx
 entrypoints==0.3
-    # via
-    #   flake8
-    #   nbconvert
+    # via nbconvert
 filelock==3.0.12
     # via
     #   tox
     #   virtualenv
-flake8==3.7.9
+flake8==3.9.2
     # via -r requirements/lint.in
 humanfriendly==8.2
     # via coloredlogs
@@ -205,11 +203,11 @@ py==1.8.1
     # via
     #   pytest
     #   tox
-pycodestyle==2.5.0
+pycodestyle==2.7.0
     # via flake8
 pycparser==2.20
     # via cffi
-pyflakes==2.1.1
+pyflakes==2.3.1
     # via flake8
 pygments==2.6.1
     # via

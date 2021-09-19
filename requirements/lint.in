@@ -1,4 +1,4 @@
 black
 check-manifest >= 0.37
-flake8 >= 3.5.0
+flake8 >= 3.9.2
 pyroma >= 2.4
