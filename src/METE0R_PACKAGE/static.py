@@ -16,23 +16,17 @@
 #   You should have received a copy of the GNU Affero General Public License
 #   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
-from __future__ import absolute_import
-
-from pyramid.config import Configurator
+from pyramid.static import ManifestCacheBuster
 
 
-def app_factory(global_config, **settings):
-    """PasteDeploy app_factory
-
-    see http://pythonpaste.org/deploy/
-    """
-
-    with Configurator(
-        settings=settings,
-    ) as config:
-        config.include("pyramid_chameleon")
-        config.include(".locale")
-        config.include(".models")
-        config.include(".static")
-        config.scan()
-    return config.make_wsgi_app()
+def includeme(config):
+    cachebuster_reload = config.registry.settings.get(
+        "manifestcachebuster.reload", "false"
+    )
+    cachebuster_reload = cachebuster_reload == "true"
+    cachebuster = ManifestCacheBuster(
+        "static/manifest.json",
+        reload=cachebuster_reload,
+    )
+    config.add_static_view(name="static", path="static")
+    config.add_cache_buster("static", cachebuster)

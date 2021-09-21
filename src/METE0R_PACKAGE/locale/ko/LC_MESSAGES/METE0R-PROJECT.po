@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: METE0R-PROJECT 0.0.0\n"
 "Report-Msgid-Bugs-To: yoosungmoon@naver.com\n"
-"POT-Creation-Date: 2021-09-22 20:25+0900\n"
+"POT-Creation-Date: 2021-09-22 20:50+0900\n"
 "PO-Revision-Date: 2016-02-27 19:35+0900\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: ko <LL@li.org>\n"
@@ -26,3 +26,7 @@ msgstr "버전 정보를 출력하고 끝냅니다"
 #: src/METE0R_PACKAGE/cli.py:66
 msgid "increase verbosity"
 msgstr "로그 출력 수준을 높입니다"
+
+#: src/METE0R_PACKAGE/templates/root.pt:18
+msgid "Ready."
+msgstr "준비."

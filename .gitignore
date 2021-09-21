@@ -13,6 +13,7 @@
 /lib-python
 /lib_pypy
 /local
+/node_modules
 /notebooks/.ipynb_checkpoints
 /parts
 /pip-selfcheck.json

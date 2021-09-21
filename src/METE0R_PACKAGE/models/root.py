@@ -31,3 +31,14 @@ def root_factory(request):
 @view_config(context=Root, accept="application/json", renderer="json")
 def root_json(context, request):
     return None
+
+
+@view_config(
+    context=Root,
+    accept="text/html",
+    renderer="METE0R_PACKAGE:templates/root.pt",
+)
+def root_html(context, request):
+    return {
+        "title": "Welcome!",
+    }

@@ -3,12 +3,16 @@ include CHANGES.rst
 include Makefile
 include README.rst
 include .coveragerc
+include .eslintrc
 include *.py
 include bootstrap-virtualenv.in
 include bootstrap-virtualenv.py
 include buildout.cfg
 include development.ini
 exclude new-project.sh
+include package-lock.json
+include package.json
+include postcss.config.js
 include requirements.in
 include requirements.txt
 include requirements/dev.in
@@ -24,9 +28,13 @@ include requirements/test.txt
 include requirements/setup.in
 include tox.ini
 include virtualenv_support/README.rst
+include webpack.config.js
 include src/METE0R_PACKAGE/locale/METE0R-PROJECT.pot
 include src/METE0R_PACKAGE/locale/*/LC_MESSAGES/*.po
 exclude src/METE0R_PACKAGE/locale/*/LC_MESSAGES/*.mo
+include src/METE0R_PACKAGE/templates/*.js
+include src/METE0R_PACKAGE/templates/*.jsx
+include src/METE0R_PACKAGE/templates/*.scss
 recursive-include docs *.bat
 recursive-include docs *.py
 recursive-include docs *.rst

@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html class="h-100"
+  xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+  i18n:domain="METE0R-PROJECT"
+  >
+  <head>
+    <meta charset="utf-8">
+    <title>${title}</title>
+    <link rel="stylesheet" type="text/css" href="${request.static_path('METE0R_PACKAGE:static/theme.css')}">
+    <script type="text/javascript" src="${request.static_path('METE0R_PACKAGE:static/runtime.js')}"></script>
+    <script type="text/javascript" src="${request.static_path('METE0R_PACKAGE:static/vendors.js')}"></script>
+    <script type="text/javascript" src="${request.static_path('METE0R_PACKAGE:static/root.js')}"></script>
+  </head>
+  <body class="h-100 d-flex">
+    <div class="h-100 d-flex mx-auto flex-column">
+      <header class="mb-auto">
+      </header>
+      <main role="main" i18n:translate="" data-bs-toggle="tooltip" data-bs-placement="top" title="${title}">
+        Ready.
+      </main>
+      <footer class="mt-auto">
+      </footer>
+    </div>
+  </body>
+</html>

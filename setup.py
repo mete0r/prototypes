@@ -127,6 +127,8 @@ setup_info = {
     "package_data": {
         "METE0R_PACKAGE": [
             "locale/*/*/*.mo",
+            "static/*",
+            "templates/*.pt",
         ],
         # 'METE0R_PACKAGE.tests': [
         #   'files/*',

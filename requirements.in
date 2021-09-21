@@ -1,4 +1,5 @@
 plaster-pastedeploy
 pyramid
+pyramid-chameleon
 pyramid-debugtoolbar
 waitress

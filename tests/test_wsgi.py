@@ -22,6 +22,6 @@ from __future__ import unicode_literals
 
 
 def test_wsgi_app(wsgi_test_app):
-    response = wsgi_test_app.get("/")
+    response = wsgi_test_app.get("/", headers=[("Accept", "application/json")])
     assert response.content_type == "application/json"
     assert response.body == b"null"

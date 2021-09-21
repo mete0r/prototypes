@@ -6,6 +6,8 @@
 #
 --find-links virtualenv_support
 
+chameleon==3.9.1
+    # via pyramid-chameleon
 hupper==1.10.3
     # via pyramid
 mako==1.1.5
@@ -27,8 +29,11 @@ pygments==2.10.0
 pyramid==2.0
     # via
     #   -r requirements.in
+    #   pyramid-chameleon
     #   pyramid-debugtoolbar
     #   pyramid-mako
+pyramid-chameleon==0.3
+    # via -r requirements.in
 pyramid-debugtoolbar==4.9
     # via -r requirements.in
 pyramid-mako==1.1.0
