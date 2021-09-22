@@ -16,6 +16,7 @@
 /notebooks/.ipynb_checkpoints
 /parts
 /pip-selfcheck.json
+/pyvenv.cfg
 /setuptools-*
 /share
 /site-packages
