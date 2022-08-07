@@ -19,6 +19,12 @@
         Ready.
       </main>
       <footer class="mt-auto">
+        <div class="text-center mb-1" tal:condition="request.identity is None">
+          <a class="btn btn-primary" href="${request.route_path('login-google')}">Login</a>
+        </div>
+        <div class="text-center mb-1" tal:condition="request.identity is not None">
+          <a class="btn btn-primary" href="${request.route_path('logout')}" data-bs-toggle="tootip" data-bs-placement="top" title="${request.identity['userid']}">Logout</a>
+        </div>
       </footer>
     </div>
   </body>

@@ -76,6 +76,7 @@ repoze.sphinx.autointerface==0.8
     # via -r requirements/docs.in
 requests==2.23.0
     # via
+    #   -r requirements.in
     #   -r requirements/docs.in
     #   sphinx
 six==1.14.0

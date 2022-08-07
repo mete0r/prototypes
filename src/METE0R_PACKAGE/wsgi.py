@@ -31,6 +31,7 @@ def app_factory(global_config, **settings):
         settings=settings,
     ) as config:
         config.include("pyramid_chameleon")
+        config.include(".auth")
         config.include(".locale")
         config.include(".models")
         config.include(".static")

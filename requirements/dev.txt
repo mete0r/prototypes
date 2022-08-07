@@ -295,6 +295,7 @@ repoze.sphinx.autointerface==0.8
     # via -r requirements/docs.in
 requests[socks]==2.23.0
     # via
+    #   -r requirements.in
     #   -r requirements/docs.in
     #   httpie
     #   requests-toolbelt

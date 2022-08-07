@@ -2,4 +2,5 @@ plaster-pastedeploy
 pyramid
 pyramid-chameleon
 pyramid-debugtoolbar
+requests
 waitress
